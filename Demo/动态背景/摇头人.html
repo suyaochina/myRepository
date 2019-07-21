@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="referrer" content="origin"/>
+    <title>Js控制HTML5 Audio 音乐播放和关闭 - Lawliet__zmz - 博客园</title>
+    <meta property="og:description"
+          content="参考W3C详细文档：http://www.w3school.com.cn/jsref/dom_obj_audio.asp pause()方法只是暂停，这里重新load之后，再次play，音乐可重头播放"/>
+    <link type="text/css" rel="stylesheet"
+          href="https://www.cnblogs.com/bundles/blog-common.css?v=-duj5vpGTntb85GJoM3iRI972XwWcI-j8zmqDzyfu2w1"/>
+    <link type="text/css" rel="stylesheet" href="https://www.cnblogs.com/blog/customcss/356912.css?v=e1EkHN%2bFKcxTiCDIqVQLGzo%2b0iM%3d"/>
+    <link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet"
+          href="https://www.cnblogs.com/skins/BlackLowKey/bundle-BlackLowKey-mobile.css?v=d9LctKHRIQp9rreugMcQ1-UJuq_j1fo0GZXTXj8Bqrk1"/>
+    <link title="RSS" type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/zhangmingzhao/rss"/>
+    <link title="RSD" type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/zhangmingzhao/rsd.xml"/>
+    <link type="application/wlwmanifest+xml" rel="wlwmanifest"
+          href="https://www.cnblogs.com/zhangmingzhao/wlwmanifest.xml"/>
+    <script src="https://common.cnblogs.com/scripts/jquery-2.2.0.min.js"></script>
+    <script type="text/javascript">var currentBlogApp = 'zhangmingzhao', cb_enable_mathjax = false;
+    var isLogined = false;</script>
+    <script src="https://www.cnblogs.com/bundles/blog-common.js?v=oVrWjmbP-rXxVp7O71kev8vWEZCetdwYaIziKHJCYc41"
+            type="text/javascript"></script>
+</head>
+<body>
+<a name="top"></a>
+<!--done-->
+<div id="home">
+    <div id="header">
+        <div id="blogTitle">
+            <a id="lnkBlogLogo" href="https://www.cnblogs.com/zhangmingzhao/"><img id="blogLogo" src="https://www.cnblogs.com/Skins/custom/images/logo.gif"alt="返回主页"/></a>
+            <!--done-->
+            <h1><a id="Header1_HeaderTitle" class="headermaintitle" href="https://www.cnblogs.com/zhangmingzhao/"><img
+                    src="http://images.cnblogs.com/cnblogs_com/zhangmingzhao/1006783/o_tuanzhang.jpg" width="130px"></a>
+            </h1>
+            <h2>
+                <h1>Lawliet_ZMZ</h1>
+                <br>
+                <h2>星际2er.</h2>\
+            </h2>
+        </div><!--end: blogTitle 博客的标题和副标题 -->
+        <div id="navigator">
+            <ul id="navList">
+                <li></li>
+                <li><a id="blog_nav_myhome" class="menu" href="https://www.cnblogs.com/zhangmingzhao/">首页</a></li>
+                <li><a id="blog_nav_newpost" class="menu" rel="nofollow"
+                       href="https://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a></li>
+                <li><a id="blog_nav_contact" class="menu" rel="nofollow"
+                       href="https://msg.cnblogs.com/send/Lawliet__zmz">联系</a></li>
+                <li><a id="blog_nav_rss" class="menu" href="https://www.cnblogs.com/zhangmingzhao/rss">订阅</a>
+                    <!--<a id="blog_nav_rss_image" class="aHeaderXML" href="https://www.cnblogs.com/zhangmingzhao/rss"><img src="//www.cnblogs.com/images/xml.gif" alt="订阅" /></a>-->
+                </li>
+                <li><a id="blog_nav_admin" class="menu" rel="nofollow" href="https://i.cnblogs.com/">管理</a></li>
+            </ul>
+            <div class="blogStats">
+                <div id="blog_stats">
+                    <span id="stats_post_count">随笔 - 501&nbsp; </span>
+                    <span id="stats_article_count">文章 - 0&nbsp; </span>
+                    <span id="stats-comment_count">评论 - 9</span>
+                </div>
+            </div><!--end: blogStats -->
+        </div><!--end: navigator 博客导航栏 -->
+    </div><!--end: header 头部 -->
+    <div id="main">
+        <div id="mainContent">
+            <div class="forFlow">
+                <div id="post_detail">
+                    <!--done-->
+                    <div id="topics">
+                        <div class="post">
+                            <h1 class="postTitle">
+                                <a id="cb_post_title_url" class="postTitle2"
+                                   href="https://www.cnblogs.com/zhangmingzhao/p/7531598.html">Js控制HTML5 Audio
+                                    音乐播放和关闭</a>
+                            </h1>
+                            <div class="clear"></div>
+                            <div class="postBody">
+                                <div id="cnblogs_post_body" class="blogpost-body"><p><img
+                                        src="https://images2017.cnblogs.com/blog/1169800/201709/1169800-20170916160335657-1791462711.png"
+                                        alt=""/></p>
+                                    <p>参考W3C详细文档：<a title="http://www.w3school.com.cn/jsref/dom_obj_audio.asp"
+                                                    href="http://www.w3school.com.cn/jsref/dom_obj_audio.asp"
+                                                    target="_blank">http://www.w3school.com.cn/jsref/dom_obj_audio.asp</a>
+                                    </p>
+                                    <p>pause()方法只是暂停，这里重新load之后，再次play，音乐可重头播放</p>
+                                    <div class="cnblogs_code">
+<pre><span style="color: #0000ff;">&lt;!</span><span style="color: #ff00ff;">DOCTYPE html</span><span
+        style="color: #0000ff;">&gt;</span>
+<span style="color: #0000ff;">&lt;</span><span style="color: #800000;">html</span><span
+            style="color: #0000ff;">&gt;</span>
+<span style="color: #0000ff;">&lt;</span><span style="color: #800000;">head</span><span
+            style="color: #0000ff;">&gt;</span>
+    <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">meta </span><span style="color: #ff0000;">charset</span><span
+            style="color: #0000ff;">="utf-8"</span><span style="color: #0000ff;">&gt;</span>
+    <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">title</span><span style="color: #0000ff;">&gt;</span>test<span
+            style="color: #0000ff;">&lt;/</span><span style="color: #800000;">title</span><span style="color: #0000ff;">&gt;</span>
+    <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">script </span><span style="color: #ff0000;">language</span><span
+            style="color: #0000ff;">="javascript"</span><span style="color: #ff0000;"> type</span><span
+            style="color: #0000ff;">="text/javascript"</span><span style="color: #0000ff;">&gt;</span>
+        <span style="background-color: #f5f5f5; color: #0000ff;">function</span><span
+            style="background-color: #f5f5f5; color: #000000;"> autoPlay() {
+            </span><span style="background-color: #f5f5f5; color: #0000ff;">var</span><span
+            style="background-color: #f5f5f5; color: #000000;"> myAuto </span><span
+            style="background-color: #f5f5f5; color: #000000;">=</span><span
+            style="background-color: #f5f5f5; color: #000000;"> document.getElementById(</span><span
+            style="background-color: #f5f5f5; color: #000000;">'</span><span
+            style="background-color: #f5f5f5; color: #000000;">myaudio</span><span
+            style="background-color: #f5f5f5; color: #000000;">'</span><span
+            style="background-color: #f5f5f5; color: #000000;">);
+            myAuto.play();
+        }
+        </span><span style="background-color: #f5f5f5; color: #0000ff;">function</span><span
+            style="background-color: #f5f5f5; color: #000000;"> closePlay() {
+            </span><span style="background-color: #f5f5f5; color: #0000ff;">var</span><span
+            style="background-color: #f5f5f5; color: #000000;"> myAuto </span><span
+            style="background-color: #f5f5f5; color: #000000;">=</span><span
+            style="background-color: #f5f5f5; color: #000000;"> document.getElementById(</span><span
+            style="background-color: #f5f5f5; color: #000000;">'</span><span
+            style="background-color: #f5f5f5; color: #000000;">myaudio</span><span
+            style="background-color: #f5f5f5; color: #000000;">'</span><span
+            style="background-color: #f5f5f5; color: #000000;">);
+            myAuto.pause();
+            myAuto.load();
+        }
+    </span><span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">script</span><span
+            style="color: #0000ff;">&gt;</span>
+<span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">head</span><span
+            style="color: #0000ff;">&gt;</span>
+<span style="color: #0000ff;">&lt;</span><span style="color: #800000;">body</span><span
+            style="color: #0000ff;">&gt;</span>
+    <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">audio </span><span style="color: #ff0000;">src</span><span
+            style="color: #0000ff;">="111.mp3"</span><span style="color: #ff0000;"> id</span><span
+            style="color: #0000ff;">="myaudio"</span><span style="color: #ff0000;"> controls</span><span
+            style="color: #0000ff;">="controls"</span><span style="color: #ff0000;"> loop</span><span
+            style="color: #0000ff;">="false"</span><span style="color: #ff0000;"> hidden</span><span
+            style="color: #0000ff;">="true"</span><span style="color: #0000ff;">&gt;</span>
+    <span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">audio</span><span style="color: #0000ff;">&gt;</span>
+    <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">input </span><span style="color: #ff0000;">type</span><span
+            style="color: #0000ff;">="button"</span><span style="color: #ff0000;"> onclick</span><span
+            style="color: #0000ff;">="autoPlay()"</span><span style="color: #ff0000;"> value</span><span
+            style="color: #0000ff;">="播放"</span> <span style="color: #0000ff;">/&gt;</span>
+    <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">input </span><span style="color: #ff0000;">type</span><span
+            style="color: #0000ff;">="button"</span><span style="color: #ff0000;"> onclick</span><span
+            style="color: #0000ff;">="closePlay()"</span><span style="color: #ff0000;"> value</span><span
+            style="color: #0000ff;">="关闭"</span> <span style="color: #0000ff;">/&gt;</span>
+<span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">body</span><span
+            style="color: #0000ff;">&gt;</span>
+<span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">html</span><span
+            style="color: #0000ff;">&gt;</span></pre>
+                                    </div>
+                                    <p>&nbsp;</p></div>
+                                <div id="MySignature"></div>
+                                <div class="clear"></div>
+                                <div id="blog_post_info_block">
+                                    <div id="BlogPostCategory"></div>
+                                    <div id="EntryTag"></div>
+                                    <div id="blog_post_info">
+                                    </div>
+                                    <div class="clear"></div>
+                                    <div id="post_next_prev"></div>
+                                </div>
+                            </div>
+                            <div class="postDesc">posted @ <span id="post-date">2017-09-16 16:05</span> <a
+                                    href='https://www.cnblogs.com/zhangmingzhao/'>Lawliet__zmz</a> 阅读(<span
+                                    id="post_view_count">...</span>) 评论(<span id="post_comment_count">...</span>) <a
+                                    href="https://i.cnblogs.com/EditPosts.aspx?postid=7531598" rel="nofollow">编辑</a> <a
+                                    href="#" onclick="AddToWz(7531598);return false;">收藏</a></div>
+                        </div>
+                        <script type="text/javascript">var allowComments = true, cb_blogId = 356912,
+                            cb_entryId = 7531598, cb_blogApp = currentBlogApp,
+                            cb_blogUserGuid = '4eb13d33-c2c8-443a-e57b-08d49c350eca',
+                            cb_entryCreatedDate = '2017/9/16 16:05:00';
+                        loadViewCount(cb_entryId);
+                        var cb_postType = 1;</script>
+                    </div><!--end: topics 文章、评论容器-->
+                </div>
+                <a name="!comments"></a>
+                <div id="blog-comments-placeholder"></div>
+                <script type="text/javascript">var commentManager = new blogCommentManager();
+                commentManager.renderComments(0);</script>
+                <div id='comment_form' class='commentform'>
+                    <a name='commentform'></a>
+                    <div id='divCommentShow'></div>
+                    <div id='comment_nav'><span id='span_refresh_tips'></span><a href='javascript:void(0);' onclick='return RefreshCommentList();' id='lnk_RefreshComments' runat='server' clientidmode='Static'>刷新评论</a><a
+                            href='#' onclick='return RefreshPage();'>刷新页面</a><a href='#top'>返回顶部</a></div>
+                    <div id='comment_form_container'></div>
+                    <div class='ad_text_commentbox' id='ad_text_under_commentbox'></div>
+                    <div id='ad_t2'></div>
+                    <div id='opt_under_post'></div>
+                    <div id='cnblogs_c1' class='c_ad_block'></div>
+                    <div id='under_post_news'></div>
+                    <script async='async' src='https://www.googletagservices.com/tag/js/gpt.js'></script>
+                    <script>
+                        var googletag = googletag || {};
+                        googletag.cmd = googletag.cmd || [];
+                    </script>
+                    <script>
+                        googletag.cmd.push(function () {
+                            googletag.defineSlot('/1090369/C2', [468, 60], 'div-gpt-ad-1539008685004-0').addService(googletag.pubads());
+                            googletag.pubads().enableSingleRequest();
+                            googletag.enableServices();
+                        });
+                    </script>
+                    <div id='cnblogs_c2' class='c_ad_block'>
+                        <div id='div-gpt-ad-1539008685004-0' style='height:60px; width:468px;'>
+                            <script>
+                                if (new Date() >= new Date(2018, 9, 13)) {
+                                    googletag.cmd.push(function () {
+                                        googletag.display('div-gpt-ad-1539008685004-0');
+                                    });
+                                }
+                            </script>
+                        </div>
+                    </div>
+                    <div id='under_post_kb'></div>
+                    <div id='HistoryToday' class='c_ad_block'></div>
+                    <script type='text/javascript'>
+                        fixPostBody();
+                        setTimeout(function () {
+                            incrementViewCount(cb_entryId);
+                        }, 50);
+                        deliverAdT2();
+                        deliverAdC1();
+                        deliverAdC2();
+                        loadNewsAndKb();
+                        loadBlogSignature();
+                        LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+                        GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+                        loadOptUnderPost();
+                        GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);
+                    </script>
+                </div>
+            </div><!--end: forFlow -->
+        </div><!--end: mainContent 主体内容容器-->
+
+        <div id="sideBar">
+            <div id="sideBarMain">
+                <div class="newsItem">
+                    <h3 class="catListTitle">公告</h3>
+                    <div id="blog-news"></div>
+                    <script type="text/javascript">loadBlogNews();</script>
+                </div>
+                <div id="blog-calendar" style="display:none"></div>
+                <script type="text/javascript">loadBlogDefaultCalendar();</script>
+                <div id="leftcontentcontainer">
+                    <div id="blog-sidecolumn"></div>
+                    <script type="text/javascript">loadBlogSideColumn();</script>
+                </div>
+            </div><!--end: sideBarMain -->
+        </div><!--end: sideBar 侧边栏容器 -->
+        <div class="clear"></div>
+    </div><!--end: main -->
+    <div class="clear"></div>
+    <div id="footer">
+        <!--done-->
+        Copyright &copy;2018 Lawliet__zmz
+    </div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+<iframe id="google_osd_static_frame_4022732932528" name="google_osd_static_frame" style="display: none; width: 0px; height: 0px;"></iframe>
+<canvas id="c_n28" style="position: fixed; top: 0px; left: 0px; z-index: -1; opacity: 0.5;" width="944" height="702"></canvas>
+<script type="text/javascript">
+    var a = parseInt(document.getElementById('post_view_count').innerHTML);
+    document.getElementById('post_view_count').innerHTML = a+100;
+</script>
+<script type="text/javascript">
+    L2Dwidget.init();
+</script>
+<script type="text/javascript">getFollowStatus('4eb13d33-c2c8-443a-e57b-08d49c350eca')</script>
+<div id="live2d-widget"><canvas id="live2dcanvas" width="300" height="600" style="position: fixed; opacity: 0.7; right: 0px; bottom: -20px; z-index: 99999; pointer-events: none; border: 1px dashed rgb(204, 204, 204);"></canvas></div>
+</body>
+</html>

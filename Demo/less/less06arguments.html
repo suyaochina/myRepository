@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="css/style06.css">
+</head>
+<style>
+
+</style>
+<body>
+<div id="wrap">
+    <div class="sjx">
+    </div>
+</div>
+<div>
+    <h2>less中的变量</h2>
+    <p>
+        使用@来申明一个变量：@pink：pink
+    </p>
+    <h2>less中的变量</h2>
+    <p>
+        使用@俩申明一个变量：@pink：pink
+        1.作为普通属性值只来使用：直接使用@pink
+        2.作为选择器和属性名：#@{selector的值}的形式
+        3.作为URL：@{url}
+        4.变量的延迟加载
+    </p>
+    <h2>less中的嵌套规则</h2>
+    <p>
+        1.基本嵌套规则
+        2.&的使用
+            .inner {
+            left: 0;
+            &:hover{
+            background: pink;
+            }
+            }
+        表示inner{left：0}；
+        inner：hover{background：pink}
+    </p>
+    <h2>less中的混合</h2>
+    <p>
+        混合就是将一系列属性从一个规则集引入到另一个规则集的方式
+        1.普通混合
+        2.不带输出的混合
+        3.带参数的混合
+        4.带参数并且有默认值得混合
+        5.带多个参数的混合
+        6.命名参数
+        7.匹配模式
+        8.arguments变量
+    </p>
+    <h2>less运算</h2>
+    <p>
+        在less中可以进行加减乘除运算
+    </p>
+</div>
+</body>
+</html>

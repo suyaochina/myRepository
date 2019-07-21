@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="js/vue-router.js"></script>
+</head>
+<body>
+<div id="container">
+   <!--
+        视图：有两个组件
+        product-list：构造一个具有5条数据的数组，显示在列表当中，每个列表项都有一个超链接
+        product-detail：
+                p显示字符串：id为**的详情信息
+        功能：点击product-list的列表项，跳转到product-detail，并将数组中该元素的下标发给product-detail，
+        product-detail接收到数据显示在p标签中。
+   -->
+    <router-view></router-view>
+</div>
+</body>
+<script>
+    var MyList = Vue.component("product-list",{
+        data:function () {
+            return{
+                productList:['小红','小花','小明','小美','小志']
+            }
+        },
+        template:`
+            <h1>这是列表页面</h1>
+            <ul>
+                <li v-for="tmp in productList">
+                    <router-link  to="'/detail/'+id">{{tmp}}</router-link>
+                </li>
+            </ul>
+        `
+    });
+    var MyDetail = Vue.component("product-detail",{
+        template:`
+            <h1>这是详情页面</h1>
+        `
+    });
+
+    //配置路由词典
+    const myRoutes =[
+        //当路由地址空 指定显示一个组件
+        // {path:'/list',component:MyList,alias:'lists'}            别名
+        //{path:'/list',component:MyList,redirect:'/list'}          重定向
+        {path:'',component:MyList},
+        {path:'/list',component:MyList,alias:'lists'},
+        {path:'/detail/:id',component:MyDetail},
+        //异常处理
+        {path:'*',component:MyList}
+    ];
+    const myRouter = new VueRouter({
+        routes:myRoutes
+    });
+    new Vue({
+        router:myRouter,
+        el: "#container",
+        data: {
+            msg: "Hello Vue"
+        }
+    })
+</script>
+</html>

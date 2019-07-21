@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<body>
+<div id="container">
+    <h1 v-if="!isDataReady">正在加载数据......</h1>
+    <ul >
+        <li v-for="tmp in myList">
+            {{tmp}}
+        </li>
+    </ul>
+</div>
+</body>
+<script>
+    new Vue({
+        el: "#container",
+        data: {
+            isDataReady:false,
+            myList:[]
+        },
+        created:function () {
+            //vue实例创建好之后，自动调用的方法 使用箭头函数this指向Vue实例对象否则指向的是windows
+            setTimeout(
+                () => {
+                    this.isDataReady = true;
+                    this.myList = [100,200,300,400,500]
+                },1000)
+        }
+    })
+    /*
+     created:function () {
+            //vue实例创建好之后，自动调用的方法
+            setTimeout(
+                function()  {
+                    this.isDataReady = true;
+                },1000)
+        }
+        this指向windows
+        解决办法
+        01方法
+        created:function () {
+            //vue实例创建好之后，自动调用的方法
+            setTimeout(
+                function()  {
+                    this.isDataReady = true;
+                }.bind(this),1000)
+        }
+        02方法
+        created:function () {
+            //vue实例创建好之后，自动调用的方法
+            setTimeout(
+                ()=>  {
+                    this.isDataReady = true;
+                },1000)
+        }
+    * */
+</script>
+</html>

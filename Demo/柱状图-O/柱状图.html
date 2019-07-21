@@ -1,0 +1,168 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>HTML5 Canvas 柱形图 鼠标滑过显示百分比DEMO演示</title>
+<style type="text/css">
+    .user_growht{outline:1px solid blue;position:relative;}
+    canvas{position:relative;outline:1px solid red;width:100%;height:auto;}
+    .show_num{background-color:#fff;width:6.6%;height:24px;line-height:24px;text-indent:5px;
+    position:absolute;z-index:-1;text-align:center}
+    .show_num1{background-color:#fff;width:6.6%;height:24px;line-height:24px;text-indent:5px;
+    position:absolute;z-index:-1;text-align:center}
+    .show_num2{background-color:#fff;width:6.6%;height:24px;line-height:24px;text-indent:5px;
+    position:absolute;z-index:-1;text-align:center}
+</style>
+</head>
+<body>
+<div class="user_growht">
+    <canvas id="canvas"></canvas>
+    <div id="show_num" class="show_num"></div>
+    <div id="show_num1" class="show_num1"></div>
+    <div id="show_num2" class="show_num2"></div>
+</div>
+
+<div style="text-align:center;clear:both">
+</div>
+</body>
+<script type="text/javascript" src="../jquery-1.7.1.min.js"></script>
+<script>
+    (function(){
+        var data = {
+            width:900,
+            height:500,
+            maxValue:100,
+            //xAxis:["0星","1星","2星","3星","4星","5星","待审核"],
+            //starRate:[10,20,30,40,50,60,80],
+            //starNum:[1,3,8,12,15,16,20],
+            //rectColor:["#01d0e2","#01d0e2","#01d0e2","#01d0e2","#01d0e2","#01d0e2","#01d0e2"],
+            //starNum:[1,3,8],
+            xAxis:["2015","2016","2017"],
+            starRate:[30,60,90],
+            rectColor:["#01d0e2","#01d0e2","#01d0e2"],
+        };
+        var canvas,ctx;
+        var x_scale = 0,y_scale = 0,heightVal=0,stepWidth=0,stepHeight=0;
+        var stepYArr = [],stepXArr = [];
+        var arrowWidth = 4,arrowHeight = 6;
+        var stepNum = 2;        //y轴分几分
+        //var str1 = "百分比";
+        var str2 = "%";
+        var init = function(data){
+            canvas = document.getElementById("canvas");
+            canvas.width = data.width;
+            canvas.height = data.height;
+            x_scale = data.width/10;//x轴刻度
+            y_scale = data.height/10;//y轴刻度
+            ctx = canvas.getContext("2d");
+            drawXAxis(data.xAxis);//画X轴
+            drawYaxis(data.maxValue,stepNum);//画Y轴
+            drawBg();//画背景
+            drawRect(data.starRate,data.rectColor);//画柱形
+            $(canvas).on("mousemove",mouseMove);
+            $(canvas).on("click",mouseClick);
+        }
+        /*画x轴*/
+        var drawXAxis = function(xAxis){
+            ctx.beginPath();//清除之前的路径，开始一条新的路径
+            //画x轴横线
+            ctx.moveTo(x_scale,canvas.height-y_scale);
+            ctx.lineTo(canvas.width-x_scale,canvas.height-y_scale);
+            //加标签
+            var len = xAxis.length;
+            stepWidth = (canvas.width - 2*x_scale)/len;//一个类型所占的宽度
+            for(var i=0; i<len; i++){
+                //画标签，默认字体为12个像素
+                ctx.font = "normal normal bold 14px 微软雅黑";
+                ctx.fillStyle = "#333"; //x轴字体颜色
+                //字体居中
+                ctx.fillText(xAxis[i],x_scale+(i+0.5)*stepWidth-xAxis[i].length*14/2,canvas.height-y_scale + 24);
+                stepXArr.push(x_scale+(i+1)*stepWidth);
+            }
+            ctx.stroke();
+            //加箭头
+            drawArrow(canvas.width-x_scale,canvas.height-y_scale,false);
+        }
+        //画y轴
+        var drawYaxis = function(maxValue,step){
+            ctx.beginPath();
+            //画Y轴线
+            ctx.moveTo(x_scale,y_scale);
+            ctx.lineTo(x_scale,canvas.height-y_scale);
+            //加标签
+            stepHeight = (canvas.height - 3*y_scale)/step;
+            heightVal = (canvas.height - 3*y_scale )/maxValue;//比例
+            for(var i=1; i<=step; i++){
+                ctx.font = "normal normal bold 14px 微软雅黑";
+                //字体居中
+                ctx.fillText(maxValue/step*i+"%",x_scale-40,canvas.height-y_scale-stepHeight*i+7);
+                stepYArr.push(canvas.height-y_scale-stepHeight*i);
+            }
+            ctx.stroke();
+            //加箭头
+            drawArrow(x_scale,y_scale,true);
+            //加Y轴顶部字体
+            //ctx.fillText(str1,x_scale-70,y_scale-3);    //百分比位置
+            //ctx.fillText(str2,x_scale-30,y_scale-3);   //%号位置
+        }
+        //画柱形图
+        var drawRect = function(starRate,colorArr){
+            var rectWidth = stepWidth/4;
+            for(var i=0,len=starRate.length;i < len;i++){
+                ctx.beginPath();
+                ctx.fillStyle = colorArr[i];
+                ctx.fillRect(stepXArr[i]-stepWidth/2-rectWidth/2,canvas.height-y_scale-starRate[i]*heightVal,rectWidth,starRate[i]*heightVal);
+                ctx.fill();
+            }
+            //      画数据显示百分比
+            var numwdith =data.width
+            var numheight =data.height
+            var leftzero =parseInt(stepXArr[0]-stepWidth/2-rectWidth/2)/numwdith*100+"%";
+            var leftone =parseInt(stepXArr[1]-stepWidth/2-rectWidth/2)/numwdith*100+"%";
+            var lefttwo =parseInt(stepXArr[2]-stepWidth/2-rectWidth/2)/numwdith*100+"%";
+            var bottomzero = 100-parseInt(canvas.height-y_scale-starRate[0]*heightVal)/numheight*100+"%";
+            var bottomone = 100-parseInt(canvas.height-y_scale-starRate[1]*heightVal)/numheight*100+"%";
+            var bottomtwo = 100-parseInt(canvas.height-y_scale-starRate[2]*heightVal)/numheight*100+"%";
+
+
+            $("#show_num").text(data.starRate[0]+'%');
+            $("#show_num").css({"left":leftzero,"bottom":bottomzero,"font-size":"1.8rem"});
+            $("#show_num1").text(data.starRate[1]+'%');
+            $("#show_num1").css({"left":leftone,"bottom":bottomone,"font-size":"1.8rem"});
+            $("#show_num2").text(data.starRate[2]+'%');
+            $("#show_num2").css({"left":lefttwo,"bottom":bottomtwo,"font-size":"1.8rem"});
+        }
+        //画箭头
+        var drawArrow = function(left,top,flag){
+            ctx.beginPath();
+            ctx.moveTo(left,top);
+            if(flag){
+                ctx.lineTo(left+arrowWidth,top);
+                ctx.lineTo(left,top-arrowHeight);
+                ctx.lineTo(left-arrowWidth,top);
+            }else{
+                ctx.lineTo(left,top-arrowWidth);
+                ctx.lineTo(left+arrowHeight,top);
+                ctx.lineTo(left,top+arrowWidth);
+            }
+            ctx.fillStyle = "#666";
+            ctx.fill();
+        }
+        //画背景矩形
+        var drawBg = function(){
+            for(var i=0;i<stepYArr.length;i++){
+                ctx.beginPath();
+                if(i%1 == 0){
+                    //ctx.fillRect(x_scale+1,stepYArr[i],canvas.width-2*x_scale-stepWidth/4,stepHeight);
+                    ctx.strokeStyle="#333";
+                    ctx.moveTo(x_scale+1,stepYArr[i])
+                    ctx.lineTo(x_scale+1+canvas.width-2*x_scale-stepWidth/4,stepYArr[i])
+                    ctx.stroke();
+                    //ctx.fill();
+                }
+            }
+        }
+        init(data);//柱状图
+    })();
+</script>
+</html>

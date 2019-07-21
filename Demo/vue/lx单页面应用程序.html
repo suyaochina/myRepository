@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="js/vue-router.js"></script>
+</head>
+<body>
+<div id="container">
+    <!--
+        需要大家创建一个SPA，这个SPA有3个组件，分别对应的是collect/detail/order
+        功能需求：
+        在地址栏中路由地址是：
+        /myCollect      ->收藏页组件
+        /myDetail       ->详情页组件
+        /myOrder        ->订单页组件
+    -->
+    <router-view></router-view>
+</div>
+</body>
+<script>
+    var CodeBodCollect= Vue.component("collect",{
+        template:`
+            <h1>这是收藏页面</h1>
+        `
+    });
+    var CodeBodDetail= Vue.component("detail",{
+        template:`
+            <h1>这是详情页面</h1>
+        `
+    });
+    var CodeBodOrder= Vue.component("order",{
+        template:`
+            <h1>这是订单页面</h1>
+        `
+    });
+    //配置路由词典 myRoutes是固定的vue自带的
+    const myRoutes = [
+        {path:'/',component:CodeBodCollect},
+        {path:'/myCollect',component:CodeBodCollect},
+        {path:'/myDetail',component:CodeBodDetail},
+        {path:'/myOrder',component:CodeBodOrder}
+    ]
+    const myRouter = new VueRouter({
+        routes:myRoutes
+    })
+    new Vue({
+        router:myRouter,
+        el: "#container",
+        data: {
+            msg: "Hello Vue"
+        }
+    })
+</script>
+</html>

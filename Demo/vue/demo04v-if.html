@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<body>
+    <div id="container">
+        <p v-if="isMember">仅会员可见</p>
+        <p v-if="answer=='a'">A</p>
+        <p v-else-if="answer=='b'">B</p>
+        <p v-else-if="answer=='c'">C</p>
+        <p v-else=answer=='d'">D</p>
+    </div>
+</body>
+    <script>
+       new Vue({
+           el:"#container",
+           data:{
+               msg:"Hello Vue",
+               isMember:true,
+               answer:"a"
+           },
+           created:function () {
+               console.log("Vue的实例创建完毕")
+           }
+       })
+    </script>
+</html>

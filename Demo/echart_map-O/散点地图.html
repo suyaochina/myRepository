@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>mapScatter Demo</title>
+</head>
+<body>
+<div id="echart" style="width: 1000px; height: 800px;"></div>
+
+<script src="echarts.min.js"></script>
+<script src="gansu.js"></script>
+<script>
+    var dom = document.getElementById("echart");
+    var myChart = echarts.init(dom);
+    option = null;
+    // 散点在地图上的坐标
+    var geoCoordMap = {
+        "国家级基地1": [94.12, 39.66],
+        "国家级基地2": [97.20, 39.55],
+        "国家级基地3": [95.28, 40.29],
+        "省级基地1": [98.36, 40.19],
+        "省级基地2": [97.88, 39.49],
+        "省级基地3": [95.77, 40.59],
+        "市级基地1": [102.66, 38.89],
+        "市级基地2": [101.23, 37.79],
+        "市级基地3": [99.40, 39.69]
+    };
+    // 将坐标与值对应并反映在地图上
+    var convertData = function (data) {
+        var res = [];
+        for (var i = 0; i < data.length; i++) {
+            var geoCoord = geoCoordMap[data[i].name];
+            if (geoCoord) {
+                res.push({
+                    name: data[i].name,
+                    value: geoCoord.concat(data[i].value)
+                });
+            }
+        }
+        return res;
+    };
+
+    option = {
+        tooltip: {
+            trigger: 'item',
+            formatter: function (params) {
+                return params.name;
+            }
+        },
+        visualMap: {
+            type: 'piecewise',
+            textStyle: {
+                color: '#ff0'
+            },
+           /* pieces: [
+                {min: 300, label: '国家级基地', color: '#f00'},
+                {min: 200, max: 300, label: '省级基地', color: '#ff0'},
+                {min: 100, max: 200, label: '市级基地', color: '#008000'}
+            ],*/
+            pieces: [
+                {value:111, label: '111', color: '#f00'},
+                {value:222, label:'222', color: '#ff0'},
+                {value:333, label: '333', color: '#008000'}
+            ],
+            // color: ['#e3bf4c', '#be4f51', '#60c2cc']
+        },
+        geo: {
+            map: '甘肃',
+            label: {
+                emphasis: {
+                    show: false
+                }
+            },
+            roam: true,              //是否允许缩放
+            itemStyle: {
+                normal: {
+                    areaColor: '#323c48',
+                    borderColor: '#111'
+                },
+                emphasis: {
+                    areaColor: '#2a333d'
+                }
+            }
+        },
+        series: [
+            {
+                type: 'effectScatter',
+                coordinateSystem: 'geo',
+                data: convertData([
+                    {name: "国家级基地1", value: 111},
+                    {name: "国家级基地2", value: 111},
+                    {name: "国家级基地3", value: 111},
+                    {name: "省级基地1", value: 222},
+                    {name: "省级基地2", value: 222},
+                    {name: "省级基地3", value: 222},
+                    {name: "市级基地1", value: 333},
+                    {name: "市级基地2", value: 333},
+                    {name: "市级基地3", value: 333}
+                ]),
+                symbolSize: 20,
+                // symbolSize:function(val,params){
+                //     return val[1] * 1/2;
+                // },
+                label: {
+                    normal: {
+                        show: false
+                    },
+                    emphasis: {
+                        show: false
+                    }
+                },
+                itemStyle: {
+                    emphasis: {
+                        borderColor: '#0ff',
+                        borderWidth: 1
+                    }
+                }
+            }
+        ]
+    };
+    if (option && typeof option === "object") {
+        myChart.setOption(option, true);
+    }
+</script>
+</body>
+</html>

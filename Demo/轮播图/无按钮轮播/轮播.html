@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/jquery-1.7.1.min.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.css">
+</head>
+<style>
+    /*                       banner                     */
+    .lunbobox{width:1000px;height:500px;position:relative;top:80px;left:67px;border:8px solid white;border-radius:8px;}
+    .lunbo img{width:1000px;height:500px;position:absolute;top:0px;left:0px;}
+    .lunbobox ul{width:285px;position:absolute;bottom:30px;right:-25px;z-index:5;}
+    .lunbobox ul li{height:9px;width:50px;background: #fff;border-radius: 5px;margin-left: 16px;float: left;cursor: pointer;list-style:none;}
+</style>
+<body>
+<div class="banner">
+    <div id="lunbobox" class="lunbobox">
+        <div class="lunbo">
+            <a ><img src="img/banner_01.png"></a>
+            <a ><img src="img/banner_02.png"></a>
+            <a ><img src="img/banner_03.png"></a>
+        </div>
+        <ul>
+            <li style="background:#ffee30"></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+</div>
+</body>
+<script>
+    //      轮播图
+    var t;
+    var index = 0;
+    /////自动播放
+    t = setInterval(play,3000)
+    function play() {
+        index++;
+        if (index > 2) {
+            index = 0
+        }
+        $("#lunbobox ul li").eq(index).css({
+            "background": "#ffee30",
+            /* "border": "1px solid #ffffff"*/
+        }).siblings().css({
+            "background": "#fff",
+            // "border": ""
+        })
+        $(".lunbo a ").eq(index).fadeIn(1000).siblings().fadeOut(1000);
+    };
+    /*$("#toright").click(function() {
+        index++;
+        if (index > 4) {
+            index = 0
+        }
+        console.log(index);
+        $(this).css({
+            "opacity": "0.5"
+        })
+        $("#lunbobox ul li").eq(index).css({
+            "background": "#999",
+            "border": "1px solid #ffffff"
+        }).siblings().css({
+            "background": "#cccccc"
+        })
+        $(".lunbo a ").eq(index).fadeIn(1000).siblings().fadeOut(1000);
+    });*/
+</script>
+</html>

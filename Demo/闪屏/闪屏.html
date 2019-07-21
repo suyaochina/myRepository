@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="../jquery-1.7.1.min.js"></script>
+</head>
+<style>
+    nav:after{display:block;content:"";clear:both;}
+    nav{position:absolute;top:60px;}
+    span{display:inline-block;border:1px solid #000;width:120px;height:40px;line-height:40px;float:left;text-align:center;}
+    .fixed{position:fixed;top:0;}
+</style>
+<body>
+<div class="fixed"></div>
+<nav>
+    <span>a</span>
+    <span>o</span>
+    <span>e</span>
+    <span>y</span>
+</nav>
+<script>
+    var scroll=0;
+    var navST=60; //该元素距离网页顶端60px
+    window.onscroll = function(){
+        if(document.documentElement.scrollTop || document.body.scrollTop>navST && scroll==0){
+            document.getElementsByTagName("nav")[0].classList.add("fixed");
+            scroll=1;
+        }
+        else if(document.documentElement.scrollTop || document.body.scrollTop<=navST && scroll==1){
+            document.getElementsByTagName("nav")[0].classList.remove("fixed");
+            scroll=0;
+        }
+    };
+</script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+   <head>
+       <meta charset="utf-8">
+       <script type="text/javascript" src="echarts/echarts.min.js"></script>
+       <!--<script type="text/javascript" src="echarts/echarts-gl.min.js"></script>-->
+       <!--<script type="text/javascript" src="echarts/ecStat.min.js"></script>-->
+       <!--<script type="text/javascript" src="echarts/dataTool.min.js"></script>-->
+       <!--<script type="text/javascript" src="echarts/china.js"></script>-->
+       <!--<script type="text/javascript" src="echarts/world.js"></script>-->
+       <!--<script type="text/javascript" src="echarts/api"></script>-->
+       <!--<script type="text/javascript" src="echarts/bmap.min.js"></script>-->
+       <!--<script type="text/javascript" src="echarts/simplex.js"></script>-->
+   </head>
+   <body>
+   <div class="business_content_content" id="user_statistics" style="height:593px;padding:50px 0 0 50px;"></div>
+   </body>
+   <script>
+
+       var dom = document.getElementById("user_statistics");
+       var myChart = echarts.init(dom);
+       option = null;
+       option = {
+           title: {text: '访客数量',
+               textStyle:{
+                   color:'#000',        //颜色
+                   fontStyle:'normal',     //风格
+                   fontWeight:'600',    //粗细
+                   fontFamily:'Microsoft yahei',   //字体
+                   fontSize:14,     //大小
+               }},
+           tooltip: {/*trigger: 'axis'*/},//去掉竖线
+           legend: {data: ['预约访客', '临时访客','长期访客']},
+           grid: {left: '0', right: '10%', bottom: '4%', containLabel: true},
+           toolbox: {           //显示折线图柱状图转换
+             show: true, /*      是否显示下载图片     */
+             // x:100,
+             // y:10,
+             feature: {
+               saveAsImage: {},
+               magicType:{
+                 type:["line","bar"]
+               }
+             }},
+           xAxis: {
+               type: 'category',
+               boundaryGap: false,
+               name: "时间(月份)",
+               nameTextStyle: {color: "black", fontSize: 14, padding: 10, fontWeight: 600},
+               data: ['', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '']
+           },
+           yAxis: {type:'value',max:'400'},
+           series: [{
+               name: '预约访客',
+               type: 'line',
+               symbolSize: 8,  //设置点的大小
+               symbol: 'emptyRect', //设置点为实心
+               // stack: '总量',
+               data: ['', 100, 300, 300, 380, 300, 200, 100, 200, 300, 200, 100, 370]
+           }, {
+               name: '临时访客',
+               type: 'line',
+               // stack: '总量',
+               symbolSize: 8,
+               symbol: 'emptyTriangle', //设置点为实心
+               data: ['', 50, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100]
+           },{
+               name: '长期访客',
+               type: 'line',
+               symbolSize: 8,
+               symbol: 'emptyDiamond', //设置点为实心
+               data: ['', 150, 200, 200, 300, 400, 300, 300, 200, 200, 300, 200, 100]
+           }]
+       };
+       if (option && typeof option === "object") {
+           myChart.setOption(option, true);
+       }
+
+   </script>
+</html>

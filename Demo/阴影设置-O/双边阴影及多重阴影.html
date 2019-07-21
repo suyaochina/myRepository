@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    .flex{display:flex;flex-wrap:wrap;}
+    .flex-item{margin-right:30px;}
+
+    .box {  background-color: #CCCCCC;  width: 200px; height: 200px;  }
+
+    .boxshadow1{
+        box-shadow:inset 0px 15px 15px -15px #000,
+        inset 0px -15px 15px -15px #000;
+    }
+    .boxshadow2{
+        box-shadow:15px 0 15px -15px #000,
+        -15px 0 15px -15px #000;
+    }
+    .boxshadow3{ border-radius:10px;
+        box-shadow:0px 0px 0px 3px #bb0a0a,
+        0px 0px 0px 6px #2e56bf,
+        0px 0px 0px 9px #ea982e;
+    }
+</style>
+<body>
+<div class="flex">
+    <div class="flex-item">
+        <h3>上下边内阴影示例</h3>
+        <div class="box boxshadow1"></div>
+    </div>
+
+    <div class="flex-item">
+        <h3>左右边外阴影示例</h3>
+        <div class="box boxshadow2"></div>
+    </div>
+    <div class="flex-item">
+        <h3>多层阴影示例</h3>
+        <div class="box boxshadow3"></div>
+    </div>
+</div>
+</body>
+</html>

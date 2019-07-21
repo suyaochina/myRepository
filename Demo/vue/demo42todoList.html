@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<body>
+<div id="container">
+    <todobox></todobox>
+</div>
+</body>
+<script>
+    var bus = new Vue()
+    Vue.component("todobox", {
+        template: `
+            <div>
+                <todoinput></todoinput>
+                <todolist></todolist>
+            </div>
+        `
+    });
+    Vue.component("todoinput", {
+        data:function(){
+            return{
+                userInput:''
+            }
+        },
+        methods:{
+            addToList:function () {
+                //触发自定义事件，并传值
+                bus.$emit("addEvent",this.userInput)
+                this.userInput = ""
+            }
+        },
+        template: `
+            <div>
+                <h1>待做事项列表</h1>
+                <input type="text" placeholder="请输入要坐的事情" v-model="userInput">
+                <button @click="addToList">add</button>
+            </div>
+        `
+    });
+    Vue.component("todolist", {
+        data:function(){
+            return{
+                myList:[]
+            }
+        },
+        template: `
+            <ul>
+                <todoitem :myConent="tmp" :myIndex="index" v-for="(tmp,index) in myList" :key="index"></todoitem>
+            </ul>
+        `,
+        beforeMount:function () {
+            //事件绑定
+            bus.$on('addEvent', (msg) => {
+                  //content是触发事件所传来的数据
+                console.log(msg)
+                this.myList.push(msg)
+            })
+        }
+    });
+    Vue.component("todoitem", {
+        methods:{
+          deleteFormList:function () {
+              //得到父组件的数组，从数组中删除指定下标的元素
+              this.$parent.myList.splice(this.myIndex,1)
+          }
+        },
+        props:["myIndex","myConent"],
+        template: `
+            <li>
+                <button @click="deleteFormList">delete</button>
+                <span>{{myConent}}</span>
+            </li>
+        `
+    });
+    new Vue({
+        el: "#container",
+        data: {
+            msg: "Hello Vue"
+        }
+    })
+</script>
+</html>

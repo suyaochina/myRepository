@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>常用的数据统计图</title>
+</head>
+<style>
+</style>
+<body>
+<div id="line" style="width:900px;height:300px;outline:1px solid red"></div>
+<script type="text/javascript" src="../jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="../echarts.min.js"></script>
+<script >
+    //折线图
+    var line = echarts.init(document.getElementById('line'));
+    line.setOption({
+        color:["#2b7fa7"],
+        title: {
+            x: 'left',
+            text: '项目数量',
+            textStyle: {
+                fontSize: '14',
+                color: '#4c4c4c',
+                fontWeight: '100'
+            }
+        },
+        tooltip: {
+            //trigger: 'axis'           //鼠标放上去显示竖线
+        },
+        xAxis:  {
+            name:'时间（月份）',
+            nameTextStyle:{
+                fontSize:14
+            },
+            boundaryGap: true,
+            type: 'category',           //起始值是否从0开始
+            data: ['06','07','08','09','10','11','12'],
+            axisLabel: {
+                interval:0,
+                // textStyle:{
+                //     fontSize:25 //  x轴数值的大小
+                // }
+            }
+        },
+        grid:{              //canvas与div的关系
+            x:50,
+            y:50,
+            x2:100,
+            y2:50,
+            borderWidth:1
+        },
+        yAxis: {
+            type: 'value',
+            min:0,
+            max:40,
+            splitNumber:4,          //y轴分几段
+        },
+
+        series: [
+            {
+                //name:'成绩',
+                symbolSize: 10,//拐点大小
+                type:'line',
+                data:[5, 12, 30, 22, 9, 38,11],
+                // markLine: {data: [{type: 'average', name: '平均值'}]}
+                itemStyle : {
+                    normal : {
+                        lineStyle:{
+                            color:"#2b7fa7"//折线颜色
+                        }
+                    }
+                }
+            }
+        ]
+    }) ;
+</script>
+</body>
+</html>

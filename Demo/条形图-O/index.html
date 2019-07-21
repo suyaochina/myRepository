@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="css/style.css" media="screen" type="text/css" />
+</head>
+<style>
+	html,body{margin:0;padding:0;}
+	.skillbar {display:block;margin-bottom:33px;width:60%;background:#eee;height:11px;border-radius:18px;
+		-moz-border-radius:18px;-webkit-border-radius:18px;}
+	.skillbar-title{width:66px;font-size:12px;height:11px;}
+	.skillbar-title:after{content:"";display:block;clear:both;}
+	.skillbar-bar {height:11px;background:#6adcfa;border-radius:18px;-moz-border-radius:18px;-webkit-border-radius:18px;}
+	.skill-bar-percent {font-size:12px;height:11px;line-height:11px;color:#ffffff;color:rgba(0, 0, 0, 0.4);margin-left:5%;}
+	.address{width:50px;height:11px;display:inline-block;text-align:center;line-height:13px;float:left;}
+	.lump{width:11px;font-size:12px;height:11px;display:inline-block;float:left;}
+	.skill:after{content:"";display:block;clear:both;}
+	.skillbar-title,.skillbar,.skill-bar-percent{float:left;}
+</style>
+<body>
+<div class="" style="width:763px;height:351px;border:1px solid red;padding:6% 11%">
+	<div class="skill">
+		<div class="skillbar-title" >
+			<span class="lump" style="background:#d35400;"></span>
+			<span class="address">安徽</span>
+		</div>
+		<div class="skillbar " data-percent="25%">
+			<div class="skillbar-bar" style="background: #e67e22;"></div>
+		</div>
+		<div class="skill-bar-percent">25%</div>
+	</div>
+	<div class="skill">
+		<div class="skillbar-title" >
+			<span class="lump" style="background:#3498db;"></span>
+			<span class="address">河南</span>
+		</div>
+		<div class="skillbar " data-percent="25%">
+			<div class="skillbar-bar" style="background:#3498db;"></div>
+		</div>
+		<div class="skill-bar-percent">25%</div>
+	</div>
+	<div class="skill">
+		<div class="skillbar-title" >
+			<span class="lump" style="background:#2980b9;"></span>
+			<span class="address">江苏</span>
+		</div>
+		<div class="skillbar " data-percent="55%">
+			<div class="skillbar-bar" style="background:#2980b9;"></div>
+		</div>
+		<div class="skill-bar-percent">55%</div>
+	</div>
+	<div class="skill">
+		<div class="skillbar-title" >
+			<span class="lump" style="background:#46465e;"></span>
+			<span class="address">广东</span>
+		</div>
+		<div class="skillbar " data-percent="40%">
+			<div class="skillbar-bar" style="background:#46465e;"></div>
+		</div>
+		<div class="skill-bar-percent">40%</div>
+	</div>
+	<div class="skill">
+		<div class="skillbar-title" >
+			<span class="lump" style="background:#333333;"></span>
+			<span class="address">北京</span>
+		</div>
+		<div class="skillbar " data-percent="75%">
+			<div class="skillbar-bar" style="background:#333333;"></div>
+		</div>
+		<div class="skill-bar-percent">75%</div>
+	</div>
+	<div class="skill">
+		<div class="skillbar-title" >
+			<span class="lump" style="background:#27ae60;"></span>
+			<span class="address">北京</span>
+		</div>
+		<div class="skillbar " data-percent="100%">
+			<div class="skillbar-bar" style="background:#27ae60;"></div>
+		</div>
+		<div class="skill-bar-percent">100%</div>
+	</div>
+</div>
+
+
+</body>
+<script src='js/jquery.js'></script>
+<script >
+    jQuery(document).ready(function(){
+        jQuery('.skillbar').each(function(){
+            jQuery(this).find('.skillbar-bar').animate({
+                width:jQuery(this).attr('data-percent')
+            },1000);
+        });
+    });
+</script>
+</html>

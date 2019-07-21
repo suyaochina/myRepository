@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<body>
+<div id="container">
+    <!--
+        有两个组件，分别是main-component，header-component，mian-component是由header-component和一个列表（有5条数据），
+        header-component是有由一个h1标签：“这是页头”，有一个数据isUserLogin：true
+        在渲染main-component时候，读取header-component在挂载完毕之后通过事件传递来的数据（isUserLogin），根据该数据的真
+        假来决定列表是否显示。
+    -->
+
+    <main-component></main-component>
+</div>
+</body>
+<script>
+    //
+    Vue.component("main-component",{
+        data:function () {
+            return{
+                productList:[100,200,300,400,500],
+                isUserLogin:true
+            }
+        },
+        methods:{
+            recvUserLogin:function (msg) {
+                console.log("接收到事件的值"+msg)
+                this.isUserLogin = msg
+            }
+        },
+        template:`
+                    <div>
+                        <header-component @checkUserLoginEvent="recvUserLogin"></header-component>
+                        <ul v-if="isUserLogin">
+                            <li v-for="tmp in productList">{{tmp}}</li>
+                        </ul>
+                    </div>
+                 `
+    });
+    Vue.component("header-component",{
+        data:function () {
+            return{
+                isLogin:true
+            }
+        },
+        template:`
+                    <h1>这是我们的页头</h1>
+                 `,
+        mounted:function () {
+            //挂载完毕之后，触发子定义事件checkUserLoginEvent
+            this.$emit("checkUserLoginEvent",this.isLogin);
+        }
+    });
+    new Vue({
+        el: "#container",
+        data: {
+            msg: "Hello Vue"
+        }
+    })
+</script>
+</html>

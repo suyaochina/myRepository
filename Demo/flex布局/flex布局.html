@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    .box {
+        display: flex;
+        outline:1px solid blue;
+        /*row:主轴为水平方向，项目沿主轴从左至右排列
+　　　　column：主轴为竖直方向，项目沿主轴从上至下排列
+　　　　row-reverse：主轴水平，项目从右至左排列，与row反向
+　　　　column-reverse：主轴竖直，项目从下至上排列，与column反向*/
+        flex-direction: row-reverse;
+        /*nowrap：自动缩小项目，不换行
+　　　　wrap：换行，且第一行在上方
+　　　　wrap-reverse：换行，第一行在下面*/
+        flex-wrap:wrap;
+        /*flex-start：左对齐
+　　　   flex-end：右对齐
+　　　   center：居中对齐
+　　　   space- between：两端对齐
+　　　   space-around：沿轴线均匀分布*/
+        justify-content:center;
+        /*flex-start：交叉轴的起点对齐。
+         flex-end：交叉轴的终点对齐。
+         center：交叉轴的中点对齐。
+         baseline: 项目的第一行文字的基线对齐。
+         stretch（默认值）：如果项目未设置高度或设为auto，将占满整个容器的高度。*/
+        align-items:flex-start;
+        /*flex-start：与交叉轴的起点对齐。
+         flex-end：与交叉轴的终点对齐。
+         center：与交叉轴的中点对齐。
+         space-between：与交叉轴两端对齐，轴线之间的间隔平均分布。
+         space-around：每根轴线两侧的间隔都相等。所以，轴线之间的间隔比轴线与边框的间隔大一倍。
+         stretch（默认值）：轴线占满整个交叉轴。*/
+        align-content:flex-start;
+        /*auto | flex-start | flex-end | center | baseline | stretch;*/
+
+    }
+    .div {
+        box-sizing:border-box;
+        display: inline-block;
+        /*width: 50px;*/
+        /*height: 50px;*/
+        /*line-height: 50px;*/
+        border: 1px solid red;
+        background:#ff0;
+        text-align: center;
+        order:1;
+        /*order属性定义项目的排列顺序。数值越小，排列越靠前，默认为0。*/
+        flex-grow:0; /* default 0 */
+        /*flex-grow属性定义项目的放大比例，默认为0，即如果存在剩余空间，也不放大*/
+        flex-shrink:1; /* default 1 */
+        /*flex-shrink属性定义了项目的缩小比例，默认为1，即如果空间不足，该项目将缩小。*/
+        flex-basis:auto;
+        /*flex-basis属性定义了在分配多余空间之前，项目占据的主轴空间（main size）。浏览器根据这个属性，计算主轴是否有多余空间。它的默认值为auto，即项目的本来大小*/
+        flex: none; /*| [ <'flex-grow'> <'flex-shrink'>? || <'flex-basis'> ]*/
+        /*flex属性是flex-grow, flex-shrink 和 flex-basis的简写，默认值为0 1 auto。后两个属性可选*/
+        align-self: auto; /*| flex-start | flex-end | center | baseline | stretch;*/
+        /*align-self属性允许单个项目有与其他项目不一样的对齐方式，可覆盖align-items属性。默认值为auto，表示继承父元素的align-items属性，如果没有父元素，则等同于stretch。*/
+    }
+</style>
+<body>
+<div class="box">
+    <div class="div">一</div>
+    <div class="div">二</div>
+    <div class="div">三</div>
+    <div class="div">四</div>
+</div>
+</body>
+</html>

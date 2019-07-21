@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="jquery-1.7.1.min.js"></script>
+    <script src="nicescroll.js"></script>
+</head>
+<style>
+    /*         ie兼容               */
+    .scroll_content {
+        -ms-scroll-chaining: chained;
+        -ms-overflow-style: none;
+        -ms-content-zooming: zoom;
+        -ms-scroll-rails: none;
+        -ms-content-zoom-limit-min: 100%;
+        -ms-content-zoom-limit-max: 500%;
+        -ms-scroll-snap-type: proximity;
+        -ms-scroll-snap-points-x: snapList(100%, 200%, 300%, 400%, 500%);
+        -ms-overflow-style: none;
+        overflow: auto;
+        overflow: -moz-scrollbars-none;
+    }
+</style>
+<body>
+<div class="scroll_content" style="width:200px;height:100px;outline:1px solid red">
+    啊啊啊啊啊
+    啊啊啊啊啊
+    啊啊啊啊啊
+    啊啊啊啊啊
+    啊啊啊啊啊
+    啊啊啊啊啊
+    啊啊啊啊啊
+    啊啊啊啊啊
+    啊啊啊啊啊
+    啊啊啊啊啊
+    啊啊啊啊啊
+    啊啊啊啊啊
+    啊啊啊啊啊
+    啊啊啊啊啊
+    啊啊啊啊啊
+    啊啊啊啊啊
+    啊啊啊啊啊
+    啊啊啊啊啊
+</div>
+</body>
+<script>
+    /*          ff兼容           */
+    $(function () {
+        $(".scroll_content").niceScroll({cursorborder: "", cursorcolor: "rgba(0,0,0,0)", boxzoom: true});
+    })
+</script>
+</html>

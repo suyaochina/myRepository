@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../jquery-1.7.1.min.js"></script>
+</head>
+<body>
+<select id="select" name="select">
+</select>
+<select id="select1"></select>
+</body>
+<script>
+  $(function () {
+    var date = new Date(); // new 一个Date对象
+    var year = date.getFullYear(); // 年份
+    var month = date.getMonth() + 1; // 月份（从0开始，所以应+1）
+    for (var i = month; i >= 1; i--) {
+      if (i < 10) {
+        $("<option value=\""+year +"-0"+i+"\">" + year + "-0" + i + "</option>").appendTo($("#select"));
+        $("<option value=\""+year +"-0"+i+"\">" + year + "-0" + i + "</option>").appendTo($("#select1"));
+      } else {
+        $("<option value=\""+year+"-"+i+"\">" + year + "-" + i + "</option>").appendTo($("#select"));
+        $("<option value=\""+year+"-"+i+"\">" + year + "-" + i + "</option>").appendTo($("#select1"));
+      }
+    }
+    for (var j = year - 1; j > year - 11; j--) {
+      for (var i = 12; i >= 1; i--) {
+        if (i < 10) {
+          $("<option value=\""+j+"-0"+i+"\">" + j + "-0" + i + "</option>").appendTo($("#select"));
+          $("<option value=\""+j+"-0"+i+"\">" + j + "-0" + i + "</option>").appendTo($("#select1"));
+        } else {
+          $("<option value=\""+j+"-"+i+"\">" + j + "-" + i + "</option>").appendTo($("#select"));
+          $("<option value=\""+j+"-"+i+"\">" + j + "-" + i + "</option>").appendTo($("#select1"));
+        }
+      }
+    }
+  })
+  $()
+</script>
+</html>

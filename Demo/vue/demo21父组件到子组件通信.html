@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<body>
+<div id="container">
+    <p>{{msg}}</p>
+    <parent-component></parent-component>
+</div>
+</body>
+<script>
+    //一切都是组件
+    Vue.component("parent-component",{
+        template:`
+            <div>
+                   <h1>这是父组件</h1>
+                   <hr/>
+                   <child-component :myValue="gift"></child-component>
+            </div>
+        `,
+        data:function () {
+            return{
+                gift:'传家宝'
+            }
+        }
+    });
+    Vue.component("child-component",{
+        props:["myValue"],
+        template:`
+            <div>
+                   <h1>这是子组件</h1>
+                   <p>{{"老爹给的礼物"+myValue}}</p>
+            </div>
+        `
+    })
+    new Vue({
+        el: "#container",
+        data: {
+            msg: "Hello Vue"
+        }
+    })
+</script>
+</html>

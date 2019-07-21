@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<body>
+<div id="container">
+    <!--双花括号的作用 在任意标签中执行一个表达式，将表达式的结果输出到当前调用的元素中-->
+    <h1>{{count>totalNum?"数量超过限制":"正常"}}</h1>
+    <h1>{{!hasMore}}</h1>
+    <table style="text-align:center;border:1px solid red;">
+        <thead>
+            <tr>
+                <th>姓名</th>
+                <th>性别</th>
+                <th>年龄</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="tmp in stuList">
+                <!--<td>{{tmp.name}}</td>
+                <td>{{tmp.sex}}</td>
+                <td>{{tmp.age}}</td>-->
+                <td v-for="value in tmp">{{value}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+<script>
+    new Vue({
+        el: "#container",
+        data: {
+            count: 3,
+            totalNum: 10,
+            hasMore: true,
+            stuList: [
+                {name: "小黑", sex: "男", age: "12"},
+                {name: "小白", sex: "女", age: "13"},
+                {name: "小黄", sex: "男", age: "14"},
+                {name: "小红", sex: "男", age: "15"},
+                {name: "小花", sex: "女", age: "16"}
+                ]
+        }
+    })
+</script>
+</html>

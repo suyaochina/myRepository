@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<body>
+<div id="container">
+    <p>{{msg}}</p>
+    <!--调用组件-->
+    <my-article></my-article>
+</div>
+</body>
+<script>
+    //要采用组件化的方式来编写页面，把任何一个可被重用的元素封装成组件
+    //everything is component
+    Vue.component('my-title',{
+        template:'<div><h1>主标题</h1><h2>副标题</h2></div>'
+    })
+    Vue.component('my-detail',{
+        template:'<p>it is some information</p>'
+    })
+    Vue.component('my-article',{
+        template:`<div>
+                    <my-title></my-title>
+                    <my-detail></my-detail>
+                   </div>`
+    })
+    new Vue({
+        el: "#container",
+        data: {
+            msg: "Hello Vue"
+        }
+    })
+</script>
+</html>

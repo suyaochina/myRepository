@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    .flex{display:flex;flex-wrap:wrap;}
+    .flex-item{margin-right:30px;}
+
+    .box {  background-color: #CCCCCC; border-radius:10px; width: 200px; height: 200px;  }
+    .boxshadow1{ box-shadow:inset 0px 0px 5px 1px #000; }
+    .boxshadow2{ box-shadow:inset 0 1px 2px 1px #000; }
+    .boxshadow3{box-shadow:0 0 10px #000;}
+    .boxshadow4{box-shadow:2px 2px 5px #000;}
+    .boxshadow5{box-shadow:0 0 5px 15px #000;}
+    .boxshadow6{box-shadow: 12px 12px 2px 1px rgba(0, 0, 255, .2);}
+</style>
+<body>
+<div class="flex">
+    <div class="flex-item">
+        <h3>内阴影示例</h3>
+        <div class="box boxshadow1"></div>
+    </div>
+    <div class="flex-item">
+        <h3>3边内影示例</h3>
+        <div class="box boxshadow2"></div>
+    </div>
+    <div class="flex-item">
+        <h3>外阴影示例</h3>
+        <div class="box boxshadow3"></div>
+    </div>
+    <div class="flex-item">
+        <h3>右下外阴影示例</h3>
+        <div class="box boxshadow4"></div>
+    </div>
+    <div class="flex-item">
+        <h3>扩大阴影示例</h3>
+        <div class="box boxshadow5"></div>
+    </div>
+    <div class="flex-item">
+        <h3>半透明阴影色示例</h3>
+        <div class="box boxshadow6"></div>
+    </div>
+</div>
+</body>
+</html>

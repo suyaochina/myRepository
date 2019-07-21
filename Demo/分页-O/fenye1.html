@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>无标题文档</title>
+    <script>
+        var a={"code":1,"list":[{"category1_id":"1","category1_name":"\u9152\u6c34\u996e\u6599","category1_intro":"\u6e05\u51c9\u53ef\u53e3\u7684\u9152\u6c34\u996e\u6599","category1_images":"http:\/\/www.songcuomen.com\/attachments\/productType\/2014-01\/10\/21_1389343628.jpg"},{"category1_id":"2","category1_name":"\u7c73\u9762\u7cae\u6cb9","category1_intro":"\u5bb6\u5ead\u5fc5\u5907","category1_images":"http:\/\/www.songcuomen.com\/attachments\/productType\/2014-01\/10\/21_1389343865.jpg"},{"category1_id":"3","category1_name":"\u7f8e\u5bb9\u6d17\u62a4","category1_intro":"\u62a4\u80a4\u5fc5\u5907","category1_images":"http:\/\/www.songcuomen.com\/attachments\/productType\/2014-01\/10\/21_1389343935.jpg"},{"category1_id":"4","category1_name":"\u6e05\u6d01\u6d17\u6da4","category1_intro":"\u7ed9\u60a8\u4e00\u4e2a\u5e72\u51c0\u7684\u751f\u6d3b\u73af\u5883","category1_images":"http:\/\/www.songcuomen.com\/attachments\/productType\/2014-01\/10\/21_1389343986.jpg"},{"category1_id":"5","category1_name":"\u751f\u6d3b\u7528\u54c1","category1_intro":"\u5bb6\u5ead\u5fc5\u5907","category1_images":"http:\/\/www.songcuomen.com\/attachments\/productType\/2014-01\/10\/21_1389344445.jpg"},{"category1_id":"6","category1_name":"\u4f11\u95f2\u98df\u54c1","category1_intro":"\u597d\u5403\u7f8e\u5473","category1_images":"http:\/\/www.songcuomen.com\/attachments\/productType\/2014-01\/10\/21_1389344494.jpg"}]};
+        var y=1;//表示页数
+        var t=2;//表示每页现实几条数据
+        var z=a["list"].length;
+        var zy= Math.ceil(z/t);
+        window.onload=function (){
+            fanye(0);
+        }
+        function fanye(f)
+        {
+            if(y==1 && f==-1)
+            {
+                alert('已经是第一页了');
+                f=0;
+            }
+            if(y==zy && f==1)
+            {
+                alert('已经是最后一页了');
+                f=0;
+            }
+            var otbod=document.getElementById('table').tBodies[0];
+            var s=otbod.rows.length;
+            for(i=0;i<s;i++)
+            {
+
+                otbod.removeChild(otbod.rows[0]);
+            }
+            y+=f;
+            var q=(y-1)*2;//页数-1 乘以每页现实多少条 结果为 本页从第几条开始
+            for(var i=1;i<3;i++)
+            {
+
+                var otr=document.createElement('tr');
+                var otd1=document.createElement('td');
+                var otd2=document.createElement('td');
+                var otd3=document.createElement('td');
+                var otd4=document.createElement('td');
+                otd1.innerHTML=a["list"][q]['category1_id'];
+                otd2.innerHTML=a["list"][q]['category1_name'];
+                otd3.innerHTML=a["list"][q]['category1_intro'];
+                otd4.innerHTML=a["list"][q]['category1_images'];
+                otr.appendChild(otd1);
+                otr.appendChild(otd2);
+                otr.appendChild(otd3);
+                otr.appendChild(otd4);
+                otbod.appendChild(otr);
+                if(q==zy)
+                {
+                    break;
+                }
+                q++;
+            }
+        }
+    </script>
+</head>
+<body>
+<table  border="1" id="table">
+    <thead>
+    <tr><td>category1_id</td><td>category1_name</td><td>category1_intro</td><td>category1_images</td></tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+<a href="javascript:fanye(1);">下一页</a>
+<a href="javascript:fanye(-1);">上一页</a>
+</body>
+</html>  

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<button id="btn1">点击我右击</button>
+<script type="text/javascript">
+  //这一步是为了阻止右击时系统默认的弹出框
+  document.getElementById("btn1").oncontextmenu = function (e) {
+    e.preventDefault();
+  };
+  //在这里你就可以自己定义事件的函数啦
+  document.getElementById("btn1").onmouseup = function (oEvent) {
+    if (!oEvent) {
+      oEvent = window.event
+    }
+    if (oEvent.button == 2) {
+      alert('鼠标右击了')
+    }
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<button onclick="cj()">抽奖</button>
+</body>
+<script>
+
+  function cj () {
+    var redBall = new Array();
+    var redLen = redBall.length;
+    while(redLen<6){
+      var ball = ranNumber(1,34);
+      var flag = true;
+      for(var j=0;j<redLen;j++){
+        if(redBall[j]==ball){
+          flag = false;
+          break;
+        }
+      }
+      if(flag){
+        if(ball<10){
+          redBall.push("0"+ball);
+        }else{
+          redBall.push(ball);
+        }
+      }
+      redLen = redBall.length;
+    }
+    redBall.sort();
+    var blueBall = ranNumber(1,17);
+    if(blueBall<10){
+      blueBall = "0"+blueBall;
+    }
+    function ranNumber(s,e){
+      var staVal = parseFloat(s);
+      var endVal = parseFloat(e);
+      return Math.floor(Math.random()*(endVal-staVal)+staVal);
+    }
+    console.log(redBall.join(',') + "|" + blueBall);
+  }
+</script>
+</html>

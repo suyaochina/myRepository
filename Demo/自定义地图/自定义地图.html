@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../jquery-1.7.1.min.js"></script>
+    <script src="../echarts.min.js"></script>
+</head>
+<body>
+<div id="echartMap">
+
+</div>
+</body>
+<script type="text/javascript">
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('echartMap'));
+    $.get("map.json",function (geoJson) {
+        echarts.registerMap("",geoJson,{})
+    })
+</script>
+</html>

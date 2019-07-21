@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style type="text/css">
+    .wrapper {position: relative;}
+    #input {position: absolute;top: 0;left: 0;opacity: 0;z-index: -10;}
+</style>
+<body>
+<div class="wrapper">
+    <p id="text">我把你当兄弟你却想着复制我？</p>
+    <textarea id="input">这是幕后黑手</textarea>
+    <button onclick="copyText()">copy</button>
+</div>
+</body>
+<script type="text/javascript">
+    function copyText() {
+        var text = document.getElementById("text").innerText;
+        var input = document.getElementById("input");
+        input.value = text; // 修改文本框的内容
+        input.select(); // 选中文本
+        document.execCommand("copy"); // 执行浏览器复制命令
+        alert("复制成功");
+    }
+    /*      ----------------------------------------------*/
+    /**
+     * 一键粘贴
+     * @param  {String} id [需要粘贴的内容]
+     * @param  {String} attr [需要 copy 的属性，默认是 innerText，主要用途例如赋值 a 标签上的 href 链接]
+     *
+     * range + selection
+     *
+     * 1.创建一个 range
+     * 2.把内容放入 range
+     * 3.把 range 放入 selection
+     *
+     * 注意：参数 attr 不能是自定义属性
+     * 注意：对于 user-select: none 的元素无效
+     * 注意：当 id 为 false 且 attr 不会空，会直接复制 attr 的内容
+     */
+    copy (id, attr) {
+        let target = null;
+
+        if (attr) {
+            target = document.createElement('div');
+            target.id = 'tempTarget';
+            target.style.opacity = '0';
+            if (id) {
+                let curNode = document.querySelector('#' + id);
+                target.innerText = curNode[attr];
+            } else {
+                target.innerText = attr;
+            }
+            document.body.appendChild(target);
+        } else {
+            target = document.querySelector('#' + id);
+        }
+
+        try {
+            let range = document.createRange();
+            range.selectNode(target);
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
+            document.execCommand('copy');
+            window.getSelection().removeAllRanges();
+            console.log('复制成功')
+        } catch (e) {
+            console.log('复制失败')
+        }
+
+        if (attr) {
+            // remove temp target
+            target.parentElement.removeChild(target);
+        }
+    }
+</script>
+</html>

@@ -1,0 +1,1143 @@
+<html class="js cssanimations">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>访客后台管理系统</title>
+    <meta name="description" content="工作台首页">
+    <meta name="keywords" content="index">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <link rel="icon" type="image/png" href="../assets/i/favicon.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/i/app-icon72x72@2x.png">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI">
+    <link rel="stylesheet" href="../assets/css/amazeui.css">
+    <link rel="stylesheet" href="../assets/css/admin.css">
+    <link rel="stylesheet" href="../assets/css/amazeui.datetimepicker.css">
+</head>
+<body class="" style="">
+<!--[if lte IE 9]>
+<![endif]-->
+<header class="am-topbar admin-header">
+    <div class="am-topbar-brand" style="background: url(../assets/i/SGM-logo.png); width: 250px; height: 85px">
+        <!--  <strong>上汽集团</strong> <small>访客管理系统</small> -->
+    </div>
+    <div class="am-topbar-brand" style="margin-top: 30px;">
+        <strong><span style="font-size: 20px;">&nbsp;&nbsp;访客预约后台管理系统</span></strong>
+    </div>
+    <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only"
+            data-am-collapse="{target: '#topbar-collapse'}">
+        <span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span>
+    </button>
+    <div class="am-collapse am-topbar-collapse" style="background-color: #ffffff" id="topbar-collapse">
+
+        <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list">
+            <!-- <li class="am-dropdown" data-am-dropdown>
+    <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">
+      <span class="am-icon-users"></span> 管理员 <span class="am-icon-caret-down"></span>
+    </a>
+    <ul class="am-dropdown-content">
+      <li><a href="#"><span class="am-icon-user"></span> 资料</a></li>
+      <li><a href="#"><span class="am-icon-cog"></span> 设置</a></li>
+      <li><a href="#"><span class="am-icon-power-off"></span> 退出</a></li>
+    </ul>
+  </li>-->
+            <li class="am-hide-sm-only" style="margin-top: 45px; width: 320px;"><span style="font-size: 15px;"
+                                                                                      id="userNameDisplay">欢迎您，系统管理员</span>
+            </li>
+            <li class="am-hide-sm-only" style="margin-top: 10px;">&nbsp;&nbsp;&nbsp;&nbsp;<a
+                    href="javascript:location.replace('login.html');"> <span>退出
+							| EXIT</span></a></li>
+        </ul>
+        <input type="hidden" id="uid" value="4593f1fb0c4d40f49531c23200f605d8">
+        <input type="hidden" id="client_token" value="b2ceee4f2349b45cbaf17ce326e357c9190226184935">
+    </div>
+</header>
+
+<div class="am-cf admin-main">
+    <!-- sidebar start -->
+    <div class="admin-sidebar am-offcanvas" id="admin-offcanvas">
+        <div class="am-offcanvas-bar admin-offcanvas-bar">
+            <ul class="am-list admin-sidebar-list" id="menu_div">
+                <li><a href="#" id="index_manager"><span class="am-icon-home"></span> 首页</a></li>
+                <li class="admin-parent"><a class="am-cf" data-am-collapse="{target: '#ul_1000am-icon-tv'}"><span
+                        class="am-icon-tv"></span> 权限管理 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
+                    <ul class="am-list am-collapse admin-sidebar-sub am-in" id="ul_1000am-icon-tv">
+                        <li><a href="javascript:initFunction();" class="am-cf"><span class="am-icon-gear"></span>
+                            菜单管理</a></li>
+                        <li><a href="javascript:initRoleFunction();" class="am-cf"><span class="am-icon-user"></span>
+                            角色权限管理</a></li>
+                        <li><a href="javascript:initRole();" class="am-cf"><span class="am-icon-get-pocket"></span> 角色管理</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="admin-parent"><a class="am-cf" data-am-collapse="{target: '#ul_2000am-icon-sitemap'}"><span
+                        class="am-icon-sitemap"></span> 门岗管理 <span
+                        class="am-icon-angle-right am-fr am-margin-right"></span></a>
+                    <ul class="am-list am-collapse admin-sidebar-sub am-in" id="ul_2000am-icon-sitemap">
+                        <li><a href="javascript:initOrgTree();" class="am-cf"><span class="am-icon-map"></span> 厂区与门岗信息</a>
+                        </li>
+                        <li><a href="javascript:initGateVisitParam();" class="am-cf"><span
+                                class="am-icon-calculator"></span> 门岗预约计划设置</a></li>
+                    </ul>
+                </li>
+                <li class="admin-parent"><a class="am-cf"
+                                            data-am-collapse="{target: '#ul_3000am-icon-user-secret'}"><span
+                        class="am-icon-user-secret"></span> 访客管理 <span
+                        class="am-icon-angle-right am-fr am-margin-right"></span></a>
+                    <ul class="am-list am-collapse admin-sidebar-sub am-in" id="ul_3000am-icon-user-secret">
+                        <li><a href="javascript:initVisitor();" class="am-cf"><span class="am-icon-gear"></span>
+                            访客单查询</a></li>
+                    </ul>
+                </li>
+                <li class="admin-parent"><a class="am-cf"
+                                            data-am-collapse="{target: '#ul_4000am-icon-bell-slash'}"><span
+                        class="am-icon-bell-slash"></span> 黑名单管理 <span
+                        class="am-icon-angle-right am-fr am-margin-right"></span></a>
+                    <ul class="am-list am-collapse admin-sidebar-sub am-in" id="ul_4000am-icon-bell-slash">
+                        <li><a href="javascript:initVisitBlack();" class="am-cf"><span class="am-icon-frown-o"></span>
+                            黑名单</a></li>
+                    </ul>
+                </li>
+                <li class="admin-parent"><a class="am-cf"
+                                            data-am-collapse="{target: '#ul_5000am-icon-user-secret'}"><span
+                        class="am-icon-user-secret"></span> 供应商管理 <span
+                        class="am-icon-angle-right am-fr am-margin-right"></span></a>
+                    <ul class="am-list am-collapse admin-sidebar-sub am-in" id="ul_5000am-icon-user-secret">
+                        <li><a href="javascript:initSupplierManager();" class="am-cf"><span class="am-icon-gear"></span>
+                            长期供应商信息维护</a></li>
+                    </ul>
+                </li>
+                <li class="admin-parent"><a class="am-cf" data-am-collapse="{target: '#ul_6000am-icon-group'}"><span
+                        class="am-icon-group"></span> 用户管理 <span
+                        class="am-icon-angle-right am-fr am-margin-right"></span></a>
+                    <ul class="am-list am-collapse admin-sidebar-sub am-in" id="ul_6000am-icon-group">
+                        <li><a href="javascript:initSysuser();" class="am-cf"><span class="am-icon-male"></span>
+                            用户管理</a></li>
+                    </ul>
+                </li>
+                <li><a href="javascript:location.replace('login.html');"><span class="am-icon-sign-out"></span> 注销</a>
+                </li>
+            </ul>
+            <div class="am-panel am-panel-default admin-sidebar-panel" style="border: 0px;">
+                <!--
+              <div class="am-panel-bd">
+                <p><span class="am-icon-bookmark"></span> 公告</p>
+                <p>时光静好，与君语；细水流年，与君同。—— Amaze UI</p>
+              </div>
+                -->
+            </div>
+
+            <!-- <div class="am-panel am-panel-default admin-sidebar-panel">
+              <div class="am-panel-bd">
+                <p><span class="am-icon-tag"></span> wiki</p>
+                <p>Welcome to the Amaze UI wiki!</p>
+              </div>
+            </div> -->
+        </div>
+    </div>
+    <!-- sidebar end -->
+
+    <!-- content start -->
+    <div class="admin-content" id="admin-content">
+
+
+        <meta charset="utf-8">
+        <script type="text/javascript" src="../assets/js/dtree.js"></script>
+        <script type="text/javascript">
+            function renderTree() {
+                $("#tree-div").html("");
+                d = new dTree('d', '../assets/dtree/');
+                d.add('0', '-1', '上汽通用汽车', 'javascript:void(0);', '', 'javascript:oprate(\'0\',0,1);|javascript:oprate(\'0\',0,2);|javascript:oprate(\'0\',0,3);');
+                doPostBack(contextRoot + '/api/branch/01/viewAll?time=' + new Date().getTime(), function success(jsonObj) {
+                    if (jsonObj != null) {
+                        var index = 0;
+                        var parent_index = 0;
+                        for (var i = 0; i < jsonObj.rows.length; i++) {
+                            index++;
+                            var obj = jsonObj.rows[i];
+                            parent_index = index;
+                            var url = 'javascript:oprate(\'' + obj.id + '\',1,1,\'' + obj.code + "#" + obj.name + '\');|javascript:oprate(\'' + obj.id + '\',1,2,\'' + obj.name + '\');|javascript:oprate(\'' + obj.id + '\',1,3,\'' + obj.name + '\');';
+                            d.add(index, '0', obj.id + "|" + obj.code + "|" + obj.name, "javascript:void(1);", '', url);
+                            if (obj.doors && obj.doors.length > 0) {
+                                for (var j = 0; j < obj.doors.length; j++) {
+                                    index++;
+                                    var objDoor = obj.doors[j];
+                                    var url2 = 'javascript:oprate(\'' + objDoor.id + '\',2,1,\'' + objDoor.name + "#" + objDoor.addr + "#" + objDoor.visitLimit + "#" + objDoor.managerCheckOption + "#" + objDoor.carOption + '\');|javascript:oprate(\'' + objDoor.id + '\',2,2,\'' + objDoor.name + '\');|javascript:oprate(\'' + objDoor.id + '\',2,3,\'' + objDoor.name + '\');';
+                                    d.add(index, parent_index, objDoor.id + "|" + objDoor.name, 'javascript:void(2);', '', url2);
+                                }
+                            }
+                        }
+                    }
+                    $("#tree-div").html(d.toString() + "<div style=\"color: rgba(136,136,136,0.52);\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;提示：可双击节点进行修改</div>");
+                    hoverTree();
+                }, {"uid": uid, "token": token});
+            }
+        </script>
+
+
+        <!-- content start -->
+        <div class="admin-content">
+
+            <div class="am-cf am-padding">
+                <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">厂区与门岗信息</strong> /
+                    <small>维护</small>
+                </div>
+            </div>
+
+            <!-- <div class="am-g">
+              <div class="am-u-sm-12 am-u-md-6">
+                <div class="am-btn-toolbar">
+                  <div class="am-btn-group am-btn-group-xs">
+                    <button type="button" class="am-btn am-btn-default" id="add_item"  data-am-modal="{target: '#form_add', closeViaDimmer: 0, width: 400, height: 225}"><span class="am-icon-plus"></span> 新增</button>
+                    <button type="button" class="am-btn am-btn-default"><span class="am-icon-save"></span> 保存</button>
+                    <button type="button" class="am-btn am-btn-default"><span class="am-icon-archive"></span> 审核</button>
+                    <button type="button" class="am-btn am-btn-default"><span class="am-icon-trash-o"></span> 删除</button>
+                  </div>
+                </div>
+              </div>
+              <div class="am-u-sm-12 am-u-md-3">
+                <div class="am-form-group">
+                  <select data-am-selected="{btnSize: 'sm'}">
+                    <option value="">所有类别</option>
+                    <option value="1">后台管理系统</option>
+                    <option value="2">前端管理系统</option>
+                  </select>
+                </div>
+              </div>
+              <div class="am-u-sm-12 am-u-md-3">
+                <div class="am-input-group am-input-group-sm">
+                  <input type="text" class="am-form-field">
+                  <span class="am-input-group-btn">
+                    <button class="am-btn am-btn-default" type="button">搜索</button>
+                  </span>
+                </div>
+              </div>
+            </div> -->
+
+            <div class="admin-content">
+
+                <div class="admin-content" id="tree-div" style="margin-left: 50px;">
+                    <div class="dtree">
+                        <div class="dTreeNode"><img id="id0" src="../assets/dtree/base.gif" alt=""><a id="sd0"
+                                                                                                      class="node"
+                                                                                                      href="javascript:void(0);"
+                                                                                                      target="javascript:oprate('0',0,1);|javascript:oprate('0',0,2);|javascript:oprate('0',0,3);"
+                                                                                                      onclick="javascript: d.s(0);">上汽通用汽车</a>
+                        </div>
+                        <div id="dd0" class="clip" style="display:block;">
+                            <div class="dTreeNode"><a href="javascript: d.o(1);"><img id="jd1"
+                                                                                      src="../assets/dtree/minus.gif"
+                                                                                      alt=""></a><img id="id1"
+                                                                                                      src="../assets/dtree/folderopen.gif"
+                                                                                                      alt=""><a id="sd1"
+                                                                                                                class="node"
+                                                                                                                href="javascript:void(1);"
+                                                                                                                target="javascript:oprate('1',1,1,'SJQNP#金桥北厂');|javascript:oprate('1',1,2,'金桥北厂');|javascript:oprate('1',1,3,'金桥北厂');"
+                                                                                                                onclick="javascript: d.s(1);">1|SJQNP|金桥北厂</a>
+                            </div>
+                            <div id="dd1" class="clip" style="display:block;">
+                                <div class="dTreeNode"><img src="../assets/dtree/line.gif" alt=""><img
+                                        src="../assets/dtree/joinbottom.gif" alt=""><img id="id2"
+                                                                                         src="../assets/dtree/page.gif"
+                                                                                         alt=""><a id="sd2" class="node"
+                                                                                                   href="javascript:void(2);"
+                                                                                                   target="javascript:oprate('SJQNP0001',2,1,'东一门##200#0#0');|javascript:oprate('SJQNP0001',2,2,'东一门');|javascript:oprate('SJQNP0001',2,3,'东一门');"
+                                                                                                   onclick="javascript: d.s(2);">SJQNP0001|东一门</a>
+                                </div>
+                            </div>
+                            <div class="dTreeNode"><a href="javascript: d.o(3);"><img id="jd3"
+                                                                                      src="../assets/dtree/minus.gif"
+                                                                                      alt=""></a><img id="id3"
+                                                                                                      src="../assets/dtree/folderopen.gif"
+                                                                                                      alt=""><a id="sd3"
+                                                                                                                class=""
+                                                                                                                href="javascript:void(1);"
+                                                                                                                target="javascript:oprate('2',1,1,'PATAC#泛亚厂区');|javascript:oprate('2',1,2,'泛亚厂区');|javascript:oprate('2',1,3,'泛亚厂区');"
+                                                                                                                onclick="javascript: d.s(3);">2|PATAC|泛亚厂区</a>
+                            </div>
+                            <div id="dd3" class="clip" style="display: block;">
+                                <div class="dTreeNode"><img src="../assets/dtree/line.gif" alt=""><img
+                                        src="../assets/dtree/join.gif" alt=""><img id="id4"
+                                                                                   src="../assets/dtree/page.gif"
+                                                                                   alt=""><a id="sd4" class="nodeSel"
+                                                                                             href="javascript:void(2);"
+                                                                                             target="javascript:oprate('PATAC001',2,1,'一号门##10#1#1');|javascript:oprate('PATAC001',2,2,'一号门');|javascript:oprate('PATAC001',2,3,'一号门');"
+                                                                                             onclick="javascript: d.s(4);">PATAC001|一号门</a>
+                                </div>
+                                <div class="dTreeNode"><img src="../assets/dtree/line.gif" alt=""><img
+                                        src="../assets/dtree/joinbottom.gif" alt=""><img id="id5"
+                                                                                         src="../assets/dtree/page.gif"
+                                                                                         alt=""><a id="sd5" class="node"
+                                                                                                   href="javascript:void(2);"
+                                                                                                   target="javascript:oprate('PATAC002',2,1,'二号门##4#1#1');|javascript:oprate('PATAC002',2,2,'二号门');|javascript:oprate('PATAC002',2,3,'二号门');"
+                                                                                                   onclick="javascript: d.s(5);">PATAC002|二号门</a>
+                                </div>
+                            </div>
+                            <div class="dTreeNode"><a href="javascript: d.o(6);"><img id="jd6"
+                                                                                      src="../assets/dtree/plus.gif"
+                                                                                      alt=""></a><img id="id6"
+                                                                                                      src="../assets/dtree/folder.gif"
+                                                                                                      alt=""><a id="sd6"
+                                                                                                                class="node"
+                                                                                                                href="javascript:void(1);"
+                                                                                                                target="javascript:oprate('3',1,1,'SNSNP#北盛北厂');|javascript:oprate('3',1,2,'北盛北厂');|javascript:oprate('3',1,3,'北盛北厂');"
+                                                                                                                onclick="javascript: d.s(6);">3|SNSNP|北盛北厂</a>
+                            </div>
+                            <div id="dd6" class="clip" style="display:none;">
+                                <div class="dTreeNode"><img src="../assets/dtree/line.gif" alt=""><img
+                                        src="../assets/dtree/joinbottom.gif" alt=""><img id="id7"
+                                                                                         src="../assets/dtree/page.gif"
+                                                                                         alt=""><a id="sd7" class="node"
+                                                                                                   href="javascript:void(2);"
+                                                                                                   target="javascript:oprate('SNSNP',2,1,'北一门#复兴路#4006#1#0');|javascript:oprate('SNSNP',2,2,'北一门');|javascript:oprate('SNSNP',2,3,'北一门');"
+                                                                                                   onclick="javascript: d.s(7);">SNSNP|北一门</a>
+                                </div>
+                            </div>
+                            <div class="dTreeNode"><a href="javascript: d.o(8);"><img id="jd8"
+                                                                                      src="../assets/dtree/plus.gif"
+                                                                                      alt=""></a><img id="id8"
+                                                                                                      src="../assets/dtree/folder.gif"
+                                                                                                      alt=""><a id="sd8"
+                                                                                                                class=""
+                                                                                                                href="javascript:void(1);"
+                                                                                                                target="javascript:oprate('4',1,1,'SNSSP#北盛南厂');|javascript:oprate('4',1,2,'北盛南厂');|javascript:oprate('4',1,3,'北盛南厂');"
+                                                                                                                onclick="javascript: d.s(8);">4|SNSSP|北盛南厂</a>
+                            </div>
+                            <div id="dd8" class="clip" style="display:none;">
+                                <div class="dTreeNode"><img src="../assets/dtree/line.gif" alt=""><img
+                                        src="../assets/dtree/join.gif" alt=""><img id="id9"
+                                                                                   src="../assets/dtree/page.gif"
+                                                                                   alt=""><a id="sd9" class="node"
+                                                                                             href="javascript:void(2);"
+                                                                                             target="javascript:oprate('006',2,1,'西1门2#广兰路2#200#0#0');|javascript:oprate('006',2,2,'西1门2');|javascript:oprate('006',2,3,'西1门2');"
+                                                                                             onclick="javascript: d.s(9);">006|西1门2</a>
+                                </div>
+                                <div class="dTreeNode"><img src="../assets/dtree/line.gif" alt=""><img
+                                        src="../assets/dtree/join.gif" alt=""><img id="id10"
+                                                                                   src="../assets/dtree/page.gif"
+                                                                                   alt=""><a id="sd10" class="node"
+                                                                                             href="javascript:void(2);"
+                                                                                             target="javascript:oprate('009',2,1,'东一门#2424#300#1#1');|javascript:oprate('009',2,2,'东一门');|javascript:oprate('009',2,3,'东一门');"
+                                                                                             onclick="javascript: d.s(10);">009|东一门</a>
+                                </div>
+                                <div class="dTreeNode"><img src="../assets/dtree/line.gif" alt=""><img
+                                        src="../assets/dtree/join.gif" alt=""><img id="id11"
+                                                                                   src="../assets/dtree/page.gif"
+                                                                                   alt=""><a id="sd11" class="node"
+                                                                                             href="javascript:void(2);"
+                                                                                             target="javascript:oprate('4',2,1,'CDB11#成都#200#1#0');|javascript:oprate('4',2,2,'CDB11');|javascript:oprate('4',2,3,'CDB11');"
+                                                                                             onclick="javascript: d.s(11);">4|CDB11</a>
+                                </div>
+                                <div class="dTreeNode"><img src="../assets/dtree/line.gif" alt=""><img
+                                        src="../assets/dtree/joinbottom.gif" alt=""><img id="id12"
+                                                                                         src="../assets/dtree/page.gif"
+                                                                                         alt=""><a id="sd12"
+                                                                                                   class="node"
+                                                                                                   href="javascript:void(2);"
+                                                                                                   target="javascript:oprate('CDB1002',2,1,'二号门##200#1#0');|javascript:oprate('CDB1002',2,2,'二号门');|javascript:oprate('CDB1002',2,3,'二号门');"
+                                                                                                   onclick="javascript: d.s(12);">CDB1002|二号门</a>
+                                </div>
+                            </div>
+                            <div class="dTreeNode"><a href="javascript: d.o(13);"><img id="jd13"
+                                                                                       src="../assets/dtree/plusbottom.gif"
+                                                                                       alt=""></a><img id="id13"
+                                                                                                       src="../assets/dtree/folder.gif"
+                                                                                                       alt=""><a
+                                    id="sd13" class="" href="javascript:void(1);"
+                                    target="javascript:oprate('C',1,1,'FANYA#泛亚新园区');|javascript:oprate('C',1,2,'泛亚新园区');|javascript:oprate('C',1,3,'泛亚新园区');"
+                                    onclick="javascript: d.s(13);">C|FANYA|泛亚新园区</a></div>
+                            <div id="dd13" class="clip" style="display:none;">
+                                <div class="dTreeNode"><img src="../assets/dtree/empty.gif" alt=""><img
+                                        src="../assets/dtree/joinbottom.gif" alt=""><img id="id14"
+                                                                                         src="../assets/dtree/page.gif"
+                                                                                         alt=""><a id="sd14"
+                                                                                                   class="node"
+                                                                                                   href="javascript:void(2);"
+                                                                                                   target="javascript:oprate('PANEW001',2,1,'新泛亚1门##200#0#0');|javascript:oprate('PANEW001',2,2,'新泛亚1门');|javascript:oprate('PANEW001',2,3,'新泛亚1门');"
+                                                                                                   onclick="javascript: d.s(14);">PANEW001|新泛亚1门</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="color: rgba(136,136,136,0.52);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;提示：可双击节点进行修改</div>
+                </div>
+                <form name="menuForm" method="post">
+                    <div class="dtree" style="overflow: auto;margin:5px 10px 50px 50px;">
+                        <!--循环为树添加内容-->
+                        <script>
+
+                            renderTree();
+
+                            /* d.add('${t.menuId}', '${t.parentId}', '${t.menuId}|${t.menuName}',
+                                    'javascript:oprate(\'${t.menuId}\',1);|javascript:oprate(\'${t.menuId}\',2);|javascript:oprate(\'${t.menuId}\',3);',
+                                    '', 'menu'); */
+                        </script>
+                    </div>
+
+                </form>
+
+                <ul class="am-dropdown-content" id="menuList" style="top: 91px; left: 977px; display: none;">
+                    <li class="am-dropdown-header" id="menu_title">PATAC001|一号门</li>
+                    <li><a href="javascript:oprate('PATAC001',2,1,'一号门##10#1#1');" id="toEdit">修改</a>
+                    </li>
+                    <li><a href="javascript:oprate('PATAC001',2,2,'一号门');" id="toDel">删除</a>
+                    </li>
+                    <li><a href="javascript:oprate('2',1,3,'泛亚厂区');" id="toAddSub" style="display: none;">增加门岗</a>
+                    </li>
+                    <!-- <li class="divider"></li>
+                    <li><a href="javascript:$('#menuList').hide();">取消</a> -->
+
+                </ul>
+                <script type="text/javascript">
+                    function showInfo(info) {
+                        $("#alert_info").html(info);
+                        $("#my-alert").show();
+                    }
+
+
+                    var MouseEvent = function (e) {
+                        this.x = e.pageX
+                        this.y = e.pageY
+                    }
+                    var Mouse = function (e) {
+                        var kdheight = jQuery(document).scrollTop();
+                        mouse = new MouseEvent(e);
+                        leftpos = mouse.x;
+                        toppos = mouse.y - kdheight;
+                    }
+                    //单击后隐藏编辑菜单
+                    $(function () {
+                        $(document).click(function () {
+                            $("#menuList").hide();
+                        });
+                    });
+
+                    //给菜单树节点增加hover显示编辑菜单事件
+                    function hoverTree() {
+                        jQuery(".node,.nodeSel").hover(function (e) {
+                            Mouse(e);
+                            $("#menu_title").html($(this).html());
+                            $(".nodeSel").removeClass("nodeSel");
+                            $(this).attr('class', 'nodeSel');
+                            if (this.href == 'javascript:void(0);') {
+                                $("#toEdit").hide();
+                                $("#toDel").hide();
+                            } else {
+                                $("#toEdit").attr('href', this.target.split("\|")[0]);
+                                $("#toDel").attr('href', this.target.split("\|")[1]);
+                                $("#toEdit").show();
+                                $("#toDel").show();
+                            }
+                            if (this.href == 'javascript:void(1);' || this.href == 'javascript:void(0);') {//厂区
+                                $("#toAddSub").attr('href', this.target.split("\|")[2]);
+                                $("#toAddSub").show();
+                                $("#toAddSub").html(this.href == 'javascript:void(0);' ? "增加厂区" : "增加门岗");
+                            } else {
+                                $("#toAddSub").hide();
+                            }
+                            $("#menuList").hide();
+                            $("#menuList").css({
+                                top: toppos,
+                                left: leftpos
+                            }).fadeIn(100);
+                        });
+
+
+                        jQuery(".node,.nodeSel").dblclick(function () {
+                            alert("1111111")
+                            $("#menu_title").html($(this).html());
+                            $(".nodeSel").removeClass("nodeSel");
+                            $(this).attr('class', 'nodeSel');
+
+                            if (this.href == 'javascript:void(0);') {
+                                $("#toEdit").hide();
+                                $("#toDel").hide();
+                            } else {
+                                eval(this.target.split("\|")[0]);
+                            }
+                            $("#menuList").hide();
+                            $("#menuList").css({
+                                top: toppos,
+                                left: leftpos
+                            }).fadeIn(100);
+                        });
+                    }
+
+                    /**
+                     *菜单的增加、修改、删除
+                     **/
+                    function oprate(objId, type, opType, name) {
+                        if (opType == 1) {//修改
+                            if (type == "1") {//修改厂区
+                                $("#branchId_edit").val(objId);
+                                $("#branchCode_edit").val(name.split("#")[0]);
+                                $("#branchName_edit").val(name.split("#")[1]);
+                                $('#edit_branch_div').modal({
+                                    relatedTarget: this,
+                                    closeOnConfirm: false,
+                                    onConfirm: function (e) {
+                                        var branchName = $("#branchName_edit").val();
+                                        var branchId = $("#branchId_edit").val();
+                                        var branchCode = $("#branchCode_edit").val();
+                                        if (branchId == "") {
+                                            $("#branchIdTog_edit").html("<font color='red'>*不能为空</font>");
+                                            return;
+                                        } else {
+                                            $("#branchIdTog_edit").html("");
+                                        }
+                                        if (branchName == "") {
+                                            $("#branchNameTog_edit").html("<font color='red'>*不能为空</font>");
+                                            return;
+                                        } else {
+                                            $("#branchNameTog_edit").html("");
+                                        }
+                                        if (branchCode == "") {
+                                            $("#branchCodeTog_edit").html("<font color='red'>*不能为空</font>");
+                                            return;
+                                        } else {
+                                            $("#branchCodeTog_edit").html("");
+                                        }
+                                        doPostBack(contextRoot + '/api/branch/01/update', function success(jsonObj) {
+                                            if (jsonObj != null) {
+                                                alert(jsonObj.description);
+                                                if (jsonObj.result == '00') {
+                                                    renderTree();
+                                                    //关闭窗口
+                                                    $("#branchName_edit").val("");
+                                                    $("#branchCode_edit").val("");
+                                                    $('#edit_branch_div').modal('close');
+                                                }
+                                            } else {
+                                                alert("处理出错，通讯无响应！");
+                                            }
+
+                                        }, {
+                                            "uid": uid,
+                                            "token": token,
+                                            "code": branchCode,
+                                            "name": branchName,
+                                            "id": branchId
+                                        });
+                                    },
+                                    onCancel: function (e) {
+                                    }
+                                });
+                            } else if (type == "2") {//修改门岗
+                                $('#branchIdTmp').val(objId);
+                                $("#doorId_edit").val(objId);
+                                $("#doorName_edit").val(name.split("#")[0]);
+                                $("#doorAddr_edit").val(name.split("#")[1]);
+                                $("#visitLimit_edit").val(name.split("#")[2]);
+
+                                // alert(name.split("#")[3]+"|"+name.split("#")[4]);
+                                // $("#managerCheckOption_edit").attr("checked", name.split("#")[3]=='1');
+                                // $("#carOption_edit").attr("checked", name.split("#")[4]=='1');
+
+                                document.getElementById("managerCheckOption_edit").checked = (name.split("#")[3] == '1')
+                                document.getElementById("carOption_edit").checked = (name.split("#")[4] == '1')
+
+                                $('#edit_door_div').modal({
+                                    relatedTarget: this,
+                                    closeOnConfirm: false,
+                                    onConfirm: function (e) {
+                                        var doorName = $("#doorName_edit").val();
+                                        var doorId = $("#doorId_edit").val();
+                                        var doorAddr = $("#doorAddr_edit").val();
+                                        if (doorId == "") {
+                                            $("#doorIdTog_edit").html("<font color='red'>*不能为空</font>");
+                                            return;
+                                        } else {
+                                            $("#doorIdTog_edit").html("");
+                                        }
+                                        if (doorName == "") {
+                                            $("#doorNameTog_edit").html("<font color='red'>*不能为空</font>");
+                                            return;
+                                        } else {
+                                            $("#doorNameTog_edit").html("");
+                                        }
+                                        var managerCheckOption = $("#managerCheckOption_edit").prop("checked") ? "1" : "0";
+                                        var carOption = $("#carOption_edit").prop("checked") ? "1" : "0";
+                                        var visitLimit = $("#visitLimit_edit").val() == "" ? "0" : $("#visitLimit_edit").val();
+                                        doPostBack(contextRoot + '/api/branch/01/updateDoor', function success(jsonObj) {
+                                            if (jsonObj != null) {
+                                                alert(jsonObj.description);
+                                                if (jsonObj.result == '00') {
+                                                    renderTree();
+                                                    //关闭窗口
+                                                    $('#edit_door_div').modal('close');
+                                                }
+                                            } else {
+                                                alert("处理出错，通讯无响应！");
+                                            }
+
+                                        }, {
+                                            "uid": uid,
+                                            "token": token,
+                                            "addr": doorAddr,
+                                            "name": doorName,
+                                            "id": doorId,
+                                            "managerCheckOption": managerCheckOption,
+                                            "carOption": carOption,
+                                            "visitLimit": visitLimit
+                                        });
+                                    },
+                                    onCancel: function (e) {
+                                    }
+                                });
+                            }
+                        } else if (opType == 2) {//删除
+                            $("#del_item_name").html(name + "");
+                            if (type == "1") {//删除厂区
+                                $("#del_id").val(objId);
+                                $('#del_item').modal({
+                                    relatedTarget: this,
+                                    closeOnConfirm: false,
+                                    onConfirm: function (e) {
+                                        doPostBack(contextRoot + '/api/branch/01/del', function success(jsonObj) {
+                                            if (jsonObj != null) {
+                                                alert(jsonObj.description);
+                                                if (jsonObj.result == '00') {
+                                                    renderTree();
+                                                    //关闭窗口
+                                                    $('#del_item').modal('close');
+                                                }
+                                            } else {
+                                                alert("处理出错，通讯无响应！");
+                                            }
+                                        }, {"uid": uid, "token": token, "id": $("#del_id").val()});
+                                    },
+                                    onCancel: function (e) {
+                                    }
+                                });
+                            } else if (type == "2") {//删除门岗
+                                $('#delItemId').val(objId);
+                                $('#del_item').modal({
+                                    relatedTarget: this,
+                                    closeOnConfirm: false,
+                                    onConfirm: function (e) {
+                                        doPostBack(contextRoot + '/api/branch/01/delDoor', function success(jsonObj) {
+                                            if (jsonObj != null) {
+                                                alert(jsonObj.description);
+                                                if (jsonObj.result == '00') {
+                                                    renderTree();
+                                                    //关闭窗口
+                                                    $('#del_item').modal('close');
+                                                }
+                                            } else {
+                                                alert("处理出错，通讯无响应！");
+                                            }
+
+                                        }, {"uid": uid, "token": token, "id": $('#delItemId').val()});
+                                    },
+                                    onCancel: function (e) {
+                                    }
+                                });
+                            }
+
+                        } else {//增加子菜单
+                            if (type == "0") {//增加厂区
+                                $('#add_branch_div').modal({
+                                    relatedTarget: this,
+                                    closeOnConfirm: false,
+                                    onConfirm: function (e) {
+                                        var branchName = $("#branchName").val();
+                                        var branchId = $("#branchId").val();
+                                        var branchCode = $("#branchCode").val();
+                                        if (branchId == "") {
+                                            $("#branchIdTog").html("<font color='red'>*不能为空</font>");
+                                            return;
+                                        } else {
+                                            $("#branchIdTog").html("");
+                                        }
+                                        if (branchName == "") {
+                                            $("#branchNameTog").html("<font color='red'>*不能为空</font>");
+                                            return;
+                                        } else {
+                                            $("#branchNameTog").html("");
+                                        }
+                                        if (branchCode == "") {
+                                            $("#branchCodeTog").html("<font color='red'>*不能为空</font>");
+                                            return;
+                                        } else {
+                                            $("#branchCodeTog").html("");
+                                        }
+                                        doPostBack(contextRoot + '/api/branch/01/add', function success(jsonObj) {
+                                            if (jsonObj != null) {
+                                                alert(jsonObj.description);
+                                                if (jsonObj.result == '00') {
+                                                    renderTree();
+                                                    //关闭窗口
+                                                    $("#branchName").val("");
+                                                    $("#branchCode").val("");
+                                                    $('#add_branch_div').modal('close');
+                                                }
+                                            } else {
+                                                alert("处理出错，通讯无响应！");
+                                            }
+
+                                        }, {
+                                            "uid": uid,
+                                            "token": token,
+                                            "code": branchCode,
+                                            "name": branchName,
+                                            "id": branchId
+                                        });
+                                    },
+                                    onCancel: function (e) {
+                                        $("#branchName").val("");
+                                        $("#branchCode").val("");
+                                    }
+                                });
+                            } else if (type == "1") {//增加门岗
+                                $('#branchIdTmp').val(objId);
+                                $('#add_door_div').modal({
+                                    relatedTarget: this,
+                                    closeOnConfirm: false,
+                                    onConfirm: function (e) {
+                                        var doorName = $("#doorName").val();
+                                        var doorId = $("#doorId").val();
+                                        var doorAddr = $("#doorAddr").val();
+                                        if (doorId == "") {
+                                            $("#doorIdTog").html("<font color='red'>*不能为空</font>");
+                                            return;
+                                        } else {
+                                            $("#doorIdTog").html("");
+                                        }
+                                        if (doorName == "") {
+                                            $("#doorNameTog").html("<font color='red'>*不能为空</font>");
+                                            return;
+                                        } else {
+                                            $("#doorNameTog").html("");
+                                        }
+                                        var managerCheckOption = $("#managerCheckOption").checked ? "1" : "0";
+                                        var carOption = $("#carOption").checked ? "1" : "0";
+                                        var visitLimit = $("#visitLimit").val() == "" ? "0" : $("#visitLimit").val();
+                                        doPostBack(contextRoot + '/api/branch/01/addDoor', function success(jsonObj) {
+                                            if (jsonObj != null) {
+                                                alert(jsonObj.description);
+                                                if (jsonObj.result == '00') {
+                                                    renderTree();
+                                                    //关闭窗口
+                                                    $("#branchName").val("");
+                                                    $("#branchCode").val("");
+                                                    $('#add_door_div').modal('close');
+                                                }
+                                            } else {
+                                                alert("处理出错，通讯无响应！");
+                                            }
+
+                                        }, {
+                                            "uid": uid,
+                                            "token": token,
+                                            "addr": doorAddr,
+                                            "name": doorName,
+                                            "branchId": $('#branchIdTmp').val(),
+                                            "id": doorId,
+                                            "managerCheckOption": managerCheckOption,
+                                            "carOption": carOption,
+                                            "visitLimit": visitLimit
+                                        });
+                                    },
+                                    onCancel: function (e) {
+                                        $("#branchName").val("");
+                                        $("#branchCode").val("");
+                                    }
+                                });
+                            }
+                        }
+                    }
+
+                </script>
+            </div>
+        </div>
+        <!-- content end -->
+
+
+        <!-- 菜单内容 begin -->
+        <!-- 新增  begin-->
+        <div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
+            <div class="am-modal-dialog">
+                <div class="am-modal-hd">提示</div>
+                <div class="am-modal-bd" id="alert_info">
+                </div>
+                <div class="am-modal-footer">
+                    <span class="am-modal-btn">确定</span>
+                </div>
+            </div>
+        </div>
+        <div class="am-modal am-modal-prompt" tabindex="-1" id="add_branch_div">
+            <div class="am-modal-dialog">
+                <div class="am-modal-hd">新增厂区</div>
+                <div class="am-modal-bd">
+                    <form class="am-form">
+                        <div class="am-g am-margin-top">
+                            <div class="am-u-sm-4 am-u-md-2 am-text-right" style="width:100px;">
+                                编号
+                            </div>
+                            <div class="am-u-sm-8 am-u-md-4">
+                                <input id="branchId" type="text" class="am-input-sm" style="width:300px;">
+                            </div>
+                            <div class="am-hide-sm-only am-u-md-6" id="branchIdTog"></div>
+                        </div>
+                        <div class="am-g am-margin-top">
+                            <div class="am-u-sm-4 am-u-md-2 am-text-right" style="width:100px;">
+                                名称
+                            </div>
+                            <div class="am-u-sm-8 am-u-md-4">
+                                <input id="branchName" type="text" class="am-input-sm" style="width:300px;">
+                            </div>
+                            <div class="am-hide-sm-only am-u-md-6" id="branchNameTog"></div>
+                        </div>
+                        <div class="am-g am-margin-top">
+                            <div class="am-u-sm-4 am-u-md-2 am-text-right" style="width:100px;">
+                                代码
+                            </div>
+                            <div class="am-u-sm-8 am-u-md-4">
+                                <input id="branchCode" type="text" maxlength="10" class="am-input-sm"
+                                       style="width:300px;" onblur="this.value=this.value.toUpperCase();">
+                            </div>
+                            <div class="am-hide-sm-only am-u-md-6" id="branchCodeTog"></div>
+                        </div>
+                    </form>
+                </div>
+                <div class="am-modal-footer">
+                    <span class="am-modal-btn" data-am-modal-cancel="">取消</span>
+                    <span id="btn_add_branch" class="am-modal-btn" data-am-modal-confirm="">提交</span>
+                </div>
+            </div>
+        </div>
+        <div class="am-modal am-modal-prompt" tabindex="-1" id="add_door_div">
+            <div class="am-modal-dialog">
+                <div class="am-modal-hd">增加门岗</div>
+                <div class="am-modal-bd">
+                    <form class="am-form">
+                        <div class="am-g am-margin-top">
+                            <div class="am-u-sm-4 am-u-md-2 am-text-right" style="width:150px;">
+                                编号
+                            </div>
+                            <div class="am-u-sm-8 am-u-md-4">
+                                <input type="text" class="am-input-sm" style="width:200px;" id="doorId">
+                            </div>
+                            <div class="am-hide-sm-only am-u-md-6" id="doorIdTog"></div>
+                        </div>
+                        <div class="am-g am-margin-top">
+                            <div class="am-u-sm-4 am-u-md-2 am-text-right" style="width:150px;">
+                                名称
+                            </div>
+                            <div class="am-u-sm-8 am-u-md-4">
+                                <input type="text" class="am-input-sm" style="width:200px;" id="doorName">
+                            </div>
+                            <div class="am-hide-sm-only am-u-md-6" id="doorNameTog"></div>
+                        </div>
+                        <div class="am-g am-margin-top">
+                            <div class="am-u-sm-4 am-u-md-2 am-text-right" style="width:150px;">
+                                地址
+                            </div>
+                            <div class="am-u-sm-8 am-u-md-4">
+                                <input type="text" class="am-input-sm" style="width:200px;" id="doorAddr">
+                            </div>
+                            <div class="am-hide-sm-only am-u-md-6"></div>
+                        </div>
+                        <div class="am-g am-margin-top">
+                            <div class="am-u-sm-4 am-u-md-2 am-text-right" style="width:150px;">
+                                访客预约限额
+                            </div>
+                            <div class="am-u-sm-8 am-u-md-4">
+                                <input type="text" class="am-input-sm" style="width:200px;" id="visitLimit">
+                            </div>
+                            <div class="am-hide-sm-only am-u-md-6" style="font-size: 0.7em;text-align: center;">
+                                不填或填零表示不限制
+                            </div>
+                        </div>
+                        <div class="am-g am-margin-top">
+                            <div class="am-u-sm-4 am-u-md-2 am-text-right" style="width:150px;">
+                                预约审批功能
+                            </div>
+                            <div class="am-u-sm-8 am-u-md-4" style="text-align: left;">
+                                <input type="checkbox" id="managerCheckOption">开启
+                            </div>
+                            <div class="am-hide-sm-only am-u-md-6" style="font-size: 0.7em;text-align: center;"></div>
+                        </div>
+                        <div class="am-g am-margin-top">
+                            <div class="am-u-sm-4 am-u-md-2 am-text-right" style="width:150px;">
+                                车辆预约功能
+                            </div>
+                            <div class="am-u-sm-8 am-u-md-4" style="text-align: left;">
+                                <input type="checkbox" id="carOption">开启
+                            </div>
+                            <div class="am-hide-sm-only am-u-md-6" style="font-size: 0.7em;text-align: center;"></div>
+                        </div>
+                    </form>
+                </div>
+                <div class="am-modal-footer">
+                    <span class="am-modal-btn" data-am-modal-cancel="">取消</span>
+                    <span id="btn_add_door" class="am-modal-btn" data-am-modal-confirm="">提交</span>
+                </div>
+            </div>
+        </div>
+        <div class="am-modal am-modal-prompt" tabindex="-1" id="edit_branch_div">
+            <div class="am-modal-dialog">
+                <div class="am-modal-hd">修改厂区</div>
+                <div class="am-modal-bd">
+                    <form class="am-form">
+                        <div class="am-g am-margin-top">
+                            <div class="am-u-sm-4 am-u-md-2 am-text-right" style="width:100px;">
+                                编号
+                            </div>
+                            <div class="am-u-sm-8 am-u-md-4">
+                                <input id="branchId_edit" type="text" readonly="readonly" class="am-input-sm"
+                                       style="width:300px;">
+                            </div>
+                            <div class="am-hide-sm-only am-u-md-6" id="branchIdTog_edit"></div>
+                        </div>
+                        <div class="am-g am-margin-top">
+                            <div class="am-u-sm-4 am-u-md-2 am-text-right" style="width:100px;">
+                                名称
+                            </div>
+                            <div class="am-u-sm-8 am-u-md-4">
+                                <input id="branchName_edit" type="text" class="am-input-sm" style="width:300px;">
+                            </div>
+                            <div class="am-hide-sm-only am-u-md-6" id="branchNameTog_edit"></div>
+                        </div>
+                        <div class="am-g am-margin-top">
+                            <div class="am-u-sm-4 am-u-md-2 am-text-right" style="width:100px;">
+                                代码
+                            </div>
+                            <div class="am-u-sm-8 am-u-md-4">
+                                <input id="branchCode_edit" type="text" maxlength="10" class="am-input-sm"
+                                       style="width:300px;" onblur="this.value=this.value.toUpperCase();">
+                            </div>
+                            <div class="am-hide-sm-only am-u-md-6" id="branchCodeTog_edit"></div>
+                        </div>
+                    </form>
+                </div>
+                <div class="am-modal-footer">
+                    <span class="am-modal-btn" data-am-modal-cancel="">取消</span>
+                    <span id="btn_edit_branch" class="am-modal-btn" data-am-modal-confirm="">提交</span>
+                </div>
+            </div>
+        </div>
+        <div class="am-modal am-modal-prompt am-modal-out" tabindex="-1" id="edit_door_div"
+             style="display: none; margin-top: -164px;">
+            <div class="am-modal-dialog">
+                <div class="am-modal-hd">修改门岗</div>
+                <div class="am-modal-bd">
+                    <form class="am-form">
+                        <div class="am-g am-margin-top">
+                            <div class="am-u-sm-4 am-u-md-2 am-text-right" style="width:150px;">
+                                编号
+                            </div>
+                            <div class="am-u-sm-8 am-u-md-4">
+                                <input type="text" class="am-input-sm" readonly="readonly" style="width:200px;"
+                                       id="doorId_edit">
+                            </div>
+                            <div class="am-hide-sm-only am-u-md-6" id="doorIdTog_edit"></div>
+                        </div>
+                        <div class="am-g am-margin-top">
+                            <div class="am-u-sm-4 am-u-md-2 am-text-right" style="width:150px;">
+                                名称
+                            </div>
+                            <div class="am-u-sm-8 am-u-md-4">
+                                <input type="text" class="am-input-sm" style="width:200px;" id="doorName_edit">
+                            </div>
+                            <div class="am-hide-sm-only am-u-md-6" id="doorNameTog_edit"></div>
+                        </div>
+                        <div class="am-g am-margin-top">
+                            <div class="am-u-sm-4 am-u-md-2 am-text-right" style="width:150px;">
+                                地址
+                            </div>
+                            <div class="am-u-sm-8 am-u-md-4">
+                                <input type="text" class="am-input-sm" style="width:200px;" id="doorAddr_edit">
+                            </div>
+                            <div class="am-hide-sm-only am-u-md-6"></div>
+                        </div>
+                        <div class="am-g am-margin-top">
+                            <div class="am-u-sm-4 am-u-md-2 am-text-right" style="width:150px;">
+                                访客预约限额
+                            </div>
+                            <div class="am-u-sm-8 am-u-md-4">
+                                <input type="text" class="am-input-sm" style="width:200px;" id="visitLimit_edit">
+                            </div>
+                            <div class="am-hide-sm-only am-u-md-6" style="font-size: 0.7em;text-align: center;">
+                                不填或填零表示不限制
+                            </div>
+                        </div>
+                        <div class="am-g am-margin-top">
+                            <div class="am-u-sm-4 am-u-md-2 am-text-right" style="width:150px;">
+                                预约审批功能
+                            </div>
+                            <div class="am-u-sm-8 am-u-md-4" style="text-align: left;">
+                                <input type="checkbox" id="managerCheckOption_edit">开启
+                            </div>
+                            <div class="am-hide-sm-only am-u-md-6" style="font-size: 0.7em;text-align: center;"></div>
+                        </div>
+                        <div class="am-g am-margin-top">
+                            <div class="am-u-sm-4 am-u-md-2 am-text-right" style="width:150px;">
+                                车辆预约功能
+                            </div>
+                            <div class="am-u-sm-8 am-u-md-4" style="text-align: left;">
+                                <input type="checkbox" id="carOption_edit">开启
+                            </div>
+                            <div class="am-hide-sm-only am-u-md-6" style="font-size: 0.7em;text-align: center;"></div>
+                        </div>
+                    </form>
+                </div>
+                <div class="am-modal-footer">
+                    <span class="am-modal-btn" data-am-modal-cancel="">取消</span>
+                    <span id="btn_edit_door" class="am-modal-btn" data-am-modal-confirm="">提交</span>
+                </div>
+            </div>
+        </div>
+        <div class="am-modal am-modal-prompt" tabindex="-1" id="del_item">
+            <div class="am-modal-dialog">
+                <div class="am-modal-hd">您确定要删除吗？</div>
+                <div class="am-modal-bd">
+                    <form class="am-form">
+                        <div class="am-g am-margin-top">
+                            <div class="am-u-sm-4 am-u-md-2 am-text-right" style="width:100px;">
+                                名称
+                            </div>
+                            <div class="am-u-sm-8 am-u-md-4">
+                                <label id="del_item_name"></label>
+                                <input type="hidden" class="am-input-sm" style="width:300px;">
+                                <input type="hidden" id="del_id">
+                            </div>
+                            <div class="am-hide-sm-only am-u-md-6"></div>
+                        </div>
+                    </form>
+                </div>
+                <div class="am-modal-footer">
+                    <span class="am-modal-btn" data-am-modal-cancel="">取消</span>
+                    <span class="am-modal-btn" data-am-modal-confirm="">提交</span>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- 新增  end-->
+        <!-- 菜单内容 end -->
+        <input type="hidden" id="branchIdTmp" value="PATAC001">
+        <input type="hidden" id="delItemId">
+
+
+    </div>
+    <!-- content end -->
+
+    <div class="am-modal am-modal-prompt" style="overflow: auto; height: 700px; width: 900px;margin-left:-400px;"
+         tabindex="-1" id="showVisitInfo">
+        <div class="am-modal-dialog">
+            <div class="am-modal-hd">访客单详情</div>
+            <div class="am-modal-bd" id="visit_content_x"></div>
+            <div class="am-modal-footer" style="margin-bottom: 10px;">
+                <span id="btn_visit_confirm" class="am-modal-btn" style="display: none;"
+                      data-am-modal-confirm="">确认|OK</span>
+                <span class="am-modal-btn" id="btn_visit_cancel" data-am-modal-cancel="">关闭|Close</span>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<a href="#" class="am-show-sm-only admin-menu" data-am-offcanvas="{target: '#admin-offcanvas'}">
+    <span class="am-icon-btn am-icon-th-list"></span>
+</a>
+
+<footer>
+    <hr>
+    <p class="am-padding-left">© 2016 上汽通用汽车</p>
+</footer>
+
+<!--[if lt IE 9]>
+<script src="../assets/js/jquery.min.js"></script>
+<script src="../assets/js/modernizr.js"></script>
+<script src="../assets/js/amazeui.ie8polyfill.min.js"></script>
+<![endif]-->
+
+<script src="../assets/js/jquery.min.js"></script>
+<script src="../assets/js/amazeui.min.js"></script>
+<script src="../assets/js/app.js"></script>
+<script src="../assets/js/config.js"></script>
+<script src="../assets/js/saic.js"></script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var x = GetQueryString("id");
+        var y = GetQueryString("token");
+        if (x != null) {
+            $("#uid").val(x);
+            $("#client_token").val(y);
+            uid = x;
+            $("#index_manager").attr('href', "javascript:initAdminIndex('" + uid + "','" + y + "');");
+            $("#initVisitorURL").attr('href', "javascript:initVisitor('" + uid + "','" + y + "');");
+        } else {
+            window.location = "login.html";
+        }
+        doPostBack(contextRoot + '/api/admin/01/getSysUserById', function success(jsonObjx) {
+            //branchSet = jsonObj;
+            if (jsonObjx == null || jsonObjx.result != "00") {
+                alert("非法访问，即将退出\nIllegally Visit, will exit now");
+                window.close();
+            }
+            if (jsonObjx != null) {
+                if ($("#userNameDisplay").html() == "") {
+                    $("#userNameDisplay").html("欢迎您，" + jsonObjx.data.userName);
+                    $("#userName").val(jsonObjx.data.userName);
+                }
+            }
+
+        }, {
+            "id": uid,
+            "uid": uid,
+            "token": token
+        });
+        doPostBack(contextRoot + '/api/visit/01/visitStatistc', function success(jsonObjx) {
+            if (jsonObjx != null) {
+                $("#yestOk").html(jsonObjx.data.yestOk);
+                $("#yestTotal").html(jsonObjx.data.yestTotal);
+            }
+        }, {
+            "id": uid,
+            "uid": uid,
+            "token": token
+        });
+        var info_init = "";
+        info_init += "<li><a href=\"#\" id=\"index_manager\"><span class=\"am-icon-home\"></span> 首页</a></li> ";
+        info_init += "<li><a href=\"javascript:location.replace('login.html');\"><span class=\"am-icon-sign-out\"></span> 注销</a></li>";
+        $("#menu_div").html(info_init);
+        doPostBack(contextRoot + '/api/function/01/viewByUser', function (jsonObj) {
+            if (jsonObj != null) {
+                var info = "";
+                info += "<li><a href=\"#\" id=\"index_manager\"><span class=\"am-icon-home\"></span> 首页</a></li> ";
+                for (var i = 0; i < jsonObj.data.length; i++) {
+                    var obj = jsonObj.data[i];
+                    if (obj.type == '0') {
+                        info += "<li class=\"admin-parent\">";
+                        info += " <a class=\"am-cf\" data-am-collapse=\"{target: '#ul_" + obj.code + obj.icon + "'}\"><span class=\"" + obj.icon + "\"></span> " + obj.name + " <span class=\"am-icon-angle-right am-fr am-margin-right\"></span></a>";
+                        info += " <ul class=\"am-list am-collapse admin-sidebar-sub am-in\" id=\"ul_" + obj.code + obj.icon + "\">";
+                        for (var j = 0; j < jsonObj.data.length; j++) {
+                            var obj2 = jsonObj.data[j];
+                            if (obj.id == obj2.parentId) {
+                                info += "  <li><a href=\"" + obj2.action + "\" class=\"am-cf\"><span class=\"" + obj2.icon + "\"></span> " + obj2.name + "</a></li>";
+                            }
+                        }
+                        info += " </ul>";
+                        info += "</li> ";
+                    }
+                }
+                info += "<li><a href=\"javascript:location.replace('login.html');\"><span class=\"am-icon-sign-out\"></span> 注销</a></li>";
+                $("#menu_div").html(info);
+            }
+        }, {"uid": uid, "token": token});
+
+
+    });
+
+</script>
+
+<div id="cli_dialog_div"></div>
+<div class="am-dimmer" data-am-dimmer="" style="display: none;"></div>
+</body>
+</html>

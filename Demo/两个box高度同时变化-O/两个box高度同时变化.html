@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<input type="button" id="btn" value="变大" />
+<div style="width:100px; height:100px; border:1px solid #ccc; float:left;" id="div1"></div>
+<div id="div2"></div>
+</body>
+<script>
+    var oBtn = document.getElementById('btn');
+    var oDiv1 = document.getElementById('div1');
+    var oDiv2 = document.getElementById('div2');
+    oDiv2.style.cssText = 'width:'+(oDiv1.offsetWidth-2)+'px; height:'+(oDiv1.offsetHeight-2)+'px;border:1px solid red; float:left; margin-left:10px;';
+    oBtn.onclick = function(){
+    oDiv1.style.width = oDiv1.offsetWidth + 10 + 'px';
+    oDiv1.style.height = oDiv1.offsetHeight + 10 + 'px';
+    oDiv2.style.cssText = 'width:'+(oDiv1.offsetWidth-2)+'px; height:'+(oDiv1.offsetHeight-2)+'px;border:1px solid red; float:left; margin-left:10px;';
+};
+</script>
+</html>

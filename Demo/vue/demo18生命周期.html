@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<body>
+<div id="container">
+    <p>{{msg}}</p>
+    <!--组件的使用-->
+    <my-component></my-component>
+</div>
+</body>
+<script>
+    //组件中除了data用法不一样其他都一样
+    Vue.component('my-component',{
+        template:`<div>
+                        <button @click="handleClick">clickMe</button>
+                        <h1>Hello Lifecycle:{{count}}</h1>
+                    </div>`,
+        data:function () {
+            return{
+                count:0
+            }
+        },
+        methods:{
+            handleClick:function () {
+                this.count++
+            }
+        },
+        beforeUpdate:function(){
+            console.log("准备更新")
+        },
+        updated:function(){
+            console.log("更新完成")
+        },
+        beforeCreate:function () {
+            console.log("准备创建组件")
+        },
+        created:function () {
+            console.log("组件创建完毕")
+        },
+        beforeMount:function () {
+            console.log("钻进的模板准备挂载到DOM")
+        },
+        mounted:function () {
+            console.log("挂载完毕")
+        },
+        onBeforeDestroy:function () {
+            console.log("准备destroy")
+        },
+        destroyed:function () {
+            console.log("destroy完成")
+        }
+    })
+    new Vue({
+        el: "#container",
+        data: {
+            msg: "Hello Vue"
+        }
+    })
+</script>
+</html>

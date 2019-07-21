@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery mobile创建第的第一个网页</title>
+    <!--<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+
+
+</head>
+<body>
+<div data-role="page" id="login">
+    <!--<div data-role="header">
+        登录页面
+    </div>-->
+    <div data-role="content">
+        <form action="" method="get">
+            用户名：
+            <input type="text" naem="uname" id="uid" placeholder="请输入用户名" autocomplete="off" >
+            密码：
+            <input type="password" naem="pwd" id="upwd" placeholder="请输入用密码" autocomplete="off" >
+            <input type="range" name="range" id="range" value="25" min="0" max="100" data-highlight="true">
+            <fieldset data-role="controlgroup">
+                <legend>最喜欢的水果</legend>
+                <input type="radio" name="radio" id="choose-1" value="choose-1" checked>
+                <label for="choose-1">苹果</label>
+                <input type="radio" name="radio" id="choose-2" value="choose-2"  >
+                <label for="choose-2">梨子</label>
+                <input type="radio" name="radio" id="choose-3" value="choose-3"  >
+                <label for="choose-3">桃子</label>
+            </fieldset>
+            <input type="checkbox" name="checkbox" id="choose-4" checked><label for="choose-4">我同意</label>
+        </form>
+        <a href="#first" data-role="button">按我到第一页</a>
+    </div>
+    <div data-role="footer">
+
+    </div>
+
+</div>
+<div data-role="page" data-title="第一页" id="first">         <!--开始一个page-->
+     <div data-role="header">
+
+     </div>
+     <div data-role="content">
+         各种按钮
+         <a href="#second" data-role="button">第二页</a>
+         <a href="#second" data-mini="true" data-role="button">第二页</a>
+         <a href="#second" data-icon="delete" data-role="button">第二页</a>
+         <a href="#second" data-icon="delete" data-role="button" data-iconpos="right">第二页</a>
+         <a href="#second" data-icon="delete" data-role="button" data-iconpos="right" data-inline="true">第二页</a>
+
+         <a href="#second" data-role="button">按我到第二页</a>
+     </div>
+     <div data-role="footer">
+     </div>
+ </div>
+<div data-role="page" data-title="第二页" id="second">         <!--开始一个page-->
+     <div data-role="header">
+         按钮组
+     </div>
+     <div data-role="content" >
+         <div data-role="controlgroup" data-type="horizontal">
+             <a href="#third" data-role="button">到第三页</a>
+             <a href="#third" data-role="button">到第三页</a>
+             <a href="#third" data-role="button">到第三页</a>
+         </div>
+     </div>
+     <div data-role="footer">
+     </div>
+ </div>
+<div data-role="page" data-title="第二页" id="third">
+    <div data-role="header">
+        列表
+    </div>
+    <div data-role="content">
+        <ul data-role="listview">
+            <li><a href="javascript:void (0)">语文</a></li>
+            <li><a href="javascript:void (0)">数学</a></li>
+            <li><a href="javascript:void (0)">英语</a></li>
+        </ul>
+    </div>
+    <div data-role="footer">
+        <a href="#fourth" data-role="button">到四第页</a>
+    </div>
+</div>
+<div data-role="page" data-title="第二页" id="fourth">
+    <div data-role="header">
+        技术泡泡
+    </div>
+    <div data-role="content">
+
+
+
+    </div>
+    <div data-role="footer">
+        <a href="#fifth" data-role="button">到五第页</a>
+    </div>
+</div>
+</body>
+<script>
+    //  -------------------------------         打开数据库             --------------------------------------------
+    window.indexedDB =window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB
+
+    if(!window.indexedDB){
+        alert("你的浏览器不支持indexedDB")
+    }else {
+        console.log("你的浏览器支持indexedDB")
+    }
+    //要新增的数据
+    const customerData =[
+        {name:"金正恩",address:"朝鲜",age:"30"},
+        {name:"特朗普",address:"美国",age:"55"}
+        ];
+    //var request =window.indexedDB.open(dbName,dbVersion); 打开数据库的语法
+
+   /* var request =window.indexedDB.open("MyDatabase",3);
+    request.onupgradeneeded =function (event) {
+        //更新存储对象和索引的语句
+        console.log("更新存储对象和索引的语句")
+    }
+    request.onsuccess = function (event) {
+        //成功时触发执行函数
+        var db = request.result;
+        console.log("成功时触发执行函数"+"db"+db)
+    }
+    request.onerror = function (event) {
+        //失败的时候执行的语句
+        console.log("失败的时候执行的语句")
+    }*/
+    //完整打开数据库程序代码举例如下
+    var request = indexedDB.open("MyDatabase");
+    request.onerror = function (event) {
+        alert("IndexedDB打开失败")
+        alert("openDB:",event.target.errorCode);
+    }
+    request.onsuccess = function (event) {
+        var db = this.result;
+        alert("打开 DONE")
+    }
+    //  -------------------------------         创建存储对象             --------------------------------------------
+
+    request.onupgradeneeded = function (event) {
+        var db =event.target.result;
+        var objechtStore =db.createObjectStore("customer",{keyPath:"user_id"});
+        objechtStore.createIndex("name","name",{unique:false});
+        objechtStore.createIndex("address","address",{unique:false})
+        objechtStore.createIndex("age","age",{unique:false})
+
+        for (var i in customerData){
+            objechtStore.add(customerData[i])
+        }
+
+    }
+
+    /*var transaction = db.transaction("customer","readwrite")
+    store = transaction.objectStore("customer");
+    request = store.add({naem:"普京",address:"俄罗斯",age:"50"}) //新增数据
+    request.onsuccess = function (e) {
+        console.log("添加成功")
+    }
+    request.onerror = function (e) {
+    }
+    transaction.oncomplete =function (event) {
+        console.log("交易成功")
+    }
+    transaction.onerror =function (event) {
+        console.log("交易失败")
+    }
+*/
+
+</script>
+</html>

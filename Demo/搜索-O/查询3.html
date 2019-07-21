@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>welcome</title>
+    <style>
+        div {
+            width: 600px;
+            height: 400px;
+            border: 1px solid red;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+<input type="text" id="txt" >
+<input type="button" value="搜索" id="search" >
+<div id="div1">
+    本书是“谁掌握了未来21世纪的社会主义与资本主义”之《印度这大象》。力求抓住这个国家发展道路的核心与重点，
+    从高山看平地，避免“只见树木，不见森林”，避免扁平式的平铺直叙；力求跳出经济去看经济社会的发展，选择有特色、
+    有代表性、有启迪意义的事物去突出其特色；力求立体地、全面系统地分析和概括出其发展模式的基本框架，从理论基础、
+    形成过程、制度特征、运转机制、社会现实方面勾勒出这个国家波澜壮阔的画卷，使读者对其发展的脉络有一个清晰的认识。
+</div>
+<script>
+    window.onload = function() {
+        var oSearch = document.querySelector("#search");
+        var oContent = document.querySelector("#txt");
+        oSearch.onclick = function() {
+            result = window.find(oContent.value);
+            if(result === false) {
+                alert("暂时没有发现内容");
+            }
+        }
+    }
+</script>
+</body>
+</html>

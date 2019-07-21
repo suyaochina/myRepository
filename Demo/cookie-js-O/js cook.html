@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../jquery-1.7.1.min.js"></script>
+</head>
+<body>
+<input type="text" placeholder="我是谁" id="phone" autocomplete="off">
+<button onclick="cookieinfo()">记住</button>
+</body>
+<script>
+  $("#phone").val(getCookie("aaa"))
+
+  function cookieinfo () {
+    var phone = $("#phone").val()
+    setCookie("aaa", phone, "999")      //999 为天
+  }
+
+  function getCookie (c_name) {
+    if (document.cookie.length > 0) {
+      c_start = document.cookie.indexOf(c_name + "=")
+      if (c_start != -1) {
+        c_start = c_start + c_name.length + 1
+        c_end = document.cookie.indexOf(";", c_start)
+        if (c_end == -1) c_end = document.cookie.length
+        return unescape(document.cookie.substring(c_start, c_end))
+      }
+    }
+    return ""
+  }
+
+  function delCookie (name) {
+    var exp = new Date();
+    exp.setTime(exp.getTime() - 1);
+    var cval = getCookie(name);
+    if (cval != null)
+      document.cookie = name + "=" + cval + ";expires=" + exp.toGMTString();
+  }
+
+  function setCookie (c_name, value, expiredays) {
+    var exdate = new Date()
+    exdate.setDate(exdate.getDate() + expiredays)
+    document.cookie = c_name + "=" + escape(value) +
+    ((expiredays == null)?"":"; expires=" + exdate.toGMTString())
+  }
+</script>
+</html>

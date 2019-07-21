@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0
+    }
+    .div_warp {
+        position: relative;
+        margin: 300px 0 0 300px;
+        width: 450px;
+        height: 300px;
+        outline: 1px solid red;
+        background: url('./bg01.jpg');
+        background-size: 100% 100%;
+    }
+    .div_warp .circle_center {
+        position: absolute;
+        width: 110px;
+        height: 90px;
+        background: #fff;
+        border: 6px solid #8E3BEB;
+        border-radius: 50px;
+        left: 50%;
+        margin-left: -55px;
+        bottom: 48px;
+        box-sizing: border-box;
+        z-index: 3;
+        text-align: center;
+        font-size: 30px;
+        line-height: 90px;
+    }
+    .div_warp .circle_pointer {
+        position: absolute;
+        width: 300px;
+        height: 10px;
+        background: #8E3BEB;
+        left: 50%;
+        margin-left: -150px;
+        bottom: 93px;
+        transform: rotate(180deg);
+        z-index: 2;
+    }
+    .div_warp .text_top,
+    .div_warp .text_bottom{
+        position: absolute;
+        font-size: 30px;
+        font-weight: 400;
+        color: red;
+    } 
+    .div_warp .text_top{
+        top:30px;
+        left: 235px;
+    }
+    .div_warp .text_bottom{
+        right: 0;
+        bottom:20px;
+    }
+</style>
+<body>
+    <div id="divWarp" class="div_warp">
+        <span class="text_top">上</span>
+        <span class="text_bottom">下</span>
+        <div id="circleCenter" class="circle_center"></div>
+        <div id="circlePointer" class="circle_pointer"></div>
+    </div>
+</body>
+<script>
+    let divWarp = document.getElementById("divWarp")
+    let circleCenter = document.getElementById("circleCenter")
+    let circlePointer = document.getElementById("circlePointer")
+
+    let isTouchMove = false;
+    let fromLeft = circleCenter.getBoundingClientRect().left + 55
+    let fromTop = circleCenter.getBoundingClientRect().top + 45
+    let angle = 0
+    circleCenter.innerText = angle + '°'
+    // console.log('圆心坐标', fromLeft, fromTop)
+    divWarp.addEventListener('touchstart', function (event) {})
+    divWarp.addEventListener('touchmove', function (event) {
+        let e = event || window.event;
+        let x = e.touches[0].pageX
+        let y = e.touches[0].pageY
+        // console.log('x', x, 'y', y)
+        // 判断第几象限
+        if (x > fromLeft && y < fromTop) {
+            // console.log('下第一象限')
+            angle = Math.atan2((fromTop - y), (x - fromLeft)) * 180 / Math.PI
+        }
+        if (x < fromLeft && y < fromTop) {
+            // console.log('下第二象限')
+            angle = Math.atan2((fromTop - y), (x - fromLeft)) * 180 / Math.PI
+        }
+        if (x < fromLeft && y > fromTop) {
+            // console.log('下第三象限')
+            angle = Math.atan2((fromTop - y), (x - fromLeft)) * 180 / Math.PI
+        }
+        if (x > fromLeft && y > fromTop) {
+            // console.log('下第四象限')
+            angle = Math.atan2((fromTop - y), (x - fromLeft)) * 180 / Math.PI
+        }
+        if (angle < -15) {
+            angle = -15
+        }
+        if (angle > 55) {
+            angle = 55
+        }
+        angle = Math.round(180-angle)
+        // circlePointer.style.webkitTransform = "rotate(" + angle + "deg)";
+        // circlePointer.style.MozTransform = "rotate(" + angle + "deg)";
+        // circlePointer.style.msTransform = "rotate(" + angle + "deg)";
+        // circlePointer.style.OTransform = "rotate(" + angle + "deg)";
+        circlePointer.style.transform = "rotate(" + angle + "deg)";
+        console.log(angle)
+
+        // if( angle = 180) {
+        //     angle = 0
+        // }
+        if (angle <= 180) {
+            angle = 180 - angle
+        }
+        if (angle > 180) {
+            angle = angle - 180
+        }
+        circleCenter.innerText = angle + '°'
+    })
+    divWarp.addEventListener('touchend', function () {
+
+    })
+</script>
+
+</html>

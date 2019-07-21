@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>循环指令</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<body>
+<div id="container">
+    <!--将myList中的元素 显示在一个无需列表中-->
+    <ul>
+        <li>{{myList[0]}}</li>
+        <li>{{myList[1]}}</li>
+        <li>{{myList[2]}}</li>
+    </ul>
+    <!--vue提供了一个循环的指令：v-for  tmp临时变量可自定义-->
+    <ul>
+        <li v-for="tmp in myList">{{tmp}}</li>
+    </ul>
+    <!--v-for第二种语法：可以取到临时变量对应的index-->
+    <div>
+        <h2 v-for="(value,key) in car">
+            {{" key is: "+key +" value is:"+value}}
+        </h2>
+        <h2 v-for="(value,key) in myList">
+            {{" key is: "+key +" value is:"+value}}
+        </h2>
+    </div>
+</div>
+<script>
+    new Vue({
+        el:"#container",
+        data:{
+            myList:[100,200,300,400,500],
+            car:{
+                brand:"BMW",
+                price:20
+            }
+        }
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<body>
+<div id="container">
+    <p>{{msg}}</p>
+    <!--在h1标签上面，加上一个按钮，当点击按钮的时候，对count实现一次自增操作，当count等于5的时候，在控制台输出
+    "it is a test"-->
+    <button @click="hadleClick">clickMe</button>
+    <h1 v-if="count<6" v-change="count">it is a custom directive</h1>
+</div>
+</body>
+<script>
+    new Vue({
+        el: "#container",
+        data: {
+            msg: "Hello Vue",
+            count:0
+        },
+        methods:{
+            hadleClick:function () {
+                //按钮单机，count自增
+                this.count++;
+            }
+        },
+        directives:{
+            //创建一个指令  可以不用全写 命名自己命名
+            change:{
+                bind:function (el,bindings) {
+                    console.log("指令已经绑定到元素上面去了");
+                    console.log(el);    //<h1>0</h1>
+                    console.log(bindings);      //......好多
+                    //准备将传递进来的参数显示在调用该指令的元素的innerHTML
+                    el.innerHTML = bindings.value
+                },
+                update:function (el,bindings) {
+                    console.log("指令的数据有所变化");
+                    console.log(el)
+                    console.log(bindings)
+                    el.innerHTML = bindings.value;
+                    if(bindings.value == 5){
+                        console.log("it is a test")
+                    }
+                },
+                unbind:function () {
+                    console.log("解除绑定")
+                }
+            }
+        }
+    })
+</script>
+</html>

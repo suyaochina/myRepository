@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<body>
+<div id="container">
+    <xiaotoubaba></xiaotoubaba>
+</div>
+</body>
+<script>
+    Vue.component("xiaotoubaba",{
+        data:function () {
+            return{
+                money:10000
+            }
+        },
+        methods:{
+            getSonMsg:function () {
+                //要通过$refs得到指定的引用所对应的组件的实例对象
+                console.log(this.$refs.mySon.name)
+            }
+        },
+        template:`
+                <div>
+                    <h1>这是父组件</h1>
+                    <button @click="getSonMsg">获取子组件的数据</button>
+                    <hr>
+                    <datouerzi ref="mySon"></datouerzi>
+                </div>
+                `
+    });
+    Vue.component("datouerzi",{
+        data:function () {
+            return{
+                name:'大头儿子'
+            }
+        },
+        template:`
+                <h1>这是我们的子组件</h1>
+                `,
+        created:function () {
+            //在子组件当中获取父组件中的数据
+            console.log("子组件拿到的父组件的数据为"+this.$parent.money)
+        }
+    });
+    new Vue({
+        el: "#container",
+        data: {
+            msg: "Hello Vue"
+        }
+    })
+</script>
+</html>

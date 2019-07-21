@@ -1,0 +1,12 @@
+* {
+  padding: 20px;
+  margin: calc(10px + 10px);
+}
+#wrap {
+  width: 500px;
+  height: 500px;
+  background: #ff0;
+}
+#wrap .inner {
+  background: #aa0;
+}

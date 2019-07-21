@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../jquery-1.7.1.min.js"></script>
+</head>
+<style>
+    .inputArea{position:absolute;top:30%;left:20%;resize:none;width:400px;height:18px;line-height:18px;overflow:hidden;}
+    .keyboardBox{position:fixed;top:50%;left:20%;width:563px;height:156px;margin:0;padding:10px;background-color:#ccc;font-size:16px;border-radius:10px;}
+    .line{position:relative;height:50px;line-height:50px;}
+    .keys,.keysCmd{box-sizing:border-box;float:left;width:45px;height:45px;line-height:45px;margin:0 0 3px 3px;border-radius:4px;border:1px solid #333;text-align:center;cursor:pointer;background-color:#fff;}
+    .keys:hover,.keysCmd:hover{box-shadow:0px 0px 3px #333 inset;}
+    .keys:active,.keysCmd:active{background-color:#dedede;}
+    .active{background-color:#dedede;box-shadow:0px 0px 3px #333 inset;}
+    .key_enter{width:102px;}
+    .k-w-80{width:80px;}
+    .line .l-h-40{line-height:40px;}
+    .f-s-14{font-size:14px;}
+</style>
+<body>
+<input name="keyboard" id="keyboard" class="inputArea" placeholder="点击虚拟键盘输入"></input>
+<div class="keyboardBox" style="display:none" id="keyboardBox">
+    <div class="line">
+        <div class="keys" data-kid="81" onclick="demo(this,1)">Q</div>
+        <div class="keys" data-kid="87" onclick="demo(this,1)">W</div>
+        <div class="keys" data-kid="69" onclick="demo(this,1)">E</div>
+        <div class="keys" data-kid="82" onclick="demo(this,1)">R</div>
+        <div class="keys" data-kid="84" onclick="demo(this,1)">T</div>
+        <div class="keys" data-kid="89" onclick="demo(this,1)">Y</div>
+        <div class="keys" data-kid="85" onclick="demo(this,1)">U</div>
+        <div class="keys" data-kid="73" onclick="demo(this,1)">I</div>
+        <div class="keys" data-kid="79" onclick="demo(this,1)">O</div>
+        <div class="keys" data-kid="80" onclick="demo(this,1)">P</div>
+        <div class="keysCmd k-w-80 l-h-40 f-s-14" data-kid="8" onclick="demo(this,3)">Backspace</div>
+    </div>
+    <div class="line" style="margin-left:13px;">
+        <div class="keys" data-kid="65" onclick="demo(this,1)">A</div>
+        <div class="keys" data-kid="83" onclick="demo(this,1)">S</div>
+        <div class="keys" data-kid="68" onclick="demo(this,1)">D</div>
+        <div class="keys" data-kid="70" onclick="demo(this,1)">F</div>
+        <div class="keys" data-kid="71" onclick="demo(this,1)">G</div>
+        <div class="keys" data-kid="72" onclick="demo(this,1)">H</div>
+        <div class="keys" data-kid="74" onclick="demo(this,1)">J</div>
+        <div class="keys" data-kid="75" onclick="demo(this,1)">K</div>
+        <div class="keys" data-kid="76" onclick="demo(this,1)">L</div>
+        <div class="keysCmd key_enter" data-kid="13" onclick="hideKeyboardBox()">Enter</div>
+    </div>
+    <div class="line" style="margin-left:112px;">
+        <div class="keys" data-kid="90" onclick="demo(this,1)">Z</div>
+        <div class="keys" data-kid="88" onclick="demo(this,1)">X</div>
+        <div class="keys" data-kid="67" onclick="demo(this,1)">C</div>
+        <div class="keys" data-kid="86" onclick="demo(this,1)">V</div>
+        <div class="keys" data-kid="66" onclick="demo(this,1)">B</div>
+        <div class="keys" data-kid="78" onclick="demo(this,1)">N</div>
+        <div class="keys" data-kid="77" onclick="demo(this,1)">M</div>
+    </div>
+</div>
+</body>
+<script>
+    function demo(obj, tip) {
+        if (tip == 1) {
+            var con = document.getElementById('keyboard').value;
+            document.getElementById('keyboard').value = con + obj.innerHTML;
+        } else if (tip == 2) {
+            document.getElementById('keyboard').value = "";
+        } else if (tip == 3) {
+            var con = document.getElementById('keyboard').value;
+            document.getElementById('keyboard').value = con.slice(0, -1);
+        }
+    }
+    $("#keyboard").focus(function () {
+        $("#keyboardBox").show()
+    });
+    function hideKeyboardBox() {
+        $("#keyboardBox").hide()
+    }
+</script>
+</html>

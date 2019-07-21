@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>二维码扫面页面</title>
+    <script src="../jquery-1.7.1.min.js"></script>
+    <script src="jquery.cookie.js"></script>
+</head>
+<body>
+<!--<form action="" method="post" onsubmit="return false">-->
+<input type="text" id="username" name="username" autocomplete="off" placeholder="请输入用户名">
+<input type="text" id="password" name="password" autocomplete="off" placeholder="请输入密码">
+<input type="checkbox" id="rememberMe" name="rememberMe" value="true" checked  style="display:none">
+<input type="button" value="记住" id="submitBtn" onclick="clickme()"><!---->
+<!--</form>-->
+</body>
+<script>
+       /*$(function () {
+           $("#username").val($.cookie-jq-O('username'));
+           $("#password").val($.cookie-jq-O('password'));
+
+           var date=new Date();
+           var h=date.getHours();
+           var m=date.getMinutes();
+           var s=date.getSeconds();
+           var y=date.getFullYear();
+           var yue=date.getMonth()+1;
+           var d=date.getDate();
+           //    console.log(y+"年"+yue+"月"+d+"日"+h+"时"+m+"分"+s+"秒")
+
+           var strtime = y+"-"+yue+"-"+d+" 0:0:0:000";
+           var nowTime = Date.parse(new Date(strtime))+86400000;    //获取当天晚上12点的时间戳
+           //console.log(nowTime);
+
+           $("#submitBtn").click(function(){
+
+               var newTime =date.getTime();         //获取当前时间戳
+               console.log(newTime);
+
+               //var isRember = $("#rememberMe").attr("checked");
+               var isRember=$('#rememberMe').is(':checked');
+               if(isRember){ //如果记住
+                   $.cookie-jq-O('username', $("#username").val(),{expires:1});
+                   $.cookie-jq-O('password', $("#password").val(),{expires:1});
+               }else{
+                   $.cookie-jq-O("username", '', { expires: -1 });
+                   $.cookie-jq-O("password", '', { expires: -1 });
+               }
+           });
+       })*/
+       /*                            方法二                                */
+       window.onload=function () {
+           setInterval(getnewTime,1000)
+       };
+
+       $("#username").val($.cookie('username'));
+       $("#password").val($.cookie('password'));
+
+       var date=new Date();
+       var y=date.getFullYear();
+       var yue=date.getMonth()+1;
+       var d=date.getDate();
+       var strtime = y+"-"+yue+"-"+d+" 0:0:0:000";
+       var nowTime = Date.parse(new Date(strtime))+86400000;    //获取当天晚上12点的时间戳
+       //var nowTime = 1531713792650    //获取当天晚上12点的时间戳
+       console.log(nowTime)
+
+       function clickme() {
+               //var isRember = $("#rememberMe").attr("checked");
+               var isRember=$('#rememberMe').is(':checked');
+               if(isRember){ //如果记住
+                   $.cookie('username', $("#username").val(),{expires:1});
+                   $.cookie('password', $("#password").val(),{expires:1});
+               }else{
+                   $.cookie("username", '', { expires: -1 });
+                   $.cookie("password", '', { expires: -1 });
+               }
+               console.log("记住了")
+            }
+
+       function getnewTime(){
+           var date=new Date();
+           var newTime =date.getTime();         //获取当前时间戳   x
+           console.log("点击后获取的时间"+newTime);
+           //return newTime
+
+           if(nowTime <= newTime){
+               $.cookie("username", '', { expires: -1 });
+               $.cookie("password", '', { expires: -1 });
+
+               $("#username").val("");
+               $("#password").val("");
+               console.log("时间已经过了 二维码已将失效")
+           }else {
+               console.log("二维码还可以使用")
+           }
+       }
+
+      //var strtime = getnewTime()                //获取时刻更新的时间戳
+
+</script>
+</html>

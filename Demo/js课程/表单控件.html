@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    input:-webkit-autofill {
+        -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+    }
+</style>
+<body>
+<form action="a" method="post" enctype="multipart/form-data">
+    用户名称：<input type="text" placeholder="请输入文字" id="username" name="username" autocomplete="off" maxlength="8"><br/>
+    用户密码：<input type="password" placeholder="请输入密码" id="pwd" name="pwd" autocomplete="off" maxlength="6"><br/>
+    <input type="submit" value="提交"><br/>
+
+    单选按钮：<br/>
+    <input type="radio" name="gender" value="0" checked/>男
+    <input type="radio" name="gender" value="1"/>女<br/>
+
+    复选按钮：<br/>
+    <input type="checkbox" value="0" name="hobby" checked/>吃
+    <input type="checkbox" value="1" name="hobby"/>喝
+    <input type="checkbox" value="2" name="hobby"/>玩
+    <input type="checkbox" value="3" name="hobby"/>乐
+    <br/>
+    <input type="hidden" name="uid" value="101"/>
+    <br/>
+    <input type="file" name="ufile"/>
+    <br/>
+    <textarea rows="5" cols="50" name="uintor">
+    多行文本域说什么尼说什么尼说什么尼说什么尼说什么尼说什么尼说什么尼说什么
+    尼说什么尼说什么尼说什么尼说什么尼说什么尼说什么尼说什么尼说什么尼说什么
+    尼说什么尼
+    </textarea>
+    <br>
+    户口所在地：
+    <select name="hukou" id="hukou">
+        <option value="-1" selected>===请选择===</option>
+        <option value="1">陕西省</option>
+        <option value="2">上海市</option>
+        <option value="3">北京市</option>
+    </select>
+    <br>
+    大话西游：
+    <select name="westwardQourney" size="3" multiple>
+        <option value="-1" selected>===请选择===</option>
+        <option value="1">孙悟空</option>
+        <option value="2">猪八戒</option>
+        <option value="3">沙和尚</option>
+        <option value="4">唐三藏</option>
+    </select>
+    <br>
+    <p>
+        <label for="uname">用户名：</label>
+        <input type="text" name="uname" id="uname">
+    </p>
+    <fieldset>
+        <legend>分组的标题</legend>
+    </fieldset>
+</form>
+<iframe src="tabkl跨行跨列.html" frameborder="0" width="100%" height="300px"></iframe>
+<form action="a" method="get">
+    <p>
+        email
+        <input type="email" name="email">
+    </p>
+    <p>
+        search
+        <input type="search" value="search" name="search">
+    </p>
+    <p>
+        url
+        <input type="url" name="url">
+    </p>
+    <p>
+        tel
+        <input type="tel" name="tel" value="tel">
+    </p>
+    <p>
+        number
+        <input type="number" value="number" name="number" min="3" max="10" step="2">
+    </p>
+    <p>
+        range
+        <input type="range" value="range" name="range" min="3" max="10" step="1">
+    </p>
+    <p>
+        color
+        <input type="color" value="color" name="color">
+    </p>
+    <p>date
+        <input type="date"  name="date">
+        week
+        <input type="week"  name="week">
+        month
+        <input type="month"  name="month">
+    </p>
+
+    <p>
+        <input type="submit" value="提交">
+    </p>
+</form>
+</body>
+</html>
+<!--
+        input详解
+        1、文本框：type=“text”
+        2、密码框：type=“password”
+        特有属性：
+        1、maxlength   输入最大长度，限制输入的字符数
+        2、readonly    只读，无值的属性，只要属性出现在元素中即可
+        ----------------------------------------------------------
+        disabled 与 readonly 的异同点
+        1、相同点
+            只能看不能改
+        2、不同点
+            disabled 是没有办法提交给服务器的
+            readonly 可以提交给服务器使用的
+         3、placeholder
+            占位符，默认显示在控件上的文字，无法提交给服务器
+        ----------------------------------------------------------
+          3、单选按钮和复选框
+          单选按钮：<input type="radio"/>
+          复选框：<input type="checkbox"/>
+
+          属性：
+          1、name
+          一组的单选按钮或复选框 ，name属性值要一致aa
+          2、checked
+          设置默认被选中，无值
+          ----------------------------------------------------------
+           4、隐藏域 和文件选择框
+           1、隐藏域
+           a、作用
+           想提交给服务器，但不想给用户看的数据要放在隐藏域中
+           <input type="hidden" />
+          ----------------------------------------------------------
+           2、文件选择框
+           <input type="file" name=""/>
+            注意：
+                1、该标记不需要给value
+                2、form的method属性必须为post
+                3、form的enctype属性必须为multipart/form-data   二进制数据传输
+            3、textarea元素
+                多行文本域/文本框
+                1、语法：
+                <textarea>文本<textarea/>
+                属性：
+                1、name
+                    当前控件名称，提供给服务器使用
+                2、cols
+                    指定文本域的列数（英文中文除二）
+                 3、rows
+                    指定文本域的行数（高度）
+                 4、readonly
+                    只读
+              ----------------------------------------------------------
+              4、选项框
+              1、select 和 option
+                 1、语法
+                    1、标记&属性
+                        1、<select></select>
+                        作用：提供最基本的选项框，里面允许有若干个"选项"
+                        1、naem
+                        控件的名称
+                        2、size
+                        选项框中默认显示选项的数量如果取值大于1，则为滚动列表否则的话，则为下拉选项框
+                        3、multiple
+                        设置多选 滚动列表允许实现多选（配合shift 或Ctrl键一起使用）
+                        无值属性
+                2、<option></option>
+                    1、作用
+                        选项框中的选项，在一对<select>中，允许出现若干的<option>
+                    2、selected
+                        预选中，无值属性
+                3.<button type="submit"></button>     中   type默认为submit
+-->

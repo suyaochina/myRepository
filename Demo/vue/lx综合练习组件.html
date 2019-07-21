@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<body>
+<div id="container">
+    <!--练习：
+        创建一个组件，该组件渲染一个h1标签
+        要求：在组件挂载完毕之后，启动定时器，修改h1标签的透明度的值0~1
+    -->
+    <my-component></my-component>
+</div>
+</body>
+<script>
+    Vue.component("my-component",{
+        template:"<h1 :style='{opacity:opacityValue,backgroundColor:bgColor}'>透明度会变化</h1>",
+        data:function () {
+            return{
+                opacityValue:0,
+                bgColor:"#ff0"
+            }
+        },
+        mounted:function () {
+            setInterval(
+                ()=> {
+                this.opacityValue += 0.1;
+                if(this.opacityValue>1){
+                    this.opacityValue=0
+                }
+            },200)
+        }
+    })
+    new Vue({
+        el: "#container",
+        data: {
+            msg: "Hello Vue"
+        }
+    });
+</script>
+</html>

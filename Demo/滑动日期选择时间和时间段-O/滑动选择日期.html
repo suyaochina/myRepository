@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+    <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+    <link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/bootstrap-3.3.4.css">
+    <link href="css/mobiscroll.custom-3.0.0-beta6.min.css" rel="stylesheet" type="text/css" />
+    <script src="js/mobiscroll.custom-3.0.0-beta6.min.js" type="text/javascript"></script>
+</head>
+<body>
+<h1>选择日期点</h1>
+<input id="demo" placeholder="请选择会议日期"/>
+<h1>选择时间段</h1>
+<input id="demo1" placeholder="请选择会议时间段"/>
+</body>
+<script type="text/javascript">
+    /*                      滑动日期选择时间和时间段-O          年月日             */
+    $(function () {
+        var now = new Date(),
+            max = new Date(now.getFullYear() + 100, now.getMonth(), now.getDate());
+
+        $('#demo').mobiscroll().date({
+            display:'center',
+            theme: 'android-holo-light',
+            lang: 'zh',
+            max: max,
+            dateFormat:'yy-mm-dd'
+        });
+    });
+
+    /*                      选择时间段                   */
+    $(function () {
+        $('#demo1').mobiscroll().range({
+            theme: 'android-holo-light',
+            lang: 'zh',
+            controls: ['time'],
+            maxWidth: 100
+        });
+    })
+
+</script>
+</html>

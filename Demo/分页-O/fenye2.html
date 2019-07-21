@@ -1,0 +1,126 @@
+<html>
+<head>
+    <base href="<%=basePath%>">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="expires" content="0">
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="This is my page">
+    <title>分页</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script type="text/javascript">
+        var tableData = [{"C0": "临夏州_康乐县", "C1": 190893.39, "C2": 24544.65, "AREA_ID": "930013005"}, {
+            "C0": "临夏州_永靖县",
+            "C1": 368900.35,
+            "C2": 40592.19,
+            "AREA_ID": "930013006"
+        }, {"C0": "兰州市_东岗分局", "C1": 88.48, "C2": 126.4, "AREA_ID": "930013106"}, {
+            "C0": "临夏州_临夏县",
+            "C1": 107337.9,
+            "C2": 20612.1,
+            "AREA_ID": "930013008"
+        }, {"C0": "临夏州_广河县", "C1": 69738.07, "C2": 34894.44, "AREA_ID": "930013003"}, {
+            "C0": "临夏州_和政县",
+            "C1": 46622.96,
+            "C2": 20954.97,
+            "AREA_ID": "930013002"
+        }, {"C0": "临夏州_东乡县", "C1": 96021.84, "C2": 16725.63, "AREA_ID": "930013004"}, {
+            "C0": "临夏州_临夏市中心",
+            "C1": 1845311.12,
+            "C2": 129478.93,
+            "AREA_ID": "930013001"
+        }, {"C0": "天水市_秦州区", "C1": 0, "C2": 0, "AREA_ID": "930013801"}, {
+            "C0": "临夏州_积石山",
+            "C1": 256181.79,
+            "C2": 15185.98,
+            "AREA_ID": "930013007"
+        }, {"C0": "酒泉_肃州区", "C1": 264312, "C2": 402.6, "AREA_ID": "930013701"}];
+        var columns = [{"cid": "C0", "ctext": "区县"}, {"cid": "C1", "ctext": "客户总收入"}, {"cid": "C2", "ctext": "当月出账费用"}];
+
+        /**
+         page:页码
+         pageSize:每页的记录条数
+         此方法除了传入page和pageSize之外，还应知道的有三个参数：
+         一、表的全部数据，json串格式，可通过action查询数据库得到。
+         二、表头所对应的列的key及名称，也是json串格式
+         三、表所对应的id
+         注：此处只是适合表头只有一行，且事先写好的情况。您可以根据需要改一下，逻辑思路就是这样，欢迎批评指正。
+         */
+        function splitPage(page, pageSize) {
+            var ptable = document.getElementById("page_table");
+            var num = ptable.rows.length;//table.rows返回表格中包含的所有行，此处假设表由表头1行和表体N行组成
+            //alert(num);
+            //清除tbody
+            for (var i = num - 1; i > 0; i--) {
+                ptable.deleteRow(i);
+            }
+            var totalNums = tableData.length;//总行数
+            var totalPage = Math.ceil(totalNums / pageSize);//总页数
+            var begin = (page - 1) * pageSize;//页起始位置(包括)
+            var end = page * pageSize;//页结束位置(不包括)
+            end = end > totalNums ? totalNums : end;
+            //向tbody中写入数据
+            var n = 1;//tbody的起始行
+            for (var i = begin; i < end; i++) {
+                var row = ptable.insertRow(n++);
+                var rowData = tableData[i];
+                for (var j = 0; j < columns.length; j++) {
+                    var col = columns[j].cid;
+                    var cell = row.insertCell(j);
+                    var cellData = rowData[col];
+                    cell.innerHTML = cellData;
+                }
+            }
+            //生成分页工具条
+            var pageBar = "第" + page + "页/共" + totalPage + "页" + " ";
+            if (page > 1) {
+                pageBar += "<a href=\"javascript:splitPage(" + 1 + "," + pageSize + ");\">首页</a> ";
+            } else {
+                pageBar += "首页 ";
+            }
+            if (page > 1) {
+                pageBar += "<a href=\"javascript:splitPage(" + (page - 1) + "," + pageSize + ");\">上一页</a> ";
+            } else {
+                pageBar += "上一页 ";
+            }
+            if(totalPage>1){
+                for (var i=1;i<totalPage;i++){
+                    pageBar += "<a href=\"javascript:splitPage(" + i + "," + pageSize + ");\">"+i+"</a> ";
+                }
+            }else {
+
+            }
+            if (page < totalPage) {
+                pageBar += "<a href=\"javascript:splitPage(" + (page + 1) + "," + pageSize + ");\">下一页</a> ";
+            } else {
+                pageBar += "下一页 ";
+            }
+            if (page < totalPage) {
+                pageBar += "<a href=\"javascript:splitPage(" + (totalPage) + "," + pageSize + ");\">尾页</a> ";
+            } else {
+                pageBar += "尾页 ";
+            }
+            document.getElementById("page_bar").innerHTML = pageBar;
+        }
+    </script>
+</head>
+<body onload="splitPage(1,4);">
+<table id="page_table">
+    <thead>
+    <tr>
+        <th>13</th>
+        <th>h2</th>
+        <th>h3</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>111</td>
+        <td>222</td>
+        <td>333</td>
+    </tr>
+    </tbody>
+</table>
+<div id="page_bar"></div>
+</body>
+</html>

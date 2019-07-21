@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    *{padding:0;margin:0;}
+    .menu_table{width:100%;font-size:14px;background:#fff;border-collapse:collapse}
+    th{width:16.66%;text-align:center;padding:27px 0;font-weight:100;}
+    tr{border:1px solid #c8c8c8;font-weight:100;}
+    td{text-align:center;border:1px solid #c8c8c8;padding:24px 0;}
+</style>
+<body>
+<span id="menu_download">下载表格</span>
+<table id="menu_table" class="menu_table" cellpadding="0" cellspacing="0">
+    <thead>
+    <th>版本</th>
+    <th>菜单</th>
+    <th>子菜单</th>
+    <th>菜单点击次数</th>
+    <th>菜单点击人数</th>
+    <th>人均点击次数</th>
+    </thead>
+    <tbody>
+    <tr>
+        <td rowspan="9">1027.23.12版 最近版</td>
+    </tr>
+    <tr>
+        <td>开门</td>
+        <td>-</td>
+        <td>520</td>
+        <td>142</td>
+        <td>3.66</td>
+    </tr>
+    <tr>
+        <td rowspan="4">预约管理</td>
+    </tr>
+    <tr>
+        <td>邀请来访</td>
+        <td>23</td>
+        <td>13</td>
+        <td>1.77</td>
+    </tr>
+    <tr>
+        <td>申请拜访</td>
+        <td>23</td>
+        <td>13</td>
+        <td>1.77</td>
+    </tr>
+    <tr>
+        <td>预约计划</td>
+        <td>23</td>
+        <td>13</td>
+        <td>1.77</td>
+    </tr>
+    <tr>
+        <td rowspan="3">我</td>
+    </tr>
+    <tr>
+        <td>我的信息</td>
+        <td>23</td>
+        <td>13</td>
+        <td>1.77</td>
+    </tr>
+    <tr>
+        <td>通讯录</td>
+        <td>23</td>
+        <td>13</td>
+        <td>1.77</td>
+    </tr>
+    </tbody>
+</table>
+</body>
+<script>
+    var btn = document.getElementById('menu_download');
+    btn.onclick = function () {
+        downloadTable('menu_table', 'menu_table.xls');
+    };
+
+    var columnDelimiter = "\t"; //列分割符
+    var lineDelimiter = "\n";  //行分割符
+    function downloadTable(tableId, fileName) {
+        var scoreTable = document.getElementById(tableId);
+        var head = scoreTable.tHead;
+        var ths = head.getElementsByTagName('th');
+        var trs = scoreTable.tBodies[0].getElementsByTagName('tr');
+
+        var result = '';
+        for (var i = 0, l = ths.length; i < l; i++) {
+            result += ths[i].innerHTML + columnDelimiter;
+        }
+        result += lineDelimiter;
+
+        for (var i = 0, l = trs.length; i < l; i++) {
+            var tds = trs[i].getElementsByTagName('td');
+            for (var j = 0, l2 = tds.length; j < l2; j++) {
+                result += tds[j].innerHTML + columnDelimiter;
+            }
+            result += lineDelimiter;
+        }
+        var blob = new Blob([result], {type: 'text/csv;charset=utf-8;'});
+        var downloadLink = document.createElement("a");
+        if ('download' in downloadLink) { // feature detection, Browsers that support HTML5 download attribute
+            var url = URL.createObjectURL(blob);
+            downloadLink.href = url;
+            downloadLink.download = fileName;
+            downloadLink.hidden = true;
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            document.body.removeChild(downloadLink);
+        } else {
+            if (navigator.msSaveBlob) { //IE10+
+                navigator.msSaveBlob(blob, fileName);
+            }
+        }
+    }
+
+</script>
+</html>

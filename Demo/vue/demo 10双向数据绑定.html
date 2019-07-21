@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<body>
+<div id="container">
+    <button @click="modifyMsg" >修改msg</button>
+    <p>{{msg}}</p>
+    <!--
+    方向： 双花括号：将定义好的数据绑定到视图
+    实现方式：
+        双花括号
+        常见的vue的指令：v-for v-if v-show......
+    方向2：将视图中用户操作的结果 绑定 到指定的数据（多数指的是表单控件 input/textarea/selecr....）
+    实现方式：
+        v-modal
+    -->
+    <input type="text" v-model="userAddress">
+    <h2>{{"用户输入的结果为:"+userAddress}}</h2>
+
+    <!--
+        有两个输入框，一个按钮 点击按钮是将输入框输入的数据求和，将结果输出在控制台中
+    -->
+    <input type="text" v-model.number="count1">+<input type="text" v-model.number="count2"> = <span>{{sum}}</span><br>
+    <button @click="sumNumber">计算</button>
+    <br/>
+    <input type="text" v-model.trim.lazy="myNotes">
+    <p>{{myNotes.length}}</p>
+</div>
+</body>
+<script>
+    new Vue({
+        el: "#container",
+        data: {
+            msg: "Hello Vue",
+            userAddress:"思念如马 自别离 未停蹄",
+            count1:"",
+            count2:"",
+            sum:"",
+            myNotes:""
+        },
+        methods:{
+            modifyMsg:function () {
+                this.msg = "Hello Data Binding"
+            },
+            sumNumber:function () {
+                this.sum =  this.count1 + this.count2
+            }
+        }
+    })
+</script>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <style media="screen">
+        .arrow_box{position:relative;border:1px solid #c2e1f5;
+            width:200px;height:100px;border-radius:6px;margin:50px;float:left;}
+        .arrow_box:before,.arrow_box:after{position:absolute;display:block;width:0;height:0;
+            border:solid rgba(136,183,213,0);pointer-events:none;content:"";}
+        .arrow_box.down:before{border-bottom-color:#c2e1f5;border-width:12px;left:49%;margin-left:-10px;bottom:100%;}
+        .arrow_box.down:after{border-bottom-color:#fff;border-width:10px;left:50%;margin-left:-10px;bottom:100%;}
+        .arrow_box.up:before{border-top-color:#c2e1f5;border-width:12px;left:49%;margin-left:-10px;top:100%;}
+        .arrow_box.up:after{border-top-color:#fff;border-width:10px;left:50%;margin-left:-10px;top:100%;}
+        .arrow_box.left:before{border-left-color:#c2e1f5;border-width:13px;top:38%;left:100%;}
+        .arrow_box.left:after{border-left-color:#fff;border-width:10px;top:41%;left:100%;}
+        .arrow_box.right:before{border-right-color:#c2e1f5;border-width:13px;top:38%;right:100%;}
+        .arrow_box.right:after{border-right-color:#fff;border-width:12px;top:39%;right:100%;}
+    </style>
+</head>
+<body>
+<div class="popovers-body">
+    <div class="arrow_box down"></div>
+    <div class="arrow_box up"></div>
+    <div class="arrow_box left"></div>
+    <div class="arrow_box right">
+        <h3>我是一只小小鸟</h3>
+        <span>我一条小青龙</span>
+    </div>
+</div>
+</body>
+
+</html>

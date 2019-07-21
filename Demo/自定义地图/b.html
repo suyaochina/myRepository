@@ -1,0 +1,1874 @@
+<html class="js cssanimations">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>访客后台管理系统</title>
+    <meta name="description" content="工作台首页">
+    <meta name="keywords" content="index">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <link rel="icon" type="image/png" href="../assets/i/favicon.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/i/app-icon72x72@2x.png">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI">
+    <link rel="stylesheet" href="../assets/css/amazeui.css">
+    <link rel="stylesheet" href="../assets/css/admin.css">
+    <link rel="stylesheet" href="../assets/css/amazeui.datetimepicker.css">
+</head>
+<body class="" style="">
+<!--[if lte IE 9]>
+<![endif]-->
+<header class="am-topbar admin-header">
+    <div class="am-topbar-brand" style="background: url(../assets/i/SGM-logo.png); width: 250px; height: 85px">
+        <!--  <strong>上汽集团</strong> <small>访客管理系统</small> -->
+    </div>
+    <div class="am-topbar-brand" style="margin-top: 30px;">
+        <strong><span style="font-size: 20px;">&nbsp;&nbsp;访客预约后台管理系统</span></strong>
+    </div>
+    <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only"
+            data-am-collapse="{target: '#topbar-collapse'}">
+        <span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span>
+    </button>
+    <div class="am-collapse am-topbar-collapse" style="background-color: #ffffff" id="topbar-collapse">
+
+        <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list">
+            <!-- <li class="am-dropdown" data-am-dropdown>
+    <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">
+      <span class="am-icon-users"></span> 管理员 <span class="am-icon-caret-down"></span>
+    </a>
+    <ul class="am-dropdown-content">
+      <li><a href="#"><span class="am-icon-user"></span> 资料</a></li>
+      <li><a href="#"><span class="am-icon-cog"></span> 设置</a></li>
+      <li><a href="#"><span class="am-icon-power-off"></span> 退出</a></li>
+    </ul>
+  </li>-->
+            <li class="am-hide-sm-only" style="margin-top: 45px; width: 320px;"><span style="font-size: 15px;"
+                                                                                      id="userNameDisplay">欢迎您，系统管理员</span>
+            </li>
+            <li class="am-hide-sm-only" style="margin-top: 10px;">&nbsp;&nbsp;&nbsp;&nbsp;<a
+                    href="javascript:location.replace('login.html');"> <span>退出
+							| EXIT</span></a></li>
+        </ul>
+        <input type="hidden" id="uid" value="4593f1fb0c4d40f49531c23200f605d8">
+        <input type="hidden" id="client_token" value="b2ceee4f2349b45cbaf17ce326e357c9190226184935">
+    </div>
+</header>
+
+<div class="am-cf admin-main">
+    <!-- sidebar start -->
+    <div class="admin-sidebar am-offcanvas" id="admin-offcanvas">
+        <div class="am-offcanvas-bar admin-offcanvas-bar">
+            <ul class="am-list admin-sidebar-list" id="menu_div">
+                <li><a href="#" id="index_manager"><span class="am-icon-home"></span> 首页</a></li>
+                <li class="admin-parent"><a class="am-cf" data-am-collapse="{target: '#ul_1000am-icon-tv'}"><span
+                        class="am-icon-tv"></span> 权限管理 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
+                    <ul class="am-list am-collapse admin-sidebar-sub am-in" id="ul_1000am-icon-tv">
+                        <li><a href="javascript:initFunction();" class="am-cf"><span class="am-icon-gear"></span>
+                            菜单管理</a></li>
+                        <li><a href="javascript:initRoleFunction();" class="am-cf"><span class="am-icon-user"></span>
+                            角色权限管理</a></li>
+                        <li><a href="javascript:initRole();" class="am-cf"><span class="am-icon-get-pocket"></span> 角色管理</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="admin-parent"><a class="am-cf" data-am-collapse="{target: '#ul_2000am-icon-sitemap'}"><span
+                        class="am-icon-sitemap"></span> 门岗管理 <span
+                        class="am-icon-angle-right am-fr am-margin-right"></span></a>
+                    <ul class="am-list am-collapse admin-sidebar-sub am-in" id="ul_2000am-icon-sitemap">
+                        <li><a href="javascript:initOrgTree();" class="am-cf"><span class="am-icon-map"></span> 厂区与门岗信息</a>
+                        </li>
+                        <li><a href="javascript:initGateVisitParam();" class="am-cf"><span
+                                class="am-icon-calculator"></span> 门岗预约计划设置</a></li>
+                    </ul>
+                </li>
+                <li class="admin-parent"><a class="am-cf"
+                                            data-am-collapse="{target: '#ul_3000am-icon-user-secret'}"><span
+                        class="am-icon-user-secret"></span> 访客管理 <span
+                        class="am-icon-angle-right am-fr am-margin-right"></span></a>
+                    <ul class="am-list am-collapse admin-sidebar-sub am-in" id="ul_3000am-icon-user-secret">
+                        <li><a href="javascript:initVisitor();" class="am-cf"><span class="am-icon-gear"></span>
+                            访客单查询</a></li>
+                    </ul>
+                </li>
+                <li class="admin-parent"><a class="am-cf"
+                                            data-am-collapse="{target: '#ul_4000am-icon-bell-slash'}"><span
+                        class="am-icon-bell-slash"></span> 黑名单管理 <span
+                        class="am-icon-angle-right am-fr am-margin-right"></span></a>
+                    <ul class="am-list am-collapse admin-sidebar-sub am-in" id="ul_4000am-icon-bell-slash">
+                        <li><a href="javascript:initVisitBlack();" class="am-cf"><span class="am-icon-frown-o"></span>
+                            黑名单</a></li>
+                    </ul>
+                </li>
+                <li class="admin-parent"><a class="am-cf"
+                                            data-am-collapse="{target: '#ul_5000am-icon-user-secret'}"><span
+                        class="am-icon-user-secret"></span> 供应商管理 <span
+                        class="am-icon-angle-right am-fr am-margin-right"></span></a>
+                    <ul class="am-list am-collapse admin-sidebar-sub am-in" id="ul_5000am-icon-user-secret">
+                        <li><a href="javascript:initSupplierManager();" class="am-cf"><span class="am-icon-gear"></span>
+                            长期供应商信息维护</a></li>
+                    </ul>
+                </li>
+                <li class="admin-parent"><a class="am-cf" data-am-collapse="{target: '#ul_6000am-icon-group'}"><span
+                        class="am-icon-group"></span> 用户管理 <span
+                        class="am-icon-angle-right am-fr am-margin-right"></span></a>
+                    <ul class="am-list am-collapse admin-sidebar-sub am-in" id="ul_6000am-icon-group">
+                        <li><a href="javascript:initSysuser();" class="am-cf"><span class="am-icon-male"></span>
+                            用户管理</a></li>
+                    </ul>
+                </li>
+                <li><a href="javascript:location.replace('login.html');"><span class="am-icon-sign-out"></span> 注销</a>
+                </li>
+            </ul>
+            <div class="am-panel am-panel-default admin-sidebar-panel" style="border: 0px;">
+                <!--
+              <div class="am-panel-bd">
+                <p><span class="am-icon-bookmark"></span> 公告</p>
+                <p>时光静好，与君语；细水流年，与君同。—— Amaze UI</p>
+              </div>
+                -->
+            </div>
+
+            <!-- <div class="am-panel am-panel-default admin-sidebar-panel">
+              <div class="am-panel-bd">
+                <p><span class="am-icon-tag"></span> wiki</p>
+                <p>Welcome to the Amaze UI wiki!</p>
+              </div>
+            </div> -->
+        </div>
+    </div>
+    <!-- sidebar end -->
+
+    <!-- content start -->
+    <div class="admin-content" id="admin-content">
+
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link href="../assets/css/fullcalendar/bootstrap.min.css" rel="stylesheet">
+        <!--<link href="../assets/css/fullcalendar/font-awesome.css" rel="stylesheet">-->
+        <link href="../assets/css/iCheck/custom.css" rel="stylesheet">
+
+        <link href="../assets/css/fullcalendar/fullcalendar.css" rel="stylesheet">
+        <link href="../assets/css/fullcalendar/fullcalendar.print.css" rel="stylesheet">
+        <link href="../assets/css/dtree.css" rel="stylesheet">
+
+        <link href="../assets/css/fullcalendar/animate.css" rel="stylesheet">
+        <link href="../assets/css/fullcalendar/style.css?v=4.1.0" rel="stylesheet">
+
+        <script type="text/javascript" src="../assets/js/dtree.js"></script>
+        <script type="text/javascript" src="../assets/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="../assets/js/jquery-ui.custom.min.js"></script>
+        <script type="text/javascript" src="../assets/js/content.js"></script>
+        <script type="text/javascript" src="../assets/js/iCheck/icheck.min.js"></script>
+        <script type="text/javascript" src="../assets/js/fullcalendar/fullcalendar.min.js"></script>
+
+        <script type="text/javascript">
+            function renderTree() {
+                $('#tree-div').html('');
+                d = new dTree('d', '../assets/dtree/');
+                d.add('0', '-1', '上汽通用汽车', 'javascript:void(0);', '', 'javascript:oprate(\'0\',0,1);');
+                doPostBack(contextRoot + '/api/branch/01/viewAll?time=' + new Date().getTime(), function success(jsonObj) {
+                    if (jsonObj != null) {
+                        var index = 0;
+                        var parent_index = 0;
+                        for (var i = 0; i < jsonObj.rows.length; i++) {
+                            index++;
+                            var obj = jsonObj.rows[i];
+                            parent_index = index;
+                            var url = 'javascript:oprate(\'' + obj.id + '\',1,\'' + obj.code + '#' + obj.name + '\');';
+                            d.add(index, '0', obj.id + '|' + obj.code + '|' + obj.name, 'javascript:void(1);', '', url);
+                            if (obj.doors && obj.doors.length > 0) {
+                                for (var j = 0; j < obj.doors.length; j++) {
+                                    index++;
+                                    var objDoor = obj.doors[j];
+                                    var url2 = 'javascript:oprate(\'' + objDoor.id + '\',2,\'' + objDoor.name + '#' + objDoor.addr + '#' + objDoor.visitLimit + '#' + objDoor.managerCheckOption + '#' + objDoor.carOption + '\');';
+                                    d.add(index, parent_index, objDoor.id + '|' + objDoor.name, 'javascript:void(2);', '', url2);
+                                }
+                            }
+                        }
+                    }
+                    $('#tree-div').html(d.toString());
+
+                    $('a[id^=\'sd\']').click(function (obj) {
+                        var t = $(this).attr('target');
+                        if (t) {
+                            eval(t);
+                        }
+                    });
+
+                }, {'uid': uid, 'token': token});
+            }
+        </script>
+
+
+        <!-- content start -->
+        <div class="admin-content">
+
+            <div class="am-cf am-padding">
+                <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">门岗预约参数设置</strong> /
+                    <small>维护</small>
+                </div>
+            </div>
+
+            <div class="admin-content">
+
+                <div class="col-sm-3">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>门岗</h5>
+                        </div>
+                        <div class="ibox-content">
+                            <div class="admin-content" id="tree-div" style="margin-left: 50px;">
+                                <div class="dtree">
+                                    <div class="dTreeNode"><img id="id0" src="../assets/dtree/base.gif" alt=""><a
+                                            id="sd0" class="node" href="javascript:void(0);"
+                                            target="javascript:oprate('0',0,1);"
+                                            onclick="javascript: d.s(0);">上汽通用汽车</a></div>
+                                    <div id="dd0" class="clip" style="display:block;">
+                                        <div class="dTreeNode"><a href="javascript: d.o(1);"><img id="jd1"
+                                                                                                  src="../assets/dtree/minus.gif"
+                                                                                                  alt=""></a><img
+                                                id="id1" src="../assets/dtree/folderopen.gif" alt=""><a id="sd1"
+                                                                                                        class="node"
+                                                                                                        href="javascript:void(1);"
+                                                                                                        target="javascript:oprate('1',1,'SJQNP#金桥北厂');"
+                                                                                                        onclick="javascript: d.s(1);">1|SJQNP|金桥北厂</a>
+                                        </div>
+                                        <div id="dd1" class="clip" style="display:block;">
+                                            <div class="dTreeNode"><img src="../assets/dtree/line.gif" alt=""><img
+                                                    src="../assets/dtree/joinbottom.gif" alt=""><img id="id2"
+                                                                                                     src="../assets/dtree/page.gif"
+                                                                                                     alt=""><a id="sd2"
+                                                                                                               class="node"
+                                                                                                               href="javascript:void(2);"
+                                                                                                               target="javascript:oprate('SJQNP0001',2,'东一门##200#0#0');"
+                                                                                                               onclick="javascript: d.s(2);">SJQNP0001|东一门</a>
+                                            </div>
+                                        </div>
+                                        <div class="dTreeNode"><a href="javascript: d.o(3);"><img id="jd3"
+                                                                                                  src="../assets/dtree/minus.gif"
+                                                                                                  alt=""></a><img
+                                                id="id3" src="../assets/dtree/folderopen.gif" alt=""><a id="sd3"
+                                                                                                        class="node"
+                                                                                                        href="javascript:void(1);"
+                                                                                                        target="javascript:oprate('2',1,'PATAC#泛亚厂区');"
+                                                                                                        onclick="javascript: d.s(3);">2|PATAC|泛亚厂区</a>
+                                        </div>
+                                        <div id="dd3" class="clip" style="display:block;">
+                                            <div class="dTreeNode"><img src="../assets/dtree/line.gif" alt=""><img
+                                                    src="../assets/dtree/join.gif" alt=""><img id="id4"
+                                                                                               src="../assets/dtree/page.gif"
+                                                                                               alt=""><a id="sd4"
+                                                                                                         class="node"
+                                                                                                         href="javascript:void(2);"
+                                                                                                         target="javascript:oprate('PATAC001',2,'一号门##10#1#1');"
+                                                                                                         onclick="javascript: d.s(4);">PATAC001|一号门</a>
+                                            </div>
+                                            <div class="dTreeNode"><img src="../assets/dtree/line.gif" alt=""><img
+                                                    src="../assets/dtree/joinbottom.gif" alt=""><img id="id5"
+                                                                                                     src="../assets/dtree/page.gif"
+                                                                                                     alt=""><a id="sd5"
+                                                                                                               class="node"
+                                                                                                               href="javascript:void(2);"
+                                                                                                               target="javascript:oprate('PATAC002',2,'二号门##4#1#1');"
+                                                                                                               onclick="javascript: d.s(5);">PATAC002|二号门</a>
+                                            </div>
+                                        </div>
+                                        <div class="dTreeNode"><a href="javascript: d.o(6);"><img id="jd6"
+                                                                                                  src="../assets/dtree/minus.gif"
+                                                                                                  alt=""></a><img
+                                                id="id6" src="../assets/dtree/folderopen.gif" alt=""><a id="sd6"
+                                                                                                        class="node"
+                                                                                                        href="javascript:void(1);"
+                                                                                                        target="javascript:oprate('3',1,'SNSNP#北盛北厂');"
+                                                                                                        onclick="javascript: d.s(6);">3|SNSNP|北盛北厂</a>
+                                        </div>
+                                        <div id="dd6" class="clip" style="display: block;">
+                                            <div class="dTreeNode"><img src="../assets/dtree/line.gif" alt=""><img
+                                                    src="../assets/dtree/joinbottom.gif" alt=""><img id="id7"
+                                                                                                     src="../assets/dtree/page.gif"
+                                                                                                     alt=""><a id="sd7"
+                                                                                                               class="nodeSel"
+                                                                                                               href="javascript:void(2);"
+                                                                                                               target="javascript:oprate('SNSNP',2,'北一门#复兴路#4006#1#0');"
+                                                                                                               onclick="javascript: d.s(7);">SNSNP|北一门</a>
+                                            </div>
+                                        </div>
+                                        <div class="dTreeNode"><a href="javascript: d.o(8);"><img id="jd8"
+                                                                                                  src="../assets/dtree/plus.gif"
+                                                                                                  alt=""></a><img
+                                                id="id8" src="../assets/dtree/folder.gif" alt=""><a id="sd8"
+                                                                                                    class="node"
+                                                                                                    href="javascript:void(1);"
+                                                                                                    target="javascript:oprate('4',1,'SNSSP#北盛南厂');"
+                                                                                                    onclick="javascript: d.s(8);">4|SNSSP|北盛南厂</a>
+                                        </div>
+                                        <div id="dd8" class="clip" style="display:none;">
+                                            <div class="dTreeNode"><img src="../assets/dtree/line.gif" alt=""><img
+                                                    src="../assets/dtree/join.gif" alt=""><img id="id9"
+                                                                                               src="../assets/dtree/page.gif"
+                                                                                               alt=""><a id="sd9"
+                                                                                                         class="node"
+                                                                                                         href="javascript:void(2);"
+                                                                                                         target="javascript:oprate('006',2,'西1门2#广兰路2#200#0#0');"
+                                                                                                         onclick="javascript: d.s(9);">006|西1门2</a>
+                                            </div>
+                                            <div class="dTreeNode"><img src="../assets/dtree/line.gif" alt=""><img
+                                                    src="../assets/dtree/join.gif" alt=""><img id="id10"
+                                                                                               src="../assets/dtree/page.gif"
+                                                                                               alt=""><a id="sd10"
+                                                                                                         class="node"
+                                                                                                         href="javascript:void(2);"
+                                                                                                         target="javascript:oprate('009',2,'东一门#2424#300#1#1');"
+                                                                                                         onclick="javascript: d.s(10);">009|东一门</a>
+                                            </div>
+                                            <div class="dTreeNode"><img src="../assets/dtree/line.gif" alt=""><img
+                                                    src="../assets/dtree/join.gif" alt=""><img id="id11"
+                                                                                               src="../assets/dtree/page.gif"
+                                                                                               alt=""><a id="sd11"
+                                                                                                         class="node"
+                                                                                                         href="javascript:void(2);"
+                                                                                                         target="javascript:oprate('4',2,'CDB11#成都#200#1#0');"
+                                                                                                         onclick="javascript: d.s(11);">4|CDB11</a>
+                                            </div>
+                                            <div class="dTreeNode"><img src="../assets/dtree/line.gif" alt=""><img
+                                                    src="../assets/dtree/joinbottom.gif" alt=""><img id="id12"
+                                                                                                     src="../assets/dtree/page.gif"
+                                                                                                     alt=""><a id="sd12"
+                                                                                                               class="node"
+                                                                                                               href="javascript:void(2);"
+                                                                                                               target="javascript:oprate('CDB1002',2,'二号门##200#1#0');"
+                                                                                                               onclick="javascript: d.s(12);">CDB1002|二号门</a>
+                                            </div>
+                                        </div>
+                                        <div class="dTreeNode"><a href="javascript: d.o(13);"><img id="jd13"
+                                                                                                   src="../assets/dtree/plusbottom.gif"
+                                                                                                   alt=""></a><img
+                                                id="id13" src="../assets/dtree/folder.gif" alt=""><a id="sd13"
+                                                                                                     class="node"
+                                                                                                     href="javascript:void(1);"
+                                                                                                     target="javascript:oprate('C',1,'FANYA#泛亚新园区');"
+                                                                                                     onclick="javascript: d.s(13);">C|FANYA|泛亚新园区</a>
+                                        </div>
+                                        <div id="dd13" class="clip" style="display:none;">
+                                            <div class="dTreeNode"><img src="../assets/dtree/empty.gif" alt=""><img
+                                                    src="../assets/dtree/joinbottom.gif" alt=""><img id="id14"
+                                                                                                     src="../assets/dtree/page.gif"
+                                                                                                     alt=""><a id="sd14"
+                                                                                                               class="node"
+                                                                                                               href="javascript:void(2);"
+                                                                                                               target="javascript:oprate('PANEW001',2,'新泛亚1门##200#0#0');"
+                                                                                                               onclick="javascript: d.s(14);">PANEW001|新泛亚1门</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <form name="menuForm" method="post">
+                                <div class="dtree" style="overflow: auto;margin:5px 10px 50px 50px;">
+                                    <!--循环为树添加内容-->
+                                    <script>
+
+                                        renderTree();
+
+                                        /* d.add('${t.menuId}', '${t.parentId}', '${t.menuId}|${t.menuName}',
+                                            'javascript:oprate(\'${t.menuId}\',1);|javascript:oprate(\'${t.menuId}\',2);|javascript:oprate(\'${t.menuId}\',3);',
+                                            '', 'menu'); */
+                                    </script>
+                                </div>
+
+                            </form>
+
+                        </div>
+                    </div>
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-content">
+                            <h2>说明</h2> 在左侧选择具体门岗后，在右侧的日历中设定预约参数
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-9">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5 id="node_name">预约参数--北一门</h5>
+                        </div>
+                        <div class="ibox-content">
+                            <div id="calendar" class="fc fc-ltr">
+                                <table class="fc-header" style="width:100%">
+                                    <tbody>
+                                    <tr>
+                                        <td class="fc-header-left"><span class="fc-header-title"><button
+                                                onclick="initMonthData(0)">&lt;上一月</button>&nbsp;<button
+                                                onclick="initMonthData(1)">下一月&gt;</button></span></td>
+                                        <td class="fc-header-center"><span
+                                                class="fc-header-title"><h2>二月 2019</h2></span></td>
+                                        <td class="fc-header-right"><span
+                                                class="fc-button fc-button-month fc-state-default fc-corner-left fc-corner-right fc-state-active"
+                                                unselectable="on">月</span></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <div class="fc-content" style="position: relative;">
+                                    <div class="fc-view fc-view-month fc-grid" style="position:relative"
+                                         unselectable="on">
+                                        <div class="fc-event-container"
+                                             style="position:absolute;z-index:8;top:0;left:0">
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 276px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 131px; top: 275px;">
+                                                <div class="fc-event-inner"><span
+                                                        class="fc-event-title">预约限额:20013</span></div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 276px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 131px; top: 243px;">
+                                                <div class="fc-event-inner"><span class="fc-event-title">预约车辆:关</span>
+                                                </div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 276px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 131px; top: 211px;">
+                                                <div class="fc-event-inner"><span class="fc-event-title">审核开关:开</span>
+                                                </div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 3px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 132px; top: 275px;">
+                                                <div class="fc-event-inner"><span class="fc-event-title">预约限额:300</span>
+                                                </div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 3px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 132px; top: 243px;">
+                                                <div class="fc-event-inner"><span class="fc-event-title">预约车辆:开</span>
+                                                </div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 3px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 132px; top: 211px;">
+                                                <div class="fc-event-inner"><span class="fc-event-title">审核开关:开</span>
+                                                </div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 140px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 131px; top: 432px;">
+                                                <div class="fc-event-inner"><span
+                                                        class="fc-event-title">预约限额:3005</span></div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 140px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 131px; top: 400px;">
+                                                <div class="fc-event-inner"><span class="fc-event-title">预约车辆:开</span>
+                                                </div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 140px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 131px; top: 368px;">
+                                                <div class="fc-event-inner"><span class="fc-event-title">审核开关:关</span>
+                                                </div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 548px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 132px; top: 496px;">
+                                                <div class="fc-event-inner"><span
+                                                        class="fc-event-title">预约限额:2001</span></div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 548px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 132px; top: 432px;">
+                                                <div class="fc-event-inner"><span class="fc-event-title">预约车辆:关</span>
+                                                </div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 548px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 132px; top: 400px;">
+                                                <div class="fc-event-inner"><span class="fc-event-title">审核开关:关</span>
+                                                </div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 140px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 131px; top: 275px;">
+                                                <div class="fc-event-inner"><span
+                                                        class="fc-event-title">预约限额:2002</span></div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 140px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 131px; top: 243px;">
+                                                <div class="fc-event-inner"><span class="fc-event-title">预约车辆:开</span>
+                                                </div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end ui-draggable"
+                                                 style="position: absolute; left: 140px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 131px; top: 211px;"
+                                                 unselectable="on">
+                                                <div class="fc-event-inner"><span class="fc-event-title">审核开关:开</span>
+                                                </div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 548px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 132px; top: 528px;">
+                                                <div class="fc-event-inner"><span
+                                                        class="fc-event-title">预约限额:2002</span></div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 548px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 132px; top: 464px;">
+                                                <div class="fc-event-inner"><span class="fc-event-title">预约车辆:关</span>
+                                                </div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 548px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 132px; top: 368px;">
+                                                <div class="fc-event-inner"><span class="fc-event-title">审核开关:关</span>
+                                                </div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 412px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 131px; top: 432px;">
+                                                <div class="fc-event-inner"><span
+                                                        class="fc-event-title">预约限额:4001</span></div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 412px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 131px; top: 400px;">
+                                                <div class="fc-event-inner"><span class="fc-event-title">预约车辆:开</span>
+                                                </div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 412px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 131px; top: 368px;">
+                                                <div class="fc-event-inner"><span class="fc-event-title">审核开关:开</span>
+                                                </div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 685px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 132px; top: 118px;">
+                                                <div class="fc-event-inner"><span
+                                                        class="fc-event-title">预约限额:4006</span></div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 685px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 132px; top: 86px;">
+                                                <div class="fc-event-inner"><span class="fc-event-title">预约车辆:关</span>
+                                                </div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 685px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 132px; top: 54px;">
+                                                <div class="fc-event-inner"><span class="fc-event-title">审核开关:开</span>
+                                                </div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 822px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 131px; top: 118px;">
+                                                <div class="fc-event-inner"><span
+                                                        class="fc-event-title">预约限额:4006</span></div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 822px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 131px; top: 86px;">
+                                                <div class="fc-event-inner"><span class="fc-event-title">预约车辆:关</span>
+                                                </div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 822px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 131px; top: 54px;">
+                                                <div class="fc-event-inner"><span class="fc-event-title">审核开关:开</span>
+                                                </div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 412px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 131px; top: 275px;">
+                                                <div class="fc-event-inner"><span
+                                                        class="fc-event-title">预约限额:4006</span></div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 412px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 131px; top: 243px;">
+                                                <div class="fc-event-inner"><span class="fc-event-title">预约车辆:关</span>
+                                                </div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 412px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 131px; top: 211px;">
+                                                <div class="fc-event-inner"><span class="fc-event-title">审核开关:开</span>
+                                                </div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 548px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 132px; top: 275px;">
+                                                <div class="fc-event-inner"><span
+                                                        class="fc-event-title">预约限额:4006</span></div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 548px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 132px; top: 243px;">
+                                                <div class="fc-event-inner"><span class="fc-event-title">预约车辆:关</span>
+                                                </div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 548px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 132px; top: 211px;">
+                                                <div class="fc-event-inner"><span class="fc-event-title">审核开关:开</span>
+                                                </div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 685px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 132px; top: 275px;">
+                                                <div class="fc-event-inner"><span
+                                                        class="fc-event-title">预约限额:4006</span></div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 685px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 132px; top: 243px;">
+                                                <div class="fc-event-inner"><span class="fc-event-title">预约车辆:关</span>
+                                                </div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 685px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 132px; top: 211px;">
+                                                <div class="fc-event-inner"><span class="fc-event-title">审核开关:开</span>
+                                                </div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 822px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 131px; top: 275px;">
+                                                <div class="fc-event-inner"><span
+                                                        class="fc-event-title">预约限额:4006</span></div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 822px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 131px; top: 243px;">
+                                                <div class="fc-event-inner"><span class="fc-event-title">预约车辆:关</span>
+                                                </div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 822px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 131px; top: 211px;">
+                                                <div class="fc-event-inner"><span class="fc-event-title">审核开关:开</span>
+                                                </div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 3px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 132px; top: 432px;">
+                                                <div class="fc-event-inner"><span
+                                                        class="fc-event-title">预约限额:4006</span></div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 3px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 132px; top: 400px;">
+                                                <div class="fc-event-inner"><span class="fc-event-title">预约车辆:关</span>
+                                                </div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 3px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 132px; top: 368px;">
+                                                <div class="fc-event-inner"><span class="fc-event-title">审核开关:开</span>
+                                                </div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 276px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 131px; top: 432px;">
+                                                <div class="fc-event-inner"><span
+                                                        class="fc-event-title">预约限额:4006</span></div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 276px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 131px; top: 400px;">
+                                                <div class="fc-event-inner"><span class="fc-event-title">预约车辆:关</span>
+                                                </div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 276px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 131px; top: 368px;">
+                                                <div class="fc-event-inner"><span class="fc-event-title">审核开关:开</span>
+                                                </div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 685px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 132px; top: 432px;">
+                                                <div class="fc-event-inner"><span
+                                                        class="fc-event-title">预约限额:4006</span></div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 685px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 132px; top: 400px;">
+                                                <div class="fc-event-inner"><span class="fc-event-title">预约车辆:关</span>
+                                                </div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 685px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 132px; top: 368px;">
+                                                <div class="fc-event-inner"><span class="fc-event-title">审核开关:开</span>
+                                                </div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 822px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 131px; top: 432px;">
+                                                <div class="fc-event-inner"><span
+                                                        class="fc-event-title">预约限额:4006</span></div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 822px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 131px; top: 400px;">
+                                                <div class="fc-event-inner"><span class="fc-event-title">预约车辆:关</span>
+                                                </div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 822px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 131px; top: 368px;">
+                                                <div class="fc-event-inner"><span class="fc-event-title">审核开关:开</span>
+                                                </div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 3px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 132px; top: 653px;">
+                                                <div class="fc-event-inner"><span
+                                                        class="fc-event-title">预约限额:4006</span></div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 3px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 132px; top: 621px;">
+                                                <div class="fc-event-inner"><span class="fc-event-title">预约车辆:关</span>
+                                                </div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 3px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 132px; top: 589px;">
+                                                <div class="fc-event-inner"><span class="fc-event-title">审核开关:开</span>
+                                                </div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 140px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 131px; top: 653px;">
+                                                <div class="fc-event-inner"><span
+                                                        class="fc-event-title">预约限额:4006</span></div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 140px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 131px; top: 621px;">
+                                                <div class="fc-event-inner"><span class="fc-event-title">预约车辆:关</span>
+                                                </div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 140px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 131px; top: 589px;">
+                                                <div class="fc-event-inner"><span class="fc-event-title">审核开关:开</span>
+                                                </div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 276px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 131px; top: 653px;">
+                                                <div class="fc-event-inner"><span
+                                                        class="fc-event-title">预约限额:4006</span></div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 276px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 131px; top: 621px;">
+                                                <div class="fc-event-inner"><span class="fc-event-title">预约车辆:关</span>
+                                                </div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 276px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 131px; top: 589px;">
+                                                <div class="fc-event-inner"><span class="fc-event-title">审核开关:开</span>
+                                                </div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 412px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 131px; top: 653px;">
+                                                <div class="fc-event-inner"><span
+                                                        class="fc-event-title">预约限额:4006</span></div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 412px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 131px; top: 621px;">
+                                                <div class="fc-event-inner"><span class="fc-event-title">预约车辆:关</span>
+                                                </div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 412px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 131px; top: 589px;">
+                                                <div class="fc-event-inner"><span class="fc-event-title">审核开关:开</span>
+                                                </div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 548px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 132px; top: 653px;">
+                                                <div class="fc-event-inner"><span
+                                                        class="fc-event-title">预约限额:4006</span></div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 548px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 132px; top: 621px;">
+                                                <div class="fc-event-inner"><span class="fc-event-title">预约车辆:关</span>
+                                                </div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 548px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 132px; top: 589px;">
+                                                <div class="fc-event-inner"><span class="fc-event-title">审核开关:开</span>
+                                                </div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 685px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 132px; top: 653px;">
+                                                <div class="fc-event-inner"><span
+                                                        class="fc-event-title">预约限额:4006</span></div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 685px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 132px; top: 621px;">
+                                                <div class="fc-event-inner"><span class="fc-event-title">预约车辆:关</span>
+                                                </div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 685px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 132px; top: 589px;">
+                                                <div class="fc-event-inner"><span class="fc-event-title">审核开关:开</span>
+                                                </div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 822px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 131px; top: 653px;">
+                                                <div class="fc-event-inner"><span
+                                                        class="fc-event-title">预约限额:4006</span></div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 822px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 131px; top: 621px;">
+                                                <div class="fc-event-inner"><span class="fc-event-title">预约车辆:关</span>
+                                                </div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 822px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 131px; top: 589px;">
+                                                <div class="fc-event-inner"><span class="fc-event-title">审核开关:开</span>
+                                                </div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 3px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 132px; top: 810px;">
+                                                <div class="fc-event-inner"><span
+                                                        class="fc-event-title">预约限额:4006</span></div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 3px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 132px; top: 778px;">
+                                                <div class="fc-event-inner"><span class="fc-event-title">预约车辆:关</span>
+                                                </div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 3px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 132px; top: 746px;">
+                                                <div class="fc-event-inner"><span class="fc-event-title">审核开关:开</span>
+                                                </div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 140px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 131px; top: 810px;">
+                                                <div class="fc-event-inner"><span
+                                                        class="fc-event-title">预约限额:4006</span></div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 140px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 131px; top: 778px;">
+                                                <div class="fc-event-inner"><span class="fc-event-title">预约车辆:关</span>
+                                                </div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 140px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 131px; top: 746px;">
+                                                <div class="fc-event-inner"><span class="fc-event-title">审核开关:开</span>
+                                                </div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 276px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 131px; top: 810px;">
+                                                <div class="fc-event-inner"><span
+                                                        class="fc-event-title">预约限额:4006</span></div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 276px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 131px; top: 778px;">
+                                                <div class="fc-event-inner"><span class="fc-event-title">预约车辆:关</span>
+                                                </div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 276px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 131px; top: 746px;">
+                                                <div class="fc-event-inner"><span class="fc-event-title">审核开关:开</span>
+                                                </div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 412px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 131px; top: 810px;">
+                                                <div class="fc-event-inner"><span
+                                                        class="fc-event-title">预约限额:4006</span></div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 412px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 131px; top: 778px;">
+                                                <div class="fc-event-inner"><span class="fc-event-title">预约车辆:关</span>
+                                                </div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 412px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 131px; top: 746px;">
+                                                <div class="fc-event-inner"><span class="fc-event-title">审核开关:开</span>
+                                                </div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 548px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 132px; top: 810px;">
+                                                <div class="fc-event-inner"><span
+                                                        class="fc-event-title">预约限额:4006</span></div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 548px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 132px; top: 778px;">
+                                                <div class="fc-event-inner"><span class="fc-event-title">预约车辆:关</span>
+                                                </div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                            <div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+                                                 style="position: absolute; left: 548px; background-color: rgb(255, 235, 172); border-color: rgb(255, 235, 172); width: 132px; top: 746px;">
+                                                <div class="fc-event-inner"><span class="fc-event-title">审核开关:开</span>
+                                                </div>
+                                                <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+                                            </div>
+                                        </div>
+                                        <table class="fc-border-separate" style="width:100%" cellspacing="0">
+                                            <thead>
+                                            <tr class="fc-first fc-last">
+                                                <th class="fc-day-header fc-日 fc-widget-header fc-first"
+                                                    style="width: 188px;">日
+                                                </th>
+                                                <th class="fc-day-header fc-一 fc-widget-header" style="width: 188px;">
+                                                    一
+                                                </th>
+                                                <th class="fc-day-header fc-二 fc-widget-header" style="width: 188px;">
+                                                    二
+                                                </th>
+                                                <th class="fc-day-header fc-三 fc-widget-header" style="width: 188px;">
+                                                    三
+                                                </th>
+                                                <th class="fc-day-header fc-四 fc-widget-header" style="width: 188px;">
+                                                    四
+                                                </th>
+                                                <th class="fc-day-header fc-五 fc-widget-header" style="width: 188px;">
+                                                    五
+                                                </th>
+                                                <th class="fc-day-header fc-六 fc-widget-header fc-last">六</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr class="fc-week fc-first">
+                                                <td class="fc-day fc-日 fc-widget-content fc-other-month fc-past fc-first"
+                                                    data-date="2019-01-27">
+                                                    <div style="min-height: 156px;">
+                                                        <div class="fc-day-number">27</div>
+                                                        <div class="fc-day-content">
+                                                            <div style="position: relative; height: 96px;">&nbsp;</div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="fc-day fc-一 fc-widget-content fc-other-month fc-past"
+                                                    data-date="2019-01-28">
+                                                    <div>
+                                                        <div class="fc-day-number">28</div>
+                                                        <div class="fc-day-content">
+                                                            <div style="position: relative; height: 96px;">&nbsp;</div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="fc-day fc-二 fc-widget-content fc-other-month fc-past"
+                                                    data-date="2019-01-29">
+                                                    <div>
+                                                        <div class="fc-day-number">29</div>
+                                                        <div class="fc-day-content">
+                                                            <div style="position: relative; height: 96px;">&nbsp;</div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="fc-day fc-三 fc-widget-content fc-other-month fc-past"
+                                                    data-date="2019-01-30">
+                                                    <div>
+                                                        <div class="fc-day-number">30</div>
+                                                        <div class="fc-day-content">
+                                                            <div style="position: relative; height: 96px;">&nbsp;</div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="fc-day fc-四 fc-widget-content fc-other-month fc-past"
+                                                    data-date="2019-01-31">
+                                                    <div>
+                                                        <div class="fc-day-number">31</div>
+                                                        <div class="fc-day-content">
+                                                            <div style="position: relative; height: 96px;">&nbsp;</div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="fc-day fc-五 fc-widget-content fc-past"
+                                                    data-date="2019-02-01">
+                                                    <div>
+                                                        <div class="fc-day-number">1</div>
+                                                        <div class="fc-day-content">
+                                                            <div style="position: relative; height: 96px;">&nbsp;</div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="fc-day fc-六 fc-widget-content fc-past fc-last"
+                                                    data-date="2019-02-02">
+                                                    <div>
+                                                        <div class="fc-day-number">2</div>
+                                                        <div class="fc-day-content">
+                                                            <div style="position: relative; height: 96px;">&nbsp;</div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr class="fc-week">
+                                                <td class="fc-day fc-日 fc-widget-content fc-past fc-first"
+                                                    data-date="2019-02-03">
+                                                    <div style="min-height: 156px;">
+                                                        <div class="fc-day-number">3</div>
+                                                        <div class="fc-day-content">
+                                                            <div style="position: relative; height: 96px;">&nbsp;</div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="fc-day fc-一 fc-widget-content fc-past"
+                                                    data-date="2019-02-04">
+                                                    <div>
+                                                        <div class="fc-day-number">4</div>
+                                                        <div class="fc-day-content">
+                                                            <div style="position: relative; height: 96px;">&nbsp;</div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="fc-day fc-二 fc-widget-content fc-past"
+                                                    data-date="2019-02-05">
+                                                    <div>
+                                                        <div class="fc-day-number">5</div>
+                                                        <div class="fc-day-content">
+                                                            <div style="position: relative; height: 96px;">&nbsp;</div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="fc-day fc-三 fc-widget-content fc-past"
+                                                    data-date="2019-02-06">
+                                                    <div>
+                                                        <div class="fc-day-number">6</div>
+                                                        <div class="fc-day-content">
+                                                            <div style="position: relative; height: 96px;">&nbsp;</div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="fc-day fc-四 fc-widget-content fc-past"
+                                                    data-date="2019-02-07">
+                                                    <div>
+                                                        <div class="fc-day-number">7</div>
+                                                        <div class="fc-day-content">
+                                                            <div style="position: relative; height: 96px;">&nbsp;</div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="fc-day fc-五 fc-widget-content fc-past"
+                                                    data-date="2019-02-08">
+                                                    <div>
+                                                        <div class="fc-day-number">8</div>
+                                                        <div class="fc-day-content">
+                                                            <div style="position: relative; height: 96px;">&nbsp;</div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="fc-day fc-六 fc-widget-content fc-past fc-last"
+                                                    data-date="2019-02-09">
+                                                    <div>
+                                                        <div class="fc-day-number">9</div>
+                                                        <div class="fc-day-content">
+                                                            <div style="position: relative; height: 96px;">&nbsp;</div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr class="fc-week">
+                                                <td class="fc-day fc-日 fc-widget-content fc-past fc-first"
+                                                    data-date="2019-02-10">
+                                                    <div style="min-height: 156px;">
+                                                        <div class="fc-day-number">10</div>
+                                                        <div class="fc-day-content">
+                                                            <div style="position: relative; height: 192px;">&nbsp;</div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="fc-day fc-一 fc-widget-content fc-past"
+                                                    data-date="2019-02-11">
+                                                    <div>
+                                                        <div class="fc-day-number">11</div>
+                                                        <div class="fc-day-content">
+                                                            <div style="position: relative; height: 192px;">&nbsp;</div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="fc-day fc-二 fc-widget-content fc-past"
+                                                    data-date="2019-02-12">
+                                                    <div>
+                                                        <div class="fc-day-number">12</div>
+                                                        <div class="fc-day-content">
+                                                            <div style="position: relative; height: 192px;">&nbsp;</div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="fc-day fc-三 fc-widget-content fc-past"
+                                                    data-date="2019-02-13">
+                                                    <div>
+                                                        <div class="fc-day-number">13</div>
+                                                        <div class="fc-day-content">
+                                                            <div style="position: relative; height: 192px;">&nbsp;</div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="fc-day fc-四 fc-widget-content fc-past"
+                                                    data-date="2019-02-14">
+                                                    <div>
+                                                        <div class="fc-day-number">14</div>
+                                                        <div class="fc-day-content">
+                                                            <div style="position: relative; height: 192px;">&nbsp;</div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="fc-day fc-五 fc-widget-content fc-past"
+                                                    data-date="2019-02-15">
+                                                    <div>
+                                                        <div class="fc-day-number">15</div>
+                                                        <div class="fc-day-content">
+                                                            <div style="position: relative; height: 192px;">&nbsp;</div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="fc-day fc-六 fc-widget-content fc-past fc-last"
+                                                    data-date="2019-02-16">
+                                                    <div>
+                                                        <div class="fc-day-number">16</div>
+                                                        <div class="fc-day-content">
+                                                            <div style="position: relative; height: 192px;">&nbsp;</div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr class="fc-week">
+                                                <td class="fc-day fc-日 fc-widget-content fc-past fc-first"
+                                                    data-date="2019-02-17">
+                                                    <div style="min-height: 156px;">
+                                                        <div class="fc-day-number">17</div>
+                                                        <div class="fc-day-content">
+                                                            <div style="position: relative; height: 96px;">&nbsp;</div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="fc-day fc-一 fc-widget-content fc-past"
+                                                    data-date="2019-02-18">
+                                                    <div>
+                                                        <div class="fc-day-number">18</div>
+                                                        <div class="fc-day-content">
+                                                            <div style="position: relative; height: 96px;">&nbsp;</div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="fc-day fc-二 fc-widget-content fc-past"
+                                                    data-date="2019-02-19">
+                                                    <div>
+                                                        <div class="fc-day-number">19</div>
+                                                        <div class="fc-day-content">
+                                                            <div style="position: relative; height: 96px;">&nbsp;</div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="fc-day fc-三 fc-widget-content fc-past"
+                                                    data-date="2019-02-20">
+                                                    <div>
+                                                        <div class="fc-day-number">20</div>
+                                                        <div class="fc-day-content">
+                                                            <div style="position: relative; height: 96px;">&nbsp;</div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="fc-day fc-四 fc-widget-content fc-past"
+                                                    data-date="2019-02-21">
+                                                    <div>
+                                                        <div class="fc-day-number">21</div>
+                                                        <div class="fc-day-content">
+                                                            <div style="position: relative; height: 96px;">&nbsp;</div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="fc-day fc-五 fc-widget-content fc-past"
+                                                    data-date="2019-02-22">
+                                                    <div>
+                                                        <div class="fc-day-number">22</div>
+                                                        <div class="fc-day-content">
+                                                            <div style="position: relative; height: 96px;">&nbsp;</div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="fc-day fc-六 fc-widget-content fc-past fc-last"
+                                                    data-date="2019-02-23">
+                                                    <div>
+                                                        <div class="fc-day-number">23</div>
+                                                        <div class="fc-day-content">
+                                                            <div style="position: relative; height: 96px;">&nbsp;</div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr class="fc-week">
+                                                <td class="fc-day fc-日 fc-widget-content fc-past fc-first"
+                                                    data-date="2019-02-24">
+                                                    <div style="min-height: 156px;">
+                                                        <div class="fc-day-number">24</div>
+                                                        <div class="fc-day-content">
+                                                            <div style="position: relative; height: 96px;">&nbsp;</div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="fc-day fc-一 fc-widget-content fc-past"
+                                                    data-date="2019-02-25">
+                                                    <div>
+                                                        <div class="fc-day-number">25</div>
+                                                        <div class="fc-day-content">
+                                                            <div style="position: relative; height: 96px;">&nbsp;</div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="fc-day fc-二 fc-widget-content fc-today fc-state-highlight"
+                                                    data-date="2019-02-26">
+                                                    <div>
+                                                        <div class="fc-day-number">26</div>
+                                                        <div class="fc-day-content">
+                                                            <div style="position: relative; height: 96px;">&nbsp;</div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="fc-day fc-三 fc-widget-content fc-future"
+                                                    data-date="2019-02-27">
+                                                    <div>
+                                                        <div class="fc-day-number">27</div>
+                                                        <div class="fc-day-content">
+                                                            <div style="position: relative; height: 96px;">&nbsp;</div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="fc-day fc-四 fc-widget-content fc-future"
+                                                    data-date="2019-02-28">
+                                                    <div>
+                                                        <div class="fc-day-number">28</div>
+                                                        <div class="fc-day-content">
+                                                            <div style="position: relative; height: 96px;">&nbsp;</div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="fc-day fc-五 fc-widget-content fc-other-month fc-future"
+                                                    data-date="2019-03-01">
+                                                    <div>
+                                                        <div class="fc-day-number">1</div>
+                                                        <div class="fc-day-content">
+                                                            <div style="position: relative; height: 96px;">&nbsp;</div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="fc-day fc-六 fc-widget-content fc-other-month fc-future fc-last"
+                                                    data-date="2019-03-02">
+                                                    <div>
+                                                        <div class="fc-day-number">2</div>
+                                                        <div class="fc-day-content">
+                                                            <div style="position: relative; height: 96px;">&nbsp;</div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr class="fc-week fc-last">
+                                                <td class="fc-day fc-日 fc-widget-content fc-other-month fc-future fc-first"
+                                                    data-date="2019-03-03">
+                                                    <div style="min-height: 158px;">
+                                                        <div class="fc-day-number">3</div>
+                                                        <div class="fc-day-content">
+                                                            <div style="position: relative; height: 0px;">&nbsp;</div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="fc-day fc-一 fc-widget-content fc-other-month fc-future"
+                                                    data-date="2019-03-04">
+                                                    <div>
+                                                        <div class="fc-day-number">4</div>
+                                                        <div class="fc-day-content">
+                                                            <div style="position: relative; height: 0px;">&nbsp;</div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="fc-day fc-二 fc-widget-content fc-other-month fc-future"
+                                                    data-date="2019-03-05">
+                                                    <div>
+                                                        <div class="fc-day-number">5</div>
+                                                        <div class="fc-day-content">
+                                                            <div style="position: relative; height: 0px;">&nbsp;</div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="fc-day fc-三 fc-widget-content fc-other-month fc-future"
+                                                    data-date="2019-03-06">
+                                                    <div>
+                                                        <div class="fc-day-number">6</div>
+                                                        <div class="fc-day-content">
+                                                            <div style="position: relative; height: 0px;">&nbsp;</div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="fc-day fc-四 fc-widget-content fc-other-month fc-future"
+                                                    data-date="2019-03-07">
+                                                    <div>
+                                                        <div class="fc-day-number">7</div>
+                                                        <div class="fc-day-content">
+                                                            <div style="position: relative; height: 0px;">&nbsp;</div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="fc-day fc-五 fc-widget-content fc-other-month fc-future"
+                                                    data-date="2019-03-08">
+                                                    <div>
+                                                        <div class="fc-day-number">8</div>
+                                                        <div class="fc-day-content">
+                                                            <div style="position: relative; height: 0px;">&nbsp;</div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="fc-day fc-六 fc-widget-content fc-other-month fc-future fc-last"
+                                                    data-date="2019-03-09">
+                                                    <div>
+                                                        <div class="fc-day-number">9</div>
+                                                        <div class="fc-day-content">
+                                                            <div style="position: relative; height: 0px;">&nbsp;</div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <!-- content end -->
+
+
+        <!-- 菜单内容 begin -->
+        <!-- 新增  begin-->
+        <div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
+            <div class="am-modal-dialog">
+                <div class="am-modal-hd">提示</div>
+                <div class="am-modal-bd" id="alert_info">
+                </div>
+                <div class="am-modal-footer">
+                    <span class="am-modal-btn">确定</span>
+                </div>
+            </div>
+        </div>
+
+        <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" style="display: none;"
+                id="showDialog"></button>
+
+
+        <!-- 新增  end-->
+        <!-- 菜单内容 end -->
+        <input type="hidden" id="branchIdTmp">
+        <input type="hidden" id="delItemId">
+
+        <script type="text/javascript">
+
+            var currDoorId;
+            var currType;
+
+            /**
+             * 获取上一个月
+             *
+             * @date 格式为yyyy-mm-dd的日期，如：2014-01-25
+             */
+            function getPreMonth(date) {
+                var arr = date.split('-');
+                var year = arr[0]; //获取当前日期的年份
+                var month = arr[1]; //获取当前日期的月份
+                var day = arr[2]; //获取当前日期的日
+                var days = new Date(year, month, 0);
+                days = days.getDate(); //获取当前日期中月的天数
+                var year2 = year;
+                var month2 = parseInt(month) - 1;
+                if (month2 == 0) {
+                    year2 = parseInt(year2) - 1;
+                    month2 = 12;
+                }
+                var day2 = day;
+                var days2 = new Date(year2, month2, 0);
+                days2 = days2.getDate();
+                if (day2 > days2) {
+                    day2 = days2;
+                }
+                if (month2 < 10) {
+                    month2 = '0' + month2;
+                }
+                var t2 = year2 + '-' + month2 + '-' + day2;
+                return t2;
+            }
+
+            /**
+             * 获取下一个月
+             *
+             * @date 格式为yyyy-mm-dd的日期，如：2014-01-25
+             */
+            function getNextMonth(date) {
+                var arr = date.split('-');
+                var year = arr[0]; //获取当前日期的年份
+                var month = arr[1]; //获取当前日期的月份
+                var day = arr[2]; //获取当前日期的日
+                var days = new Date(year, month, 0);
+                days = days.getDate(); //获取当前日期中的月的天数
+                var year2 = year;
+                var month2 = parseInt(month) + 1;
+                if (month2 == 13) {
+                    year2 = parseInt(year2) + 1;
+                    month2 = 1;
+                }
+                var day2 = day;
+                var days2 = new Date(year2, month2, 0);
+                days2 = days2.getDate();
+                if (day2 > days2) {
+                    day2 = days2;
+                }
+                if (month2 < 10) {
+                    month2 = '0' + month2;
+                }
+
+                var t2 = year2 + '-' + month2 + '-' + day2;
+                return t2;
+            }
+
+            function submitUpdateVisitParam() {
+                var doorId = $("#doorId_edit").val();
+                var managerCheckOption = $("#managerCheckOption_edit").prop("checked") ? "1" : "0";
+                var carOption = $("#carOption_edit").prop("checked") ? "1" : "0";
+                var visitLimit = $("#visitLimit_edit").val() == "" ? "0" : $("#visitLimit_edit").val();
+                var date = $("#doorDate_edit").val();
+
+                doPostBack(contextRoot + '/api/branch/01/updateDoorVisitParam', function success(jsonObj) {
+                    if (jsonObj != null) {
+                        alert(jsonObj.description);
+                        if (jsonObj.result == '00') {
+                            // 更新日历
+                            //关闭窗口
+                            $('#myModal').modal('close');
+                        }
+                    } else {
+                        alert("处理出错，通讯无响应！");
+                    }
+
+                }, {
+                    "uid": uid,
+                    "token": token,
+                    "paramData": date,
+                    "doorId": doorId,
+                    "managerCheckOption": managerCheckOption,
+                    "carOption": carOption,
+                    "visitLimit": visitLimit
+                });
+            }
+
+            function eventClick(val) {
+                dayClick(val.start);
+            }
+
+            var currDate;
+
+            function dayClick(date) {
+                var events = $('#calendar').fullCalendar('clientEvents', function (event) {
+                    var eventStart = event.start;
+                    var eventEnd = event.end ? event.end : null;
+                    var theDate = date;
+                    // alert(eventStart+"               "+JSON.stringify(eventStart));
+                    // Make sure the event starts on or before date and ends afterward
+                    // Events that have no end date specified (null) end that day, so check if start = date
+                    // console.log(eventStart+"|"+theDate+"|"+(eventStart.getDate() == theDate.getDate()))
+                    return eventStart.getDate() == theDate.getDate();
+                });
+                currDate = getStdDate(date);
+                updateParam(events);
+            }
+
+            function getStdDate(date) {
+                var year = date.getFullYear();
+                var month = date.getMonth() + 1;
+                var day = date.getDate();
+                return year + "-" + (month < 10 ? ("0" + month) : month) + "-" + (day < 10 ? ("0" + day) : day);
+            }
+
+            function updateParam(events) {
+                $('#doorDate_edit').val(currDate);
+                for (var i = 0; i < events.length; i++) {
+                    if (events[i].title.indexOf('预约限额') >= 0) {
+                        var val = events[i].title.split(':')[1];
+                        if (val == "不限制") {
+                            val = '0';
+                        }
+                        $('#visitLimit_edit').val(val);
+                    }
+                    if (events[i].title.indexOf('审核开关') >= 0) {
+                        if (events[i].title.split(':')[1] == '开') {
+                            $('#managerCheckOption_edit').attr('checked', true);
+                        } else {
+                            $('#managerCheckOption_edit').attr('checked', false);
+                        }
+                    }
+                    if (events[i].title.indexOf('预约车辆') >= 0) {
+                        if (events[i].title.split(':')[1] == '开') {
+                            $('#carOption_edit').attr('checked', true);
+                        } else {
+                            $('#carOption_edit').attr('checked', false);
+                        }
+                    }
+                }
+                document.getElementById("showDialog").click();
+            }
+
+            $(document).ready(function () {
+
+                $('.i-checks').iCheck({
+                    checkboxClass: 'icheckbox_square-green',
+                    radioClass: 'iradio_square-green'
+                });
+
+                /* initialize the external events
+                 -----------------------------------------------------------------*/
+
+                $('#external-events div.external-event').each(function () {
+
+                    // create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
+                    // it doesn't need to have a start or end
+                    var eventObject = {
+                        title: $.trim($(this).text()) // use the element's text as the event title
+                    };
+
+                    // store the Event Object in the DOM element so we can get to it later
+                    $(this).data('eventObject', eventObject);
+
+                    // make the event draggable using jQuery UI
+                    $(this).draggable({
+                        zIndex: 999,
+                        revert: true, // will cause the event to go back to its
+                        revertDuration: 0 //  original position after the drag
+                    });
+
+                });
+
+
+                /* initialize the calendar
+                 -----------------------------------------------------------------*/
+                var date = new Date();
+                var d = date.getDate();
+                var m = date.getMonth();
+                var y = date.getFullYear();
+
+                $('#calendar').fullCalendar({
+                    header: {
+                        // left: 'prev,next',
+                        center: 'title',
+                        right: 'month'/*,agendaWeek,agendaDay*/
+                    },
+                    editable: true,
+                    dayClick: dayClick,
+                    eventClick: eventClick,
+                    events: function (start, end, callback) {
+                        var start = $('#calendar').fullCalendar('getView').visStart;
+                        var datex = start.getFullYear() + '-' + (start.getMonth() < 9 ? "0" : "") + (start.getMonth() + 1) + '-01';
+                        if (start.getDate() > 1) {
+                            datex = getNextMonth(datex);
+                        }
+                        if (currType == '1') {
+                            callback([]);
+                            return;
+                        }
+                        doPostBack(contextRoot + '/api/branch/01/queryDoorVisitParam', function (json) {
+                            var events = [];
+                            if (json.result == '00' && currDoorId != null) {
+                                $.each(json.rows, function (i, c) {
+                                    events.push({
+                                        title: '预约限额:' + (c.visitLimit == null ? '不限制' : c.visitLimit),
+                                        start: c.paramData, // will be parsed
+                                        color: '#FFEBAC'
+                                    });
+                                    events.push({
+                                        title: '预约车辆:' + (c.carOption == '1' ? '开' : '关'),
+                                        start: c.paramData, // will be parsed
+                                        color: '#FFEBAC'
+                                    });
+                                    events.push({
+                                        title: '审核开关:' + (c.managerCheckOption == '1' ? '开' : '关'),
+                                        start: c.paramData, // will be parsed
+                                        color: '#FFEBAC'
+                                    });
+
+                                });
+                            }
+                            callback(events);
+                        }, {'month': datex, 'doorId': currDoorId, 'uid': uid, 'token': token});
+                    }
+                });
+
+                $('td[class=\'fc-header-left\']').html('<span class="fc-header-title" ><button onclick=\'initMonthData(0)\'><上一月</button>&nbsp;<button  onclick=\'initMonthData(1)\'>下一月></button></span>');
+
+            });
+
+            function initMonthData(type) {
+                var start = $('#calendar').fullCalendar('getView').visStart;
+                var datex = start.getFullYear() + '-' + (start.getMonth() < 9 ? "0" : "") + (start.getMonth() + 1) + '-01';
+                if (start.getDate() > 1) {
+                    datex = getNextMonth(datex);
+                }
+                var targetMon;
+                if (type == 0) {
+                    targetMon = getPreMonth(datex);
+                    $('#calendar').fullCalendar('prev');
+                } else {
+                    targetMon = getNextMonth(datex);
+                    $('#calendar').fullCalendar('next');
+                }
+            }
+        </script>
+        <script type="text/javascript">
+            function showInfo(info) {
+                $('#alert_info').html(info);
+                $('#my-alert').show();
+            }
+
+            /**
+             *菜单的增加、修改、删除
+             **/
+            function oprate(objId, type, name) {
+                $('#node_name').html('预约参数--' + (type == '1' ? name.split('#')[1] : name.split('#')[0]));
+                currDoorId = objId;
+                currType = type;
+                $('#doorName_edit').val((type == '1' ? name.split('#')[1] : name.split('#')[0]));
+                $('#doorId_edit').val(objId);
+                $('#calendar').fullCalendar('refetchEvents');
+            }
+
+
+        </script>
+
+
+    </div>
+    <!-- content end -->
+
+    <div class="am-modal am-modal-prompt" style="overflow: auto; height: 700px; width: 900px;margin-left:-400px;"
+         tabindex="-1" id="showVisitInfo">
+        <div class="am-modal-dialog">
+            <div class="am-modal-hd">访客单详情</div>
+            <div class="am-modal-bd" id="visit_content_x"></div>
+            <div class="am-modal-footer" style="margin-bottom: 10px;">
+                <span id="btn_visit_confirm" class="am-modal-btn" style="display: none;"
+                      data-am-modal-confirm="">确认|OK</span>
+                <span class="am-modal-btn" id="btn_visit_cancel" data-am-modal-cancel="">关闭|Close</span>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<a href="#" class="am-show-sm-only admin-menu" data-am-offcanvas="{target: '#admin-offcanvas'}">
+    <span class="am-icon-btn am-icon-th-list"></span>
+</a>
+
+<footer>
+    <hr>
+    <p class="am-padding-left">© 2016 上汽通用汽车</p>
+</footer>
+
+<!--[if lt IE 9]>
+<script src="../assets/js/jquery.min.js"></script>
+<script src="../assets/js/modernizr.js"></script>
+<script src="../assets/js/amazeui.ie8polyfill.min.js"></script>
+<![endif]-->
+
+<script src="../assets/js/jquery.min.js"></script>
+<script src="../assets/js/amazeui.min.js"></script>
+<script src="../assets/js/app.js"></script>
+<script src="../assets/js/config.js"></script>
+<script src="../assets/js/saic.js"></script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var x = GetQueryString("id");
+        var y = GetQueryString("token");
+        if (x != null) {
+            $("#uid").val(x);
+            $("#client_token").val(y);
+            uid = x;
+            $("#index_manager").attr('href', "javascript:initAdminIndex('" + uid + "','" + y + "');");
+            $("#initVisitorURL").attr('href', "javascript:initVisitor('" + uid + "','" + y + "');");
+        } else {
+            window.location = "login.html";
+        }
+        doPostBack(contextRoot + '/api/admin/01/getSysUserById', function success(jsonObjx) {
+            //branchSet = jsonObj;
+            if (jsonObjx == null || jsonObjx.result != "00") {
+                alert("非法访问，即将退出\nIllegally Visit, will exit now");
+                window.close();
+            }
+            if (jsonObjx != null) {
+                if ($("#userNameDisplay").html() == "") {
+                    $("#userNameDisplay").html("欢迎您，" + jsonObjx.data.userName);
+                    $("#userName").val(jsonObjx.data.userName);
+                }
+            }
+
+        }, {
+            "id": uid,
+            "uid": uid,
+            "token": token
+        });
+        doPostBack(contextRoot + '/api/visit/01/visitStatistc', function success(jsonObjx) {
+            if (jsonObjx != null) {
+                $("#yestOk").html(jsonObjx.data.yestOk);
+                $("#yestTotal").html(jsonObjx.data.yestTotal);
+            }
+        }, {
+            "id": uid,
+            "uid": uid,
+            "token": token
+        });
+        var info_init = "";
+        info_init += "<li><a href=\"#\" id=\"index_manager\"><span class=\"am-icon-home\"></span> 首页</a></li> ";
+        info_init += "<li><a href=\"javascript:location.replace('login.html');\"><span class=\"am-icon-sign-out\"></span> 注销</a></li>";
+        $("#menu_div").html(info_init);
+        doPostBack(contextRoot + '/api/function/01/viewByUser', function (jsonObj) {
+            if (jsonObj != null) {
+                var info = "";
+                info += "<li><a href=\"#\" id=\"index_manager\"><span class=\"am-icon-home\"></span> 首页</a></li> ";
+                for (var i = 0; i < jsonObj.data.length; i++) {
+                    var obj = jsonObj.data[i];
+                    if (obj.type == '0') {
+                        info += "<li class=\"admin-parent\">";
+                        info += " <a class=\"am-cf\" data-am-collapse=\"{target: '#ul_" + obj.code + obj.icon + "'}\"><span class=\"" + obj.icon + "\"></span> " + obj.name + " <span class=\"am-icon-angle-right am-fr am-margin-right\"></span></a>";
+                        info += " <ul class=\"am-list am-collapse admin-sidebar-sub am-in\" id=\"ul_" + obj.code + obj.icon + "\">";
+                        for (var j = 0; j < jsonObj.data.length; j++) {
+                            var obj2 = jsonObj.data[j];
+                            if (obj.id == obj2.parentId) {
+                                info += "  <li><a href=\"" + obj2.action + "\" class=\"am-cf\"><span class=\"" + obj2.icon + "\"></span> " + obj2.name + "</a></li>";
+                            }
+                        }
+                        info += " </ul>";
+                        info += "</li> ";
+                    }
+                }
+                info += "<li><a href=\"javascript:location.replace('login.html');\"><span class=\"am-icon-sign-out\"></span> 注销</a></li>";
+                $("#menu_div").html(info);
+            }
+        }, {"uid": uid, "token": token});
+
+
+    });
+
+</script>
+
+<div id="cli_dialog_div"></div>
+<div class="am-dimmer" data-am-dimmer="" style="display: none;"></div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+     style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    修改门岗预约参数
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form class="am-form">
+                    <div class="am-g am-margin-top">
+                        <div class="am-u-sm-4 am-u-md-2 am-text-right" style="width:150px;">
+                            门岗名称
+                        </div>
+                        <div class="am-u-sm-8 am-u-md-4">
+                            <input type="text" class="am-input-sm" style="width:200px;" id="doorName_edit">
+                        </div>
+                        <div class="am-hide-sm-only am-u-md-6" id="doorNameTog_edit"></div>
+                    </div>
+                    <div class="am-g am-margin-top">
+                        <div class="am-u-sm-4 am-u-md-2 am-text-right" style="width:150px;">
+                            编号
+                        </div>
+                        <div class="am-u-sm-8 am-u-md-4">
+                            <input type="text" class="am-input-sm" readonly="readonly" style="width:200px;"
+                                   id="doorId_edit">
+                        </div>
+                        <div class="am-hide-sm-only am-u-md-6" id="doorIdTog_edit"></div>
+                    </div>
+                    <div class="am-g am-margin-top">
+                        <div class="am-u-sm-4 am-u-md-2 am-text-right" style="width:150px;">
+                            日期
+                        </div>
+                        <div class="am-u-sm-8 am-u-md-4">
+                            <input type="text" class="am-input-sm" readonly="readonly" style="width:200px;"
+                                   id="doorDate_edit">
+                        </div>
+                        <div class="am-hide-sm-only am-u-md-6" id="doorDateTog_edit"></div>
+                    </div>
+                    <div class="am-g am-margin-top">
+                        <div class="am-u-sm-4 am-u-md-2 am-text-right" style="width:150px;">
+                            访客预约限额
+                        </div>
+                        <div class="am-u-sm-8 am-u-md-4">
+                            <input type="text" class="am-input-sm" style="width:200px;" id="visitLimit_edit">
+                        </div>
+                        <div class="am-hide-sm-only am-u-md-6" style="font-size: 0.7em;text-align: center;">不填或填零表示不限制
+                        </div>
+                    </div>
+                    <div class="am-g am-margin-top">
+                        <div class="am-u-sm-4 am-u-md-2 am-text-right" style="width:150px;">
+                            预约审批功能
+                        </div>
+                        <div class="am-u-sm-8 am-u-md-4" style="text-align: left;">
+                            <input type="checkbox" id="managerCheckOption_edit" checked="checked">开启
+                        </div>
+                        <div class="am-hide-sm-only am-u-md-6" style="font-size: 0.7em;text-align: center;"></div>
+                    </div>
+                    <div class="am-g am-margin-top">
+                        <div class="am-u-sm-4 am-u-md-2 am-text-right" style="width:150px;">
+                            车辆预约功能
+                        </div>
+                        <div class="am-u-sm-8 am-u-md-4" style="text-align: left;">
+                            <input type="checkbox" id="carOption_edit" checked="checked">开启
+                        </div>
+                        <div class="am-hide-sm-only am-u-md-6" style="font-size: 0.7em;text-align: center;"></div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                </button>
+                <button type="button" class="btn btn-primary" onclick="submitUpdateVisitParam()">
+                    提交更改
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>-->
+</head>
+<style>
+    #getCode {
+        display: inline-block;
+        width: 100px;
+        height: 40px;
+        line-height: 40px;
+        background: #00bbee;
+        border-radius: 5px;
+        text-align: center;
+        cursor: pointer;
+        color: #fff;
+    }
+</style>
+<body>
+<span type="text" name="getCode" id="getCode" onclick="setTime()">获取验证码</span>
+</body>
+<script>
+  var countDown = 10
+  var getCode = document.getElementById("getCode")
+
+  function setTime () {
+    if (countDown == 0) {
+      getCode.innerHTML = "获取验证码"
+      getCode.style.backgroundColor = "#00bbee"
+      getCode.style.color = "#fff"
+      // $("#getCode").html("获取验证码")
+      // $("#getCode").css({"background":"#00bbee","color":"#fff"})
+      return
+    } else {
+      getCode.innerHTML = countDown
+      getCode.style.backgroundColor = "#ebebe4"
+      getCode.style.color = "#545454"
+      countDown--
+      // $("#getCode").html(countDown)
+      // $("#getCode").css({"background":"#B6B9B5","color":"#333"})
+    }
+    setTimeout(setTime, 1000)
+  }
+</script>
+</html>

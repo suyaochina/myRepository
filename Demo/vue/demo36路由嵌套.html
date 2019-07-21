@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="js/vue-router.js"></script>
+</head>
+<body>
+<div id="container">
+   <router-view></router-view>
+</div>
+</body>
+<script>
+    var GmailLogin = Vue.component("login",{
+        template:`
+            <div>
+                <p>这是登录组件</p>
+                <router-link to="/mail">登录</router-link>
+            </div>
+        `
+    });
+    var Gmail =Vue.component("mail",{
+        methods:{
+            back:function () {
+                //返回上一个页面
+                this.$router.go(-1)
+            }
+        },
+        template:`
+            <div>
+                <button @click="back">返回</button>
+                <p>这是邮箱主页面</p>
+                <ul>
+                    <li>
+                        <router-link to="/inbox">收件箱</router-link>
+                    </li>
+                    <li>
+                        <router-link to="/outbox">发件箱</router-link>
+                    </li>
+                </ul>
+                <router-view></router-view>
+            </div>
+        `
+    });
+    var MyInBox = Vue.component("inbox-component",{
+        template:`
+            <ul>
+                <li>未读邮件1</li>
+                <li>未读邮件2</li>
+                <li>未读邮件3</li>
+            </ul>
+        `
+    });
+    var MyOutBox = Vue.component("outbox-component",{
+        template:`
+            <ul>
+                <li>已发邮件1</li>
+                <li>已发邮件2</li>
+                <li>已发邮件3</li>
+            </ul>
+        `
+    });
+    new Vue({
+        router:new VueRouter({
+            routes:[
+                {path:'',redirect:'/login'},
+                {path:'/login',component:GmailLogin},
+                {path:'/mail',component:Gmail,children:[
+                        {path:'/inbox',component:MyInBox},
+                        {path:'/outbox',component:MyOutBox},
+                    ]},
+            ]
+        }),
+        el: "#container",
+        data: {
+            msg: "Hello Vue"
+        }
+    })
+</script>
+</html>

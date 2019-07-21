@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="jquery.min.js"></script>
+    <script src="qrcode.js"></script>
+</head>
+<body>
+<div id="qrcode">
+</div>
+<input type="text" id="input"><button id="btn" onclick="aaa()">提交</button>
+</body>
+<script>
+    var qrcode = new QRCode('qrcode', {
+        text: 'http://www.baidu.com',
+        width: 500,
+        height: 500,
+        colorDark : '#000000',
+        colorLight : '#ffffff',
+        correctLevel : QRCode.CorrectLevel.H
+    });
+    var str;
+
+    $("#input").change(function () {
+        $("#input").val()
+        str =$("#input").val()
+    })
+    function aaa(){
+        qrcode.clear();
+        qrcode.makeCode(str);
+    }
+</script>
+</html>

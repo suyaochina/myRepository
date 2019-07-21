@@ -1,0 +1,53 @@
+<html>
+<head>
+    <title>Highcharts 教程 | 菜鸟教程(runoob.com)</title>
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+    <script src="http://code.highcharts.com/highcharts-more.js"></script>
+</head>
+<body>
+<div id="container" style="height: 50%">
+</div>
+    <script language="JavaScript">
+        $(window).resize(function()
+        {
+            chart.setSize(
+                $(document).width(),
+                $(document).height()/2,
+                false
+            );
+        });
+
+        $(document).ready(function() {
+
+            var chart = new Highcharts.Chart({
+
+                chart: {
+                    renderTo: container,
+                    spacingTop: 3,
+                    spacingRight: 0,
+                    spacingBottom: 3,
+                    spacingLeft: 0
+                },
+
+                credits: {
+                    enabled: false
+                },
+
+                xAxis: {
+                    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+                },
+
+                series: [
+
+                    {
+                        type:"pie",
+                    data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
+                }]
+
+            });
+
+        });
+    </script>
+</body>
+</html>

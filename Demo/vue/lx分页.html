@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<style>
+    .active{
+        background:#00bbee;
+        color:#fff;
+        border: none;
+    }
+    span{
+        display: inline-block;
+        width:50px;
+        height:50px;
+        line-height:50px;
+        color:#00bbee;
+        border:1px solid #999;
+        box-sizing:border-box;
+        text-align:center;
+        border-radius:8px;
+        cursor:pointer;
+        margin:0 5px;
+    }
+    span:hover{
+        background:#00bbee;
+        color:#fff;
+        border: none;
+    }
+</style>
+<body>
+<div id="container">
+    <span>上一页</span>
+    <span v-for="(tmp,index) in pages"  @click="changeBg(index)" :class="{active:index == pageNo}">{{tmp}}</span>
+    <span>下一页</span>
+</div>
+</body>
+<script>
+    //vue 是一个实现ui层的js的框架
+    new Vue({
+        el: "#container",
+        data: {
+            pages:[1,2,3,4,5],
+            pageNo:0          //记录的是当前选择的是那一页
+        },
+        methods:{
+            changeBg:function (myindex) {
+               this.pageNo = myindex
+            }
+        }
+    })
+</script>
+</html>

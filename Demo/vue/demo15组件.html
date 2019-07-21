@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<body>
+<div id="container">
+    <p>{{msg}}</p>
+    <!--
+    可以被反复使用的带有特定功能的视图
+    组件化的好处，提高代码的复用率、提高开发效率、降低代码之间的耦合度、提高了代码的质量、降低了测试的难度
+    -->
+    <my-component></my-component>
+</div>
+</body>
+<script>
+    //创建组件的方式
+    Vue.component("my-component",{
+        template:`<h1>Hello Component</h1>`
+
+    });
+    new Vue({
+        el: "#container",
+        data: {
+            msg: "Hello Vue"
+        }
+    })
+</script>
+</html>

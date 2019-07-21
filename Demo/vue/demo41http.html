@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
+</head>
+<body>
+    <div id="container">
+        <ul>
+            <li v-for="tmp in myList">{{tmp}}</li>
+        </ul>
+    </div>
+</body>
+<script>
+    new Vue({
+        el: "#container",
+        data: {
+            msg: "Hello VueJS",
+            myList:[]
+        },
+        mounted:function () {
+            this.$http.get('data/test.json')
+                .then(function (response) {
+                    console.log(response)
+                })
+        }
+    })
+</script>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>添加用户</title>
+</head>
+<body>
+    添加用户:<br><br>
+    姓名: <input type="text" name="name" id="name" />  
+    email: <input type="text" name="email" id="email" />  
+    电话: <input type="text" name="tel" id="tel" />
+    <br><br>
+    <button id="addUser">提交</button>
+    <br><br>
+    <hr>
+    <br><br>
+    <table id="usertable" border="1" cellpadding="5" cellspacing=0>
+        <tbody>
+        <tr>
+            <th>姓名</th>
+            <th>email</th>
+            <th>电话</th>
+            <th> </th>
+        </tr>
+        <tr>
+            <td>Tom</td>
+            <td>tom@tom.com</td>
+            <td>5000</td>
+            <td><a href="deleteEmp?id=Tom">Delete</a></td>
+        </tr>
+        </tbody>
+    </table>
+</body>
+
+<script language="JavaScript">
+    document.getElementById("addUser").onclick = function(){
+        var nameValue = document.getElementById("name").value;
+        var emailValue = document.getElementById("email").value;
+        var telValue = document.getElementById("tel").value;
+        var tr = document.createElement("tr");
+        var nameTd = document.createElement("td");
+        var nameText = document.createTextNode(nameValue);
+        nameTd.appendChild(nameText);
+        var emailTd = document.createElement("td");
+        var emailText = document.createTextNode(emailValue);
+        emailTd.appendChild(emailText);
+        var telTd = document.createElement("td");
+        var telText = document.createTextNode(telValue);
+        telTd.appendChild(telText);
+        var aTd = document.createElement("td");
+        var a = document.createElement("a");
+        a.setAttribute("href","deleteEmp?id="+nameValue);
+        var aText = document.createTextNode("Delete");
+        a.appendChild(aText);
+        aTd.appendChild(a);
+        tr.appendChild(nameTd);
+        tr.appendChild(emailTd);
+        tr.appendChild(telTd);
+        tr.appendChild(aTd);
+        var table = document.getElementById("usertable");
+        //原因：因为火狐及其他浏览器，在页面中查找不到tbody标签
+        var tbody = document.createElement("tbody");
+        tbody.appendChild(tr);
+        table.appendChild(tbody);
+        a.onclick = function(){
+            var trElement = a.parentNode.parentNode;
+            var nameElement = trElement.firstChild.firstChild.nodeValue;
+            var flag = window.confirm("你确认要删除"+nameElement+"这个用户吗?");
+            if(!flag){
+                return false;
+            }else{
+                var parentElement = trElement.parentNode;
+                parentElement.removeChild(trElement);
+                return false;
+            }
+        }
+    }
+
+</script>
+
+</html>

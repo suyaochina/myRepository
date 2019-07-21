@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    .checkBox{position:relative;display:inline-block;width:21px;height:21px;}
+    .checkbox+.label{display:block;width: 21px;height: 21px;cursor: pointer;position: absolute;top: 0;left:0;background:dodgerblue;}
+    .checkbox:checked + .label::before{display:block;width:100%;height:100%;content: "\2714";text-align: center;font-size: 16px;color: white;}
+    .checkbox[type=checkbox]{visibility: hidden;}
+</style>
+<body>
+<label for="checkbox">
+    <span style="font-size:16px;">选我选我</span>
+    <div class="checkBox">
+        <input class="checkbox" type="checkbox" id="checkbox"/>
+        <label class="label" for="checkbox"></label>
+    </div>
+</label>
+</body>
+</html>

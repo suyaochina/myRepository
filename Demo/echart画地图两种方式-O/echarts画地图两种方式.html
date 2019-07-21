@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>智能安防访客管理监控平台</title>
+    <script src="../jquery-1.7.1.min.js"></script>
+</head>
+<body>
+<div id="echartMap" style="width:100%;height:610px;"></div>
+</body>
+<script src="https://cdn.bootcss.com/echarts/4.2.1-rc1/echarts.js"></script>
+<!--<script src="../js/xinjiang.js"></script>-->
+<script>
+    //  方法一
+    /*  var myChart = echarts.init(document.getElementById('echartMap'));
+      /!*新疆省地图安防接入点*!/
+      var geoCoordMap = {
+        "乌鲁木齐": [87.617733, 43.692818],
+        "吐鲁番": [89.184078, 42.847613],
+        "哈密": [93.51316, 42.733248],
+        "昌吉": [90.304012, 43.914577],
+        "博尔塔拉": [82.074778, 44.403258],
+        "巴音": [86.150969, 39.49],
+        "阿克苏": [80.265068, 40.968552],
+        "克孜勒苏": [75.672825, 39.613431],
+        "喀什": [77.989138, 38.367664]
+      };
+      // 将坐标与值对应并反映在地图上
+      var convertData = function (data) {
+        var res = [];
+        for (var i = 0; i < data.length; i++) {
+          var geoCoord = geoCoordMap[data[i].name];
+          if (geoCoord) {
+            res.push({
+              name: data[i].name,
+              value: geoCoord.concat(data[i].value)
+            });
+          }
+        }
+        return res;
+      };
+      var option = {
+        tooltip: {
+          show: true,
+          trigger: 'item',
+          triggerOn: 'click',
+          formatter: "名称:{b}<br />坐标:{d}"
+        },
+        series: [
+          {
+            type: 'effectScatter',
+            coordinateSystem: 'geo',
+            data: convertData([
+              {name: "乌鲁木齐", value: 111},
+              {name: "吐鲁番", value: 111},
+              {name: "哈密", value: 111},
+              {name: "昌吉", value: 222},
+              {name: "博尔塔拉", value: 222},
+              {name: "巴音", value: 222},
+              {name: "阿克苏", value: 111},
+              {name: "克孜勒苏", value: 111},
+              {name: "喀什", value: 111}
+            ]),
+            symbolSize:18,
+            rippleEffect: {                  //显示波浪样式
+              brushType: 'stroke'
+            },
+          },
+        ],
+        //显示散点图
+        visualMap: {
+          type: 'piecewise',
+          textStyle: {
+            color: '#fff'
+          },
+          bottom:20,
+          left:10,
+          pieces: [
+            {value:111, label: '布控网点', color: '#008000'},
+            {value:222, label: '预警', color: '#f00'}
+          ],
+        },
+        legend: {
+          type: "plain",
+          show: true,
+          orient: 'vertical',
+          top: 'middle',
+          left: 'left',
+        },
+        geo: {//引入贵州省的地图
+          top:120,
+          map: '新疆',
+          label: {
+            normal:{
+              show:true,
+              textStyle:{
+                color:"#fff",
+                fontSize:12,
+              }
+            },
+            emphasis: {
+              show: true           //鼠标移入显示地区名称
+            }
+          },
+          roam: true,              //是否允许缩放
+          zoom: 1,
+          itemStyle: {
+            normal: {
+              borderColor: '#76c1d0',
+              borderWidth:2
+            },
+            emphasis: {
+              areaColor: '#76c1d0',
+              color:"#000"
+            }
+          },
+          regions: [//对不同的区块进行着色
+            {
+              name: '乌鲁木齐市',
+              itemStyle: {
+                normal: {
+                  areaColor: '#4d718a'
+                }
+              }
+            }, {
+              name: '克拉玛依市',
+              itemStyle: {
+                normal: {
+                  areaColor: '#4d718a'
+                }
+              }
+            }, {
+              name: '吐鲁番地区',
+              itemStyle: {
+                normal: {
+                  areaColor: '#4d718a'
+                }
+              }
+            }, {
+              name: '哈密地区',
+              itemStyle: {
+                normal: {
+                  areaColor: '#4d718a'
+                }
+              }
+            }, {
+              name: '昌吉回族自治州',
+              itemStyle: {
+                normal: {
+                  areaColor: '#4d718a'
+                }
+              }
+            }, {
+              name: '巴音郭楞蒙古自治州',
+              itemStyle: {
+                normal: {
+                  areaColor: '#4d718a'
+                }
+              }
+            }, {
+              name: '阿克苏地区',
+              itemStyle: {
+                normal: {
+                  areaColor: '#4d718a'
+                }
+              }
+            }, {
+              name: '克孜勒苏柯尔克孜自治州',
+              itemStyle: {
+                normal: {
+                  areaColor: '#4d718a'
+                }
+              }
+            }, {
+              name: '喀什地区',
+              itemStyle: {
+                normal: {
+                  areaColor: '#4d718a'
+                }
+              }
+            }, {
+              name: '和田地区',
+              itemStyle: {
+                normal: {
+                  areaColor: '#4d718a'
+                }
+              }
+            },
+            {
+              name: '伊犁哈萨克自治州',
+              itemStyle: {
+                normal: {
+                  areaColor: '#4d718a'
+                }
+              }
+            },
+            {
+              name: '塔城地区',
+              itemStyle: {
+                normal: {
+                  areaColor: '#4d718a'
+                }
+              }
+            },
+            {
+              name: '阿勒泰地区',
+              itemStyle: {
+                normal: {
+                  areaColor: '#4d718a'
+                }
+              }
+            },
+            {
+              name: '石河子市',
+              itemStyle: {
+                normal: {
+                  areaColor: '#4d718a'
+                }
+              }
+            },
+            {
+              name: '阿拉尔市',
+              itemStyle: {
+                normal: {
+                  areaColor: '#4d718a'
+                }
+              }
+            },
+            {
+              name: '图木舒克市',
+              itemStyle: {
+                normal: {
+                  areaColor: '#4d718a'
+                }
+              }
+            },
+            {
+              name: '五家渠市',
+              itemStyle: {
+                normal: {
+                  areaColor: '#4d718a'
+                }
+              }
+            },
+            {
+              name: '北屯市',
+              itemStyle: {
+                normal: {
+                  areaColor: '#4d718a'
+                }
+              }
+            },
+            {
+              name: '铁门关市',
+              itemStyle: {
+                normal: {
+                  areaColor: '#4d718a'
+                }
+              }
+            },
+            {
+              name: '双河市',
+              itemStyle: {
+                normal: {
+                  areaColor: '#4d718a'
+                }
+              }
+            },
+            {
+              name: '博尔塔拉蒙古自治州',
+              itemStyle: {
+                normal: {
+                  areaColor: '#4d718a'
+                }
+              }
+            }
+          ]
+        }
+      };
+      myChart.setOption(option);*/
+    //  方法二
+    $.get('../js/xinjiang.json', function (chinaJson) {
+        echarts.registerMap('新疆', chinaJson);
+        var chart = echarts.init(document.getElementById('echartMap'));
+        /*新疆省地图安防接入点*/
+        var geoCoordMap = {
+            "乌鲁木齐": [87.617733, 43.692818],
+            "吐鲁番": [89.184078, 42.847613],
+            "哈密": [93.51316, 42.733248],
+            "昌吉": [90.304012, 43.914577],
+            "博尔塔拉": [82.074778, 44.403258],
+            "巴音": [86.150969, 39.49],
+            "阿克苏": [80.265068, 40.968552],
+            "克孜勒苏": [75.672825, 39.613431],
+            "喀什": [77.989138, 38.367664]
+        };
+        // 将坐标与值对应并反映在地图上
+        var convertData = function (data) {
+            var res = [];
+            for (var i = 0; i < data.length; i++) {
+                var geoCoord = geoCoordMap[data[i].name];
+                if (geoCoord) {
+                    res.push({
+                        name: data[i].name,
+                        value: geoCoord.concat(data[i].value)
+                    });
+                }
+            }
+            return res;
+        };
+        var option = {
+            tooltip: {
+                show: true,
+                trigger: 'item',
+                triggerOn: 'click',
+                formatter: "名称:{b}<br />坐标:{d}"
+            },
+            series: [
+                {
+                    type: 'effectScatter',
+                    coordinateSystem: 'geo',
+                    data: convertData([
+                        {name: "乌鲁木齐", value: 111},
+                        {name: "吐鲁番", value: 111},
+                        {name: "哈密", value: 111},
+                        {name: "昌吉", value: 222},
+                        {name: "博尔塔拉", value: 222},
+                        {name: "巴音", value: 222},
+                        {name: "阿克苏", value: 111},
+                        {name: "克孜勒苏", value: 111},
+                        {name: "喀什", value: 111}
+                    ]),
+                    symbolSize:18,
+                    rippleEffect: {                  //显示波浪样式
+                        brushType: 'stroke'
+                    },
+                },
+            ],
+            //显示散点图
+            visualMap: {
+                type: 'piecewise',
+                textStyle: {
+                    color: '#fff'
+                },
+                bottom:20,
+                left:10,
+                pieces: [
+                    {value:111, label: '布控网点', color: '#008000'},
+                    {value:222, label: '预警', color: '#f00'}
+                ],
+            },
+            legend: {
+                type: "plain",
+                show: true,
+                orient: 'vertical',
+                top: 'middle',
+                left: 'left',
+            },
+            geo: {//引入贵州省的地图
+                top:120,
+                map: '新疆',
+                label: {
+                    normal:{
+                        show:true,
+                        textStyle:{
+                            color:"#fff",
+                            fontSize:12,
+                        }
+                    },
+                    emphasis: {
+                        show: true           //鼠标移入显示地区名称
+                    }
+                },
+                roam: true,              //是否允许缩放
+                zoom: 1,
+                itemStyle: {
+                    normal: {
+                        borderColor: '#76c1d0',
+                        borderWidth:2
+                    },
+                    emphasis: {
+                        areaColor: '#76c1d0',
+                        color:"#000"
+                    }
+                },
+                regions: [//对不同的区块进行着色
+                    {
+                        name: '乌鲁木齐市',
+                        itemStyle: {
+                            normal: {
+                                areaColor: '#4d718a'
+                            }
+                        }
+                    }, {
+                        name: '克拉玛依市',
+                        itemStyle: {
+                            normal: {
+                                areaColor: '#4d718a'
+                            }
+                        }
+                    }, {
+                        name: '吐鲁番地区',
+                        itemStyle: {
+                            normal: {
+                                areaColor: '#4d718a'
+                            }
+                        }
+                    }, {
+                        name: '哈密地区',
+                        itemStyle: {
+                            normal: {
+                                areaColor: '#4d718a'
+                            }
+                        }
+                    }, {
+                        name: '昌吉回族自治州',
+                        itemStyle: {
+                            normal: {
+                                areaColor: '#4d718a'
+                            }
+                        }
+                    }, {
+                        name: '巴音郭楞蒙古自治州',
+                        itemStyle: {
+                            normal: {
+                                areaColor: '#4d718a'
+                            }
+                        }
+                    }, {
+                        name: '阿克苏地区',
+                        itemStyle: {
+                            normal: {
+                                areaColor: '#4d718a'
+                            }
+                        }
+                    }, {
+                        name: '克孜勒苏柯尔克孜自治州',
+                        itemStyle: {
+                            normal: {
+                                areaColor: '#4d718a'
+                            }
+                        }
+                    }, {
+                        name: '喀什地区',
+                        itemStyle: {
+                            normal: {
+                                areaColor: '#4d718a'
+                            }
+                        }
+                    }, {
+                        name: '和田地区',
+                        itemStyle: {
+                            normal: {
+                                areaColor: '#4d718a'
+                            }
+                        }
+                    },
+                    {
+                        name: '伊犁哈萨克自治州',
+                        itemStyle: {
+                            normal: {
+                                areaColor: '#4d718a'
+                            }
+                        }
+                    },
+                    {
+                        name: '塔城地区',
+                        itemStyle: {
+                            normal: {
+                                areaColor: '#4d718a'
+                            }
+                        }
+                    },
+                    {
+                        name: '阿勒泰地区',
+                        itemStyle: {
+                            normal: {
+                                areaColor: '#4d718a'
+                            }
+                        }
+                    },
+                    {
+                        name: '石河子市',
+                        itemStyle: {
+                            normal: {
+                                areaColor: '#4d718a'
+                            }
+                        }
+                    },
+                    {
+                        name: '阿拉尔市',
+                        itemStyle: {
+                            normal: {
+                                areaColor: '#4d718a'
+                            }
+                        }
+                    },
+                    {
+                        name: '图木舒克市',
+                        itemStyle: {
+                            normal: {
+                                areaColor: '#4d718a'
+                            }
+                        }
+                    },
+                    {
+                        name: '五家渠市',
+                        itemStyle: {
+                            normal: {
+                                areaColor: '#4d718a'
+                            }
+                        }
+                    },
+                    {
+                        name: '北屯市',
+                        itemStyle: {
+                            normal: {
+                                areaColor: '#4d718a'
+                            }
+                        }
+                    },
+                    {
+                        name: '铁门关市',
+                        itemStyle: {
+                            normal: {
+                                areaColor: '#4d718a'
+                            }
+                        }
+                    },
+                    {
+                        name: '双河市',
+                        itemStyle: {
+                            normal: {
+                                areaColor: '#4d718a'
+                            }
+                        }
+                    },
+                    {
+                        name: '博尔塔拉蒙古自治州',
+                        itemStyle: {
+                            normal: {
+                                areaColor: '#4d718a'
+                            }
+                        }
+                    }
+                ]
+            }
+        };
+        chart.setOption(option);
+    });
+</script>
+</html>

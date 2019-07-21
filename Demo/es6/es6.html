@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="../jquery-1.7.1.min.js"></script>
+</head>
+<style>
+    #div:after{content:"";display:block;clear:both;}
+    img{background:#f0f;float:left;}
+</style>
+<body>
+<div id="div" style="border:1px solid red;">
+</div>
+</body>
+<script>
+    console.log(a);
+    var a = "libai\"say:\"";
+    var b;
+    console.log(b);
+    console.log(a);
+    b = "121";
+    let c = "hello";
+    console.log(c);
+    var name = "libai";
+    console.log(name)
+    $("#div").click(()=>{
+        console.log(a + b)
+    })
+    var name1 = "bai";
+    console.log('hello' + name1);
+     const name2 = "lihui"
+    console.log(`hello${name2}`);
+    console.log(`myNameIs${name2}`)
+    d = 112
+    console.log(d)
+    //对象中的属性可以.或者[""]取出值
+    var book ={
+        name :"小明",
+        age:18
+    }
+    //通过赋值创建新属性
+    book.hobby = "eat"
+    console.log(book.name+book["age"]+"小明Info："+book)
+    function writeObj(obj) {
+        var description = "";
+        for(var i in obj){
+            var property = obj[i];
+            description += i +":" + property + "\n"
+        }
+        console.log(description)
+    }
+    writeObj(book)
+    var empty = [];
+    console.log(empty.length)
+    //  或运算符||
+    var x= 1,y=2;
+    console.log(x>1||y<1)
+    console.log(x>1||y>1)
+    function plus1(x) {
+        return x +1
+    }
+    console.log(plus1(3))
+    //Math()
+    console.log(Math.ceil(12.2)+"向上取整")
+    console.log(Math.floor(12.8)+"向下取整")
+    console.log(Math.round(12.2)+"四舍五入")
+    console.log(Math.random()+"随机产生一个0-1之间的小数")
+
+    function Point(x, y) {
+        this.x = x;
+        this.y = y;
+    }
+    var P = new Point(1,1);
+    Point.prototype.r =function () {
+        return Math.sqrt(
+            this.x*this.x+this.y*this.y
+        )
+    };
+    P.r();
+    console.log( P.r());
+    function moveon() {
+        var answer = confirm("休息一下不");
+        if(answer){
+            alert("好呀好呀好呀")
+        }else {
+            console.log("不准休息")
+        }
+    }
+    setTimeout(moveon,600000)
+
+    window.onload = function () {
+        var images = document.getElementsByTagName("img");
+        for (var i=0;i<images.length;i++){
+            var image =images[i];
+            if(image.addEventListener){
+                image.addEventListener("click",hide,false)
+            }else{
+                image.attachEvent("onclick",hide)//为了兼容ie8以下的浏览器，监听事件函数
+            }
+        }
+        function hide(event) {
+            event.target.style.visibility = "hidden";
+        }
+    }
+    //数组排序
+    var arr = ["a","1","5","3","2","1","5"]
+    function sort(arr) {
+        for (var i=0;i<arr.length;i++){
+            for(var j=0;j<arr.length;j++){
+                if(arr[j]>arr[j+1]){
+                    var temp =arr[j];
+                    arr[j] = arr[j+1];
+                    arr[j+1] = temp;
+                }
+            }
+        }
+        return arr;
+    }
+    console.log(sort(arr))
+    //数组去重
+    var arr1=["a",3,5,2,1,4,2,3,3,3,"a",5,5,5,4];
+    var arr2=[]
+    for (var i=0;i<arr1.length;i++){
+        if(arr2.indexOf(arr1[i]) == -1){
+            arr2.push(arr1[i])
+        }
+    }
+    console.log(arr2)
+
+</script>
+</html>

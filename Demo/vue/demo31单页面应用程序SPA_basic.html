@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script type="text/javascript" src="js/vue-router.js"></script>
+    <!--第一步：引入要用到的路由插件-->
+</head>
+<body>
+<div id="container">
+    <!--第二步：通过routerView指定盛放组件的容器-->
+    <router-view></router-view>
+</div>
+</body>
+<script>
+    /*第三步创建组件*/
+    var testLogin  = Vue.component("login",{
+        template:`
+            <div>
+                <h1>这是我的登录页面</h1>
+            </div>
+        `
+    });
+    var testRegister = Vue.component("register",{
+        template:`
+            <div>
+                <h1>这是我的注册页面</h1>
+            </div>
+        `
+    });
+    //第四步配置路由词典
+    const myRoutes =[
+        {path:'/',component:testLogin},       //当路径为空时 相当于默认加载谁
+        {path:'/myLogin',component:testLogin},
+        {path:'/myRegister',component:testRegister},
+    ]
+    const myRouter = new VueRouter({
+        routes:myRoutes
+    });
+    //第五步放入Vue中
+    new Vue({
+        router:myRouter,
+        el: "#container",
+        data: {
+            msg: "Hello Vue"
+        }
+    })
+</script>
+</html>

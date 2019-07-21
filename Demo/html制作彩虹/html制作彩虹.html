@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title></title>
+  <style>
+    #rainbow
+    {
+      background: transparent;
+      position: relative;
+      height:100%;
+      min-height:500px;
+      width:100%;
+      overflow: hidden;
+    }
+    #rainbow:before
+    {
+      content: "";
+      position:absolute;
+      display: inline-block;
+      background: transparent;
+      bottom:-100px;
+      left:50%;
+      margin-left: -25px;
+      height:200px;
+      width:200px;
+      border-radius: 50%;
+      box-shadow:
+      0 0 0 30px rgb(139, 0, 255),
+      0 0 0 60px rgb(0, 0, 255 ),
+      0 0 0 90px rgb(0, 127, 255),
+      0 0 0 120px rgb(0, 255, 0),
+      0 0 0 150px rgb(255, 255, 0),
+      0 0 0 180px rgb(255, 165, 0),
+      0 0 0 210px rgb(255, 0, 0);
+    }
+  </style>
+<body>
+<div id="rainbow"></div>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    table{
+        border:1px solid #ddd;
+        border-collapse: collapse;
+    }
+    td, th{
+        border:1px solid #ddd;
+        padding:3px;
+    }
+</style>
+<body>
+<table id="score">
+    <thead>
+    <th>Name</th>
+    <th>Math</th>
+    <th>Physics</th>
+    <th>Chemistry</th>
+    </thead>
+    <tbody>
+    <tr>
+        <td>Melanie</td>
+        <td>100</td>
+        <td>80</td>
+        <td>90</td>
+    </tr>
+    <tr>
+        <td>Thomas</td>
+        <td>99</td>
+        <td>100</td>
+        <td>90</td>
+    </tr>
+    <tr>
+        <td>Ada</td>
+        <td>100</td>
+        <td>70</td>
+        <td>95</td>
+    </tr>
+    </tbody>
+</table>
+<br>
+<button id="btn">Download</button>
+</body>
+<script>
+    var btn = document.getElementById('btn');
+    btn.onclick = function () {
+        downloadTable('score', 'score.csv');
+    };
+
+    var columnDelimiter = "\t"; //列分割符
+    var lineDelimiter = "\n";  //行分割符
+    function downloadTable(tableId, fileName) {
+        var scoreTable = document.getElementById(tableId);
+        var head = scoreTable.tHead;
+        var ths = head.getElementsByTagName('th');
+        var trs = scoreTable.tBodies[0].getElementsByTagName('tr');
+
+        var result = '';
+        for (let i = 0, l = ths.length; i < l; i++) {
+            result += ths[i].innerHTML + columnDelimiter;
+        }
+        result += lineDelimiter;
+
+        for (let i = 0, l = trs.length; i < l; i++) {
+            let tds = trs[i].getElementsByTagName('td');
+            for (let j = 0, l2 = tds.length; j < l2; j++) {
+                result += tds[j].innerHTML + columnDelimiter;
+            }
+            result += lineDelimiter;
+        }
+        var blob = new Blob([result], {type: 'text/csv;charset=utf-8;'});
+        var downloadLink = document.createElement("a");
+        if ('download' in downloadLink) { // feature detection, Browsers that support HTML5 download attribute
+            var url = URL.createObjectURL(blob);
+            downloadLink.href = url;
+            downloadLink.download = fileName;
+            downloadLink.hidden = true;
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            document.body.removeChild(downloadLink);
+        } else {
+            if (navigator.msSaveBlob) { //IE10+
+                navigator.msSaveBlob(blob, fileName);
+            }
+        }
+    }
+
+</script>
+</html>

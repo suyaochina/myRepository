@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<body>
+<div id="container">
+    <p>{{msg}}</p>
+    <my-login></my-login>
+</div>
+</body>
+<script>
+    Vue.component('label-name',{
+        template:'<label>用户名</label>'
+    });
+    Vue.component('input-name',{
+        template:'<input type="text" placeholder="请输入用户名"/>'
+    });
+    Vue.component('label-pwd',{
+        template:'<label>密&nbsp;&nbsp;&nbsp;码</label>'
+    });
+    Vue.component('input-pwd',{
+        template:'<input type="password" placeholder="请输入密码"/>'
+    });
+    Vue.component('button-login',{
+        template:'<button>登录</button>'
+    });
+    Vue.component('button-register',{
+        template:'<button>注册</button>'
+    });
+    //构造一个复合组件，作为当前应用程序的组件
+    Vue.component('my-login',{
+        template:`<form>
+                        <label-name></label-name><input-name></input-name><br/>
+                        <label-pwd></label-pwd><input-pwd></input-pwd><br/>
+                        <button-login></button-login>
+                        <button-register></button-register>
+                   </form>`
+    });
+    new Vue({
+        el: "#container",
+        data: {
+            msg: "Hello Vue"
+        }
+    })
+</script>
+</html>

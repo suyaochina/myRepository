@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加数据</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <style>
+        div{border:1px solid red;padding:5px;}
+    </style>
+    <script>
+        var db,str;
+        $(function () {
+            window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB
+            if(!window.indexedDB){
+                alert("你的浏览器不支持indexedDB")
+            }
+            //打开数据库
+            var req  = window.indexedDB.open("MyDatabase");     //打开数据库
+            req.onsuccess =function (evt) {
+                db =this.result;
+                str = "MyDatabase创建完成"+">状态："+this.readyState+">版本："+db.version+"<br/>";
+                $("#message").html(str);
+            }
+            req.onerror = function (evt) {
+                $("#message").html("打开数据库错误："+evt.target.errorCode);
+            }
+            //onupgradeneeded
+            req.onupgradeneeded =function (event) {
+                //创建objectStore
+                var objectStore =event.target.result.createObjectStore("customer",{keyPath:"user_id"}); //创建储存对象
+                    objectStore.createIndex("name","name",{unique:false});      //unique为true便是唯一值 false表示非唯一值
+            }
+            $("#addbtn").click(function () {
+                add_click("add")
+            })
+            $("#putbtn").click(function () {
+                add_click("put")
+            })
+            //读取数据
+
+        });
+
+        //新增数据
+        function add_click(add_way) {
+            var transaction = db.transaction("customer","readwrite");
+            transaction.oncomplete = function (event) {
+                str = "交易成功<br/>";
+                $("#message").html(str);
+            };
+            transaction.onerror =function (event) {
+                $("#message").html("交易失败")
+            };
+            var store = transaction.objectStore("customer");
+            if(add_way =="add"){
+                request = store.add({user_id:$("#user_id").val(),naem:$("#naem").val()}) //add方法劲在objectStore中数据键不存在相同数据时又用
+            }else{
+                request = store.put({user_id:$("#user_id").val(),naem:$("#naem").val()})  //put方法在键值已经存在的话就直接更新 否则就会新增数据
+            }
+            request.onsuccess =function (e) {
+                str+="新增数据成功<br/>";
+                $("#message").html(str)
+            };
+            request.onerror =function (e) {
+                $("#message").html("新增数据失败："+e.target.error);
+            }
+        }
+    </script>
+</head>
+<body>
+账号：<input type="text" id="user_id"><br/>
+姓名：<input type="text" id="naem"><br/>
+<button id="addbtn">新  增</button>
+<button id="putbtn">新增/更新</button>
+<div id="read"></div>
+<div id="message"></div>
+</body>
+</html>

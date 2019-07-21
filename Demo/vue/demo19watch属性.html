@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<body>
+<!--调用组件-->
+<div id="contaner">
+    <my-component></my-component>
+</div>
+</body>
+<script>
+    //监听的数据必须是双向绑定的数据 v-model
+    Vue.component('my-component',{
+        template:`
+            <div>
+                    <input type="text" v-model="myAddress">
+                    <input type="text" v-model="myPhone">
+                    <p>{{myAddress}}</p>
+            </div>
+        `,
+        data:function () {
+            return{
+                myAddress:'',
+                myPhone:"110"
+            }
+        },
+        watch:{
+            myAddress:function () {
+                //当数据发生变化的时候，执行的操作
+                console.log("data has changed")
+            },
+            myPhone:function () {
+                console.log(this.myPhone)
+            }
+        }
+    })
+    new Vue({
+        el:'#contaner'
+    })
+</script>
+</html>

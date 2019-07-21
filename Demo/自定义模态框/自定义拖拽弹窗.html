@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="../jquery-1.7.1.min.js"></script>
+</head>
+<style>
+    #mou_head {
+        width: 332px;
+        height: 252px;
+        background: #fff;
+        z-index: 1001;
+        position: absolute;
+    }
+
+    .top {
+        background: #669966;
+        width: 332px;
+        height: 54px;
+        text-align: center;
+        line-height: 54px;
+        font-size: 20px
+    }
+
+    .con {
+        text-align: center;
+    }
+
+    .input {
+        margin-top: 40px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        width: 174px;
+        height: 28px;
+        border: 0;
+        border: 1px solid #000;
+    }
+
+    .tijiao {
+        width: 84px;
+        height: 35px;
+        border-radius: 5px;
+        background: #669966;
+        border: 0;
+        font-size: 20px
+    }
+</style>
+<body>
+<button onclick="alertMK()">
+    触发莫泰框
+</button>
+<div id="Idiv" style="width:332px;height:252px;display:none; position:absolute; z-index:1000; background:#67a3d9;">
+    <div id="mou_head" style="">
+        <div class="top">提示</div>
+        <div class="con">
+            <input type="text" id="phone" class="input" placeholder="请输入手机号"/>
+            <p style="color:red;font-size:13px">*请填写真实有效手机号码！<br/>
+            </p>
+            <button class="tijiao" id="btn">提交</button>
+            <button class="tijiao" onclick="closeDiv()">关闭</button>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    function alertMK() {
+        showDiv();
+    }
+    function showDiv() {
+        var Idiv = document.getElementById("Idiv");
+        var mou_head = document.getElementById('mou_head');
+        Idiv.style.display = "block";
+//以下部分要将弹出层居中显示
+        Idiv.style.left = (document.documentElement.clientWidth - Idiv.clientWidth) / 2 + document.documentElement.scrollLeft + "px";
+        Idiv.style.top = (document.documentElement.clientHeight - Idiv.clientHeight) / 2 + document.documentElement.scrollTop + "px";
+//以下部分使整个页面至灰不可点击
+        var procbg = document.createElement("div"); //首先创建一个div
+        procbg.setAttribute("id", "mybg"); //定义该div的id
+        procbg.style.background = "#000000";
+        procbg.style.width = "100%";
+        procbg.style.height = "100%";
+        procbg.style.position = "fixed";
+        procbg.style.top = "0";
+        procbg.style.left = "0";
+        procbg.style.zIndex = "500";
+        procbg.style.opacity = "0.6";
+        procbg.style.filter = "Alpha(opacity=70)";
+//背景层加入页面
+//         document.body.appendChild(procbg);
+        document.body.style.overflow = "hidden"; //取消滚动条
+//以下部分实现弹出层的拖拽效果
+        var posX;
+        var posY;
+        mou_head.onmousedown = function (e) {
+            if (!e) e = window.event; //IE
+            posX = e.clientX - parseInt(Idiv.style.left);
+            posY = e.clientY - parseInt(Idiv.style.top);
+            document.onmousemove = mousemove;
+        };
+        document.onmouseup = function () {
+            document.onmousemove = null;
+        };
+        function mousemove(ev) {
+            if (ev == null) ev = window.event;//IE
+            Idiv.style.left = (ev.clientX - posX) + "px";
+            Idiv.style.top = (ev.clientY - posY) + "px";
+        }
+    }
+    //关闭弹出层
+    function closeDiv() {
+        var Idiv = document.getElementById("Idiv");
+        Idiv.style.display = "none";
+        document.body.style.overflow = "auto"; //恢复页面滚动条
+        var body = document.getElementsByTagName("body");
+        var mybg = document.getElementById("mybg");
+        body[0].removeChild(mybg);
+    }
+</script>
+</html>

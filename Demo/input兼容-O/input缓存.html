@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    input:-webkit-autofill{box-shadow:0 0 0px 1000px #fff inset;}
+    input:-webkit-autofill{-webkit-box-shadow:0 0 0px 1000px white inset;}
+    input{width: 200px;height:30px;}
+    #text1{padding:2px 2px 2px 26px;}
+</style>
+<body>
+ <input  type="text" id="text1" placeholder="123" onfocus="this.type='password'" autocomplete="off"/><!--autocomplete="off" 清除input中的缓存-->
+</body>
+</html>

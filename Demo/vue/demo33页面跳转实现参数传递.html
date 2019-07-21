@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script type="text/javascript" src="js/vue-router.js"></script>
+    <!--第一步：引入要用到的路由插件-->
+</head>
+<body>
+<div id="container">
+    <!--指定一个盛放代码片段的容器-->
+   <router-view></router-view>
+</div>
+</body>
+<script>
+    var myMain =Vue.component("main-component",{
+        data:function () {
+            return{
+                uName:''
+            }
+        },
+        template:`
+            <div>
+                <h1>用户名为：{{uName}}</h1>
+            </div>
+        `,
+        beforeMount:function () {
+            //接收参数
+            console.log(this.$route.params);
+            this.uName = this.$route.params.userName
+        }
+    });
+        var myLogin = Vue.component("login-component",{
+        data:function () {
+            return{
+                user_name:''
+            }
+        },
+        methods:{
+            doLogin:function () {
+                //跳转到主页面，并且将用户输入的名字发过去
+                this.$router.push('/main/'+ this.user_name)
+            }
+        },
+        template:`
+            <div>
+                <h1>这是登录页面</h1>
+                <input type="text" placeholder="请输入用户名" v-model="user_name">
+                <button @click="doLogin">登录到主页面</button>
+                <router-link :to="'/main/'+user_name">登录到主页面</router-link>
+            </div>
+        `
+    });
+    var myNotFound = Vue.component("not-found",{
+        template:`
+            <div>
+                <h1>404 Page Not Found</h1>
+                <router-link to="/login">返回首页</router-link>
+            </div>
+        `
+    });
+    //配置路由词典
+    const myRoutes = [
+        {path:'',component:myLogin},                //   *为其它页面没有找到的页面
+        {path:'/login',component:myLogin},
+        {path:'/main/:userName',component:myMain},
+        {path:'*',component:myNotFound}
+    ];
+    const myRouter = new VueRouter({
+        routes:myRoutes
+    });
+
+    new Vue({
+        router:myRouter,
+        el: "#container",
+        data: {
+            msg: "Hello Vue"
+        }
+    })
+</script>
+</html>

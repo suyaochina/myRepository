@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<style>
+    li{
+        list-style: none;
+    }
+</style>
+<body>
+<div id="container">
+    <!--
+        （props down，events up）
+        有两个组件：chat-room，user-component，user-component是由label input button构成
+        chat-room是由两个user-component和一个列表构成，在user-component，点击按钮时，将用户输入的信息发送给
+        chat-room，chat-room接收到的数据显示在列表中
+    -->
+    <chat-room></chat-room>
+</div>
+</body>
+<script>
+    Vue.component("chat-room",{
+        data:function () {
+            return{
+                msgHistoryList:[]
+            }
+        },
+        methods:{
+          rcvMsg:function (msg) {
+              console.log("在父组件中接收的子组件传来的值"+msg)
+              this.msgHistoryList.push(msg)
+          }
+        },
+        template:`
+                    <div>
+                        <ul>
+                            <li v-for="tmp in msgHistoryList">{{tmp}}</li>
+                        </ul>
+                        <user-component userName="Lucy" @toFatherEvent="rcvMsg"></user-component>
+                        <user-component userName="Bob" @toFatherEvent="rcvMsg"></user-component>
+                    </div>
+                `
+    });
+    Vue.component("user-component",{
+        data:function () {
+            return{
+                userInput:''
+            }
+        },
+        props:['userName'],
+        methods:{
+          sendToFather:function () {
+              //触发toFatherEvent事件，把input中用户输入的数据发送
+              this.$emit("toFatherEvent",this.userName+":"+this.userInput)
+          }
+        },
+        template:`
+                    <div>
+                        <label>{{userName}}</label>
+                        <input type="text" v-model="userInput">
+                        <button @click="sendToFather">发送</button>
+                    </div>
+                `
+    });
+    new Vue({
+        el: "#container",
+        data: {
+            msg: "Hello Vue"
+        }
+    })
+</script>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+</body>
+<script src="jquery-1.7.1.min.js"></script>
+<script>
+  $.ajax({
+    type:"get",
+    url:"http://192.168.1.250:3000/mock/25/attendanceRule/selectRule",
+    // dataType:"json",
+    // data: {
+    //   id:1,
+    //   workdayHour:1
+    // },
+    // header:{
+    //   'Content-Type':'application/json'
+    // },
+    success:function(data){
+    console.log(JSON.stringify(data))
+  },
+  error:function(err){
+   console.log(err)
+  }
+  })
+</script>
+</html>

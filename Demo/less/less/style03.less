@@ -1,0 +1,31 @@
+//注释 这是编译后 不能解析的注释 隐藏的注释
+/*这是想暴露出去的注释*/
+//混合 传参 带默认值得参数
+.juzhong(@w:10px,@h,@b){
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  margin: auto;
+  width:@w;
+  height:@h;
+  background:@b;
+}
+* {
+  margin:0;
+  padding: 0;
+}
+#wrap{
+  position: relative;
+  width: 300px;
+  height: 400px;
+  border: 1px solid red;
+  margin: 0 auto;
+  .inner {
+    .juzhong(100px,100px,rgba(255,0,0,0.5));
+  }
+  .inner2 {
+    .juzhong(50px,50px,rgba(0,255,255,0.5));
+  }
+}

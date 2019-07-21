@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<body>
+<div id="contaniner" v-bind:title="car.price">
+    <h1>{{car.brand}}</h1>
+    <!--在双花括号中 执行运算表达式-->
+    <p>{{3+5}}</p>
+    <h2>{{console.log("it is a test")}}</h2>
+</div>
+</body>
+<script>
+    new Vue({
+        el:"#contaniner",
+        data:{
+            car:{
+                brand:"volvo",
+                price:30
+            }
+        }
+    });
+</script>
+</html>

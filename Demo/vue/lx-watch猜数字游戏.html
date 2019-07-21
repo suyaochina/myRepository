@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<body>
+<div id="container">
+    <!--创建一个组件，my-game
+        猜数字大小。
+        组件：一个input和一个p构成
+        当组件准备挂载的时候，初始化一个随机数，在input取输入的时候，如果输入的数字小了，在p显示：输入的太小了；如果输入
+        的数字小了，在p显示：输入的太小了；否则就提示输入正确。
+    -->
+    <my-game></my-game>
+</div>
+</body>
+<script>
+    Vue.component("my-game",{
+        template:`
+                <div>
+                    <input type="text" v-model.number="userInput"><br/>
+                    <p>{{result}}</p>
+                </div>
+        `,
+        data:function () {
+            return{
+                randomNum:0,
+                userInput:0,
+                result:""
+            }
+        },
+        beforeMount:function () {
+            //创建一个100以内的随机证整数
+            var num = Math.floor(Math.random()*100);
+            console.log(num)
+            this.randomNum = num;
+
+        },
+        watch:{
+            userInput:function () {
+                console.log(this.userInput);
+                if(this.userInput>this.randomNum){
+                    this.result = "太大了"
+                }else if(this.userInput<this.randomNum){
+                    this.result = "太小了"
+                }else {
+                    this.result = "厉害了！"
+                }
+            }
+        }
+    });
+    new Vue({
+        el: "#container",
+        data: {
+            msg: "Hello Vue"
+        }
+    })
+</script>
+</html>

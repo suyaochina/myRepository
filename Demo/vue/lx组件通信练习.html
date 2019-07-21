@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<body>
+<div id="container">
+    <!--
+        创建两个组件，main-component，son-component
+        视图：
+            main-component显示一个按钮
+            son-component显示一个p标签
+         功能：
+            main-component定义一个变量count，初始化为0.将count传递给son-component，son-component接收到数据显示
+            在p标签中
+            main-component在点击按钮时，实现对count的自增操作，要求子组件son-component能够实时显示count对应的数据
+            son-component在接收到count之后，在count之后，在count大于10的时候，将main-component的按钮禁用掉（
+            参考：<button v-bind:disabled="!isValid">clickMe</button>）
+    -->
+    <main-component></main-component>
+</div>
+</body>
+<script>
+    Vue.component("main-component",{
+        data:function () {
+            return{
+                count:0,
+                isBtnEnable:true
+            }
+        },
+        methods:{
+            modifyCount:function () {
+                this.count++
+            }
+        },
+        template:`
+            <div>
+                <button @click="modifyCount" :disabled="!isBtnEnable">clickMe</button>
+                <hr/>
+                <son-component :myCount="count"></son-component>
+            </div>
+        `
+    });
+    Vue.component("son-component",{
+        props:["myCount"],
+        template:`
+            <p>{{myCount}}</p>
+        `,
+        updated:function () {
+            console.log("子组件的数据有变化！")
+            if(this.myCount >10){
+                this.$parent.isBtnEnable =false;        //方式一
+            }
+        }
+    });
+    new Vue({
+        el: "#container",
+        data: {
+            msg: "Hello Vue"
+        }
+    })
+</script>
+</html>

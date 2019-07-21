@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="../jquery-1.7.1.min.js"></script>
+</head>
+<style>
+    .div{
+        font-size:5rem;
+    }
+</style>
+<body>
+<div class="div">
+    字体大小根据父节点字体大小适应 所以必须用rem单位  1rem=10px;
+</div>
+<script type="text/javascript">
+    (function (doc, win) {
+        //计算字体大小
+        var docEl = doc.documentElement,
+            resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+            recalc = function () {
+                var clientWidth = docEl.clientWidth;
+                if (!clientWidth) return;
+                docEl.style.fontSize = 20 * (clientWidth / 320) + 'px';
+            };
+        if (!doc.addEventListener) return;
+        win.addEventListener(resizeEvt, recalc, false);
+        doc.addEventListener('DOMContentLoaded', recalc, false);
+    })(document, window);
+</script>
+</body>
+</html>

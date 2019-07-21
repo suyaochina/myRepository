@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    .span_warp::after,
+    .fixed_value::after,
+    .span_bg::after {
+        display: block;
+        clear: both;
+        content: "";
+    }
+    .warp {
+        width: 700px;
+        height: 200px;
+        /* outline: 1px solid red; */
+        margin: 300px 0 0 300px;
+        position: relative;
+        text-align: center;
+    }
+    .span_warp {
+        white-space: nowrap;
+        width: 10600px;
+        position: relative;
+    }
+    .span_warp>span {
+        float: left;
+        display: inline-block;
+        width: 100px;
+        height: 70px;
+        text-align: center;
+        line-height: 70px;
+        box-sizing: border-box;
+        font-size: 36px;
+        font-weight: 400;
+        color: #fff;
+    }
+    .select_box {
+        width: 120px;
+        height: 120px;
+        box-sizing: border-box;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-top: -60px;
+        margin-left: -60px;
+        background: #8E3BEB;
+        opacity: 1;
+        z-index: 4;
+        border-radius: 50%;
+        border: 4px solid #ff0;
+        text-align: center;
+        line-height: 120px;
+        color: #fff;
+        font-size: 36px;
+        font-weight: 400;
+        pointer-events: none;
+    }
+    .span_list::-webkit-scrollbar {
+        display: none;
+    }
+    .span_list {
+        overflow-x: scroll;
+        position: absolute;
+        top: 65px;
+        width: 700px;
+        z-index: 3;
+        cursor: pointer;
+    }
+    .unit {
+        font-size: 36px;
+        color: #333;
+        position: absolute;
+        left: 50%;
+        margin-left: -36px;
+        top: -32px;
+    }
+    .fixed_value {
+        margin: 0;
+        padding: 0;
+        position: absolute;
+        bottom: -53px;
+        padding-left: 150px;
+    }
+    .fixed_value>li {
+        list-style-type: none;
+        /* outline: 1px solid red; */
+        font-size: 26px;
+        float: left;
+        border-radius: 27px;
+        padding: 10px 17px;
+        background: #D2BDFA;
+        margin-left: 8px;
+        cursor: pointer;
+    }
+    .span_bg {
+        position: absolute;
+        width: 700px;
+        height: 70px;
+        border-radius: 10px;
+        top: 65px;
+    }
+    .span_bg>span {
+        display: inline-block;
+        width: 100px;
+        height: 70px;
+        line-height: 70px;
+        float: left;
+        z-index: 0;
+    }
+    .span_bg>span:nth-of-type(1) {
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+    }
+    .span_bg>span:nth-of-type(7) {
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+    }
+    .span_bg>span:nth-of-type(1),
+    .span_bg>span:nth-of-type(7) {
+        background: #4C4063;
+    }
+    .span_bg>span:nth-of-type(2),
+    .span_bg>span:nth-of-type(6) {
+        background: #6A4F9D;
+    }
+    .span_bg>span:nth-of-type(3),
+    .span_bg>span:nth-of-type(4),
+    .span_bg>span:nth-of-type(5) {
+        background: #835CCD;
+    }
+</style>
+
+<body>
+    <div class="warp" id="warp">
+        <span class="unit">厘米</span>
+        <div class="span_list" id="span_list">
+            <div class="span_warp" id="spanWarp"></div>
+        </div>
+        <div class="span_bg">
+            <span class=""></span>
+            <span class=""></span>
+            <span class=""></span>
+            <span class=""></span>
+            <span class=""></span>
+            <span class=""></span>
+            <span class=""></span>
+        </div>
+        <div class="select_box" id="select_box">
+            10
+        </div>
+        <ul class="fixed_value">
+            <li onclick="getValue(10)">10</li>
+            <li onclick="getValue(50)">50</li>
+            <li onclick="getValue(100)">100</li>
+            <li onclick="getValue(500)">500</li>
+            <li onclick="getValue(900)">900</li>
+        </ul>
+    </div>
+</body>
+<script>
+    let oFragmeng = document.createDocumentFragment();
+    for (let i = -2; i <= 103; i++) {
+        let op = document.createElement("span");
+        let oText = document.createTextNode(i * 10);
+        if (i > 0 && i < 101) {
+            op.appendChild(oText);
+        }
+        op.id = i
+        //先附加在文档碎片中
+        oFragmeng.appendChild(op);
+    }
+    //最后一次性添加到document中
+    let sapnWarp = document.getElementById("spanWarp")
+    sapnWarp.appendChild(oFragmeng);
+
+    let lastSpan = document.getElementById("103")
+    let overflowLeft = document.getElementById('warp').offsetLeft // 初始距离浏览器左边的距离
+    let selectBox = document.getElementById('select_box') // 显示的数值
+    let spanList = document.getElementById('span_list')
+    let sapnLeft = ''
+    let moveLeft = ''
+    let value = ''
+    let lastTwo = ''
+    let isTouchended = false
+    sapnWarp.addEventListener('touchmove', function () {
+        sapnLeft = lastSpan.getBoundingClientRect().left - overflowLeft // 最后一个span距离 父元素的距离
+        moveLeft = sapnWarp.getBoundingClientRect().left - overflowLeft // spanwarp 距离父元素的距离
+        value = (10600 - sapnLeft).toString()
+        lastTwo = value.substr(value.length - 2, 2)
+        if (lastTwo >= 50) {
+            value = value - lastTwo + 100
+        } else {
+            value = value - lastTwo
+        }
+        selectBox.innerText = value / 10
+        isTouchended = false
+    })
+    sapnWarp.addEventListener('touchend', function () {
+        spanList.scrollLeft = value - 100
+        isTouchended = true
+    })
+    let isScrolling;
+    spanList.addEventListener('scroll', function (event) {
+        let scrollWidth = spanList.scrollLeft.toString()
+        let scrollLastTwo = scrollWidth.substr(scrollWidth.length - 2, 2)
+        if (scrollLastTwo >= 50) {
+            scrollWidth = scrollWidth - scrollLastTwo + 100
+        } else {
+            scrollWidth = scrollWidth - scrollLastTwo
+        }
+        window.clearTimeout(isScrolling);
+        isScrolling = setTimeout(function () {
+            if (isTouchended) {
+                spanList.scrollLeft = scrollWidth
+                selectBox.innerText = (scrollWidth / 100 + 1)*10
+                isTouchended = false
+            }
+        }, 66);
+    }, false);
+    // 点击跳转
+    function getValue(val) {
+        selectBox.innerText = val
+        spanList.scrollLeft = val * 10 - 100
+    }
+</script>
+
+</html>

@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>jQuery UI 日期选择器（Datepicker） - 选择一个日期范围</title>
+  <link rel="stylesheet" href="css/jquery-ui.css">
+  <script src="js/jquery-1.9.1.js"></script>
+  <script src="js/jquery-ui.js"></script>
+  <!--<link rel="stylesheet" href="http://jqueryui.com/resources/demos/style.css">-->
+  <script>
+      $(function() {
+          $( "#from" ).datepicker({
+              // defaultDate: "+1w",
+              changeMonth: true,
+              numberOfMonths: 1,        //出来几个月份
+              dateFormat: "yy-mm-dd",
+              monthNames: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
+              monthNamesShort: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
+              dayNames: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
+              dayNamesShort: ['周日', '周一', '周二', '周三', '周四', '周五', '周六'],
+              dayNamesMin: ['日', '一', '二', '三', '四', '五', '六'],
+              // minDate:'0',
+              onClose: function( selectedDate ) {
+                let d = new Date(Date.parse(new Date(selectedDate)) + 2678400000)
+                let  endtime = d.getFullYear() +"-" +(d.getMonth()+1)+"-" + d.getDate()
+                $( "#to" ).datepicker( "option", "maxDate", endtime);       //选择日期范围
+                $( "#to" ).datepicker( "option", "minDate", selectedDate);
+              }
+          });
+          $( "#to" ).datepicker({
+              // defaultDate: "+1w",
+              changeMonth: true,
+              numberOfMonths: 1,        //设置一次显示几个月
+              dateFormat: "yy-mm-dd",
+              monthNames: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
+              monthNamesShort: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
+              dayNames: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
+              dayNamesShort: ['周日', '周一', '周二', '周三', '周四', '周五', '周六'],
+              dayNamesMin: ['日', '一', '二', '三', '四', '五', '六'],
+              // maxDate:'0',
+              // minDate:'-1M',
+              onClose: function( selectedDate ) {
+                let d = new Date(Date.parse(new Date(selectedDate)) - 2678400000)
+                let  starttime = d.getFullYear() +"-" +(d.getMonth()+1)+"-" + d.getDate()
+                $( "#from" ).datepicker( "option", "maxDate", selectedDate);
+                $( "#from" ).datepicker( "option", "minDate", starttime);
+              }
+          });
+      });
+  </script>
+</head>
+<body>
+
+<label for="from">从</label>
+<input type="text" id="from" name="from" autocomplete="off">
+<label for="to">到</label>
+<input type="text" id="to" name="to"  autocomplete="off">
+
+</body>
+</html>

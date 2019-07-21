@@ -1,0 +1,39 @@
+<html>
+<head>
+    <title>等待测试</title>
+    <script src="../jquery-1.7.1.min.js"></script>
+</head>
+<!--判断字符串str 是否为回文，回文类似于123321 或 abcdedcba 这样的字符串，abc则不属于回文-->
+<input type="text" id="vinput"><button onclick="ceshi()">确定</button>
+<body>
+</body>
+<script type="text/javascript">
+       function ceshi() {
+           var str = document.getElementById('vinput').value;
+           var len = str.length;
+           var qian = str.substr(0,len/2);
+           var hou  = str.substr(len/2,len/2);
+           var dhou  = str.substr(len/2+1,len/2);
+           var fan =hou.split("").reverse().join("");
+           var dfan =dhou.split("").reverse().join("");
+           if(len>0){
+               if ( len%2 === 0){
+                   if(qian === fan){
+                       alert("双数"+str+"是回文")
+                   }else {
+                       alert("不是回文")
+                   }
+               }
+               if(len%2 !== 0){
+                   if(qian===dfan){
+                       alert("单数"+str+"是回文")
+                   } else {
+                       alert("不是回文")
+                   }
+               }
+           }else {
+               alert("输入框内容为空")
+           }
+       }
+</script>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    /*                      ie中input框中的x和密码框中的眼睛                      */
+    ::-ms-clear,::-ms-reveal{display:none;}
+    /*              当input中type=number时 去掉input中的上下箭头                 */
+        input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appearance:none!important;}
+        input[type="number"]{-moz-appearance:textfield!important;}
+    /*              修改input中 默认的文本颜色                                  */
+    input::-webkit-input-placeholder{color:#999!important;}
+    input:-moz-placeholder {color:#999!important;}
+    input::-moz-placeholder {color:#999!important;}
+    input:-ms-input-placeholder {color:#999!important;}
+</style>
+<body>
+
+</body>
+</html>

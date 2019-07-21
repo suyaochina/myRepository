@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<body>
+<div id="container">
+    <p>{{msg}}</p>
+    <h1>{{price}}</h1>
+    <h1>{{price | myCurrency("￥",true)}}</h1>
+</div>
+</body>
+<script>
+    new Vue({
+        el: "#container",
+        data: {
+            msg: "Hello Vue",
+            price: 536
+        },
+        //过滤器本质就是一个有参数有返回值的方法  可以接收多个参数
+        //实现数据的筛选、过滤和格式化就是把数据变的复合页面显示的要求
+        filters:{
+            myCurrency:function (myInput,argl,arg2) {
+                //根据业务的需要，对传来的数据进行处理
+                //并返回处理后的结果
+                console.log("myInput:"+myInput);    //536
+                console.log("argl:"+argl);          //￥
+                console.log("arg2:"+arg2);          //true
+                var result = argl + myInput;
+                return result;
+
+            }
+        }
+    })
+</script>
+</html>

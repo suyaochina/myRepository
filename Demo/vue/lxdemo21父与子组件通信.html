@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<body>
+<div id="container">
+    <!--
+        创建4个组件，分别是my-label my-input my-button
+    -->
+    <my-login></my-login>
+</div>
+</body>
+<script>
+    Vue.component("my-label",{
+        props:["labelName"],
+        template:`<label>{{labelName}}</label>`
+    });
+    Vue.component("my-input",{
+        props:["tips"],
+        template:`<input type="text" :placeholder="tips">`
+    });
+    Vue.component("my-button",{
+        props:["btnName"],
+        template:`<button>{{btnName}}</button>`
+    });
+    Vue.component("my-login",{
+        template:`<form>
+                    <my-label labelName="用户名 :"></my-label>
+                    <my-input tips="请输入用户名"></my-input><br>
+                    <my-label labelName="密 码 :"></my-label>
+                    <my-input tips="请输入密码"></my-input><br>
+                    <my-button btnName="登录"></my-button>
+                    <my-button btnName="注册"></my-button>
+                  </form>`
+    });
+    new Vue({
+        el: "#container",
+        data: {
+            msg: "Hello Vue"
+        }
+    })
+</script>
+</html>
