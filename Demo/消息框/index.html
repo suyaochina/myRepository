@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    .msg_box{
+        position: absolute;
+    }
+    .msg {
+        position: relative;
+        display: inline-block;
+        padding: 10px 15px 10px 18px;
+        margin: 10px 0 10px;
+        color: #000;
+        border: 1px solid #f3961c;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        border-radius: 10px;
+        min-width: 90px;
+        font-size: 24px;
+    }
+    .msg:after {
+        content: "";
+        position: absolute;
+        left: 50px;
+        bottom: -15px;
+        border-width: 15px 15px 0;
+        border-style: solid;
+        border-color: #f3961c transparent;
+        display: block;
+        width: 0;
+    }
+    .msg_icon {
+        width: 0px;
+        height: 0px;
+        position: absolute;
+        left: 50px;
+        bottom: -13px;
+        border-width: 15px 15px 0;
+        border-style: solid;
+        border-color: #fff transparent;
+        display: block;
+        z-index: 2;
+    }
+    .msg_text{
+        padding: 0;
+        margin: 0;
+    }
+</style>
+
+<body>
+    <div class="msg_box">
+        <div class="msg"><p class="msg_text">1111111</p><span class="msg_icon"></span></div>
+    </div>
+</body>
+<script>
+
+</script>
+
+</html>
