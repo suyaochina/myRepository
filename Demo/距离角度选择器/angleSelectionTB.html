@@ -8,18 +8,16 @@
     <title>Document</title>
 </head>
 <style>
-    * {
-        margin: 0;
-        padding: 0
-    }
-    .div_warp {
+    div.div_warp_tb {
         position: relative;
         margin: 300px 0 0 300px;
         width: 450px;
         height: 300px;
         outline: 1px solid red;
-        background: url('./bg01.jpg');
-        background-size: 100% 100%;
+        background:#999;
+        /* background:#999 url('./radian_tb.png')no-repeat; */
+        /* background-size:77px 204px; */
+        /* background-position:314px 71px; */
     }
     .div_warp .circle_center {
         position: absolute;
@@ -37,16 +35,18 @@
         font-size: 30px;
         line-height: 90px;
     }
-    .div_warp .circle_pointer {
+    .div_warp .circle_pointer_tb {
         position: absolute;
-        width: 300px;
-        height: 10px;
+        width: 314px;
+        height: 28px;
         background: #8E3BEB;
         left: 50%;
-        margin-left: -150px;
-        bottom: 93px;
+        margin-left: -157px;
+        bottom: 73px;
         transform: rotate(180deg);
         z-index: 2;
+        background: url('./point1.png');
+        background-size:100% 100%;
     }
     .div_warp .text_top,
     .div_warp .text_bottom{
@@ -63,13 +63,22 @@
         right: 0;
         bottom:20px;
     }
+    .arc{
+        position: absolute;
+        width: 86px;
+        height: 221px;
+        transform: rotate(-6deg);
+        right:60px;
+        bottom: 18px;
+    }
 </style>
 <body>
-    <div id="divWarp" class="div_warp">
+    <div id="divWarp" class="div_warp div_warp_tb">
         <span class="text_top">上</span>
         <span class="text_bottom">下</span>
+        <img src="./radian_tb.png" class="arc">
         <div id="circleCenter" class="circle_center"></div>
-        <div id="circlePointer" class="circle_pointer"></div>
+        <div id="circlePointer" class="circle_pointer_tb"></div>
     </div>
 </body>
 <script>
@@ -80,7 +89,7 @@
     let isTouchMove = false;
     let fromLeft = circleCenter.getBoundingClientRect().left + 55
     let fromTop = circleCenter.getBoundingClientRect().top + 45
-    let angle = 0
+    let angle = '0'
     circleCenter.innerText = angle + '°'
     // console.log('圆心坐标', fromLeft, fromTop)
     divWarp.addEventListener('touchstart', function (event) {})
@@ -88,22 +97,17 @@
         let e = event || window.event;
         let x = e.touches[0].pageX
         let y = e.touches[0].pageY
-        // console.log('x', x, 'y', y)
         // 判断第几象限
-        if (x > fromLeft && y < fromTop) {
-            // console.log('下第一象限')
+        if (x >= fromLeft && y < fromTop) {
             angle = Math.atan2((fromTop - y), (x - fromLeft)) * 180 / Math.PI
         }
-        if (x < fromLeft && y < fromTop) {
-            // console.log('下第二象限')
+        if (x < fromLeft && y <= fromTop) {
             angle = Math.atan2((fromTop - y), (x - fromLeft)) * 180 / Math.PI
         }
-        if (x < fromLeft && y > fromTop) {
-            // console.log('下第三象限')
+        if (x <= fromLeft && y > fromTop) {
             angle = Math.atan2((fromTop - y), (x - fromLeft)) * 180 / Math.PI
         }
-        if (x > fromLeft && y > fromTop) {
-            // console.log('下第四象限')
+        if (x > fromLeft && y >= fromTop) {
             angle = Math.atan2((fromTop - y), (x - fromLeft)) * 180 / Math.PI
         }
         if (angle < -15) {
@@ -113,26 +117,18 @@
             angle = 55
         }
         angle = Math.round(180-angle)
-        // circlePointer.style.webkitTransform = "rotate(" + angle + "deg)";
-        // circlePointer.style.MozTransform = "rotate(" + angle + "deg)";
-        // circlePointer.style.msTransform = "rotate(" + angle + "deg)";
-        // circlePointer.style.OTransform = "rotate(" + angle + "deg)";
+        circlePointer.style.webkitTransform = "rotate(" + angle + "deg)";
+        circlePointer.style.MozTransform = "rotate(" + angle + "deg)";
+        circlePointer.style.msTransform = "rotate(" + angle + "deg)";
+        circlePointer.style.OTransform = "rotate(" + angle + "deg)";
         circlePointer.style.transform = "rotate(" + angle + "deg)";
-        console.log(angle)
-
-        // if( angle = 180) {
-        //     angle = 0
-        // }
+        // console.log(angle)
         if (angle <= 180) {
             angle = 180 - angle
-        }
-        if (angle > 180) {
+        }else{
             angle = angle - 180
         }
         circleCenter.innerText = angle + '°'
-    })
-    divWarp.addEventListener('touchend', function () {
-
     })
 </script>
 

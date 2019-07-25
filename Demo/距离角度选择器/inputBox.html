@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    .input_box .keyboard2::-webkit-input-placeholder {
+        color: #fff;
+    }
+
+    .input_box .keyboard2:-moz-placeholder {
+        color: #fff;
+    }
+
+    .input_box .keyboard2::-moz-placeholder {
+        color: #fff;
+    }
+
+    .input_box .keyboard2:-ms-input-placeholder {
+        color: #fff;
+    }
+
+    .input_box {
+        width: 450px;
+        height: 300px;
+        /* outline: 1px solid red; */
+        text-align: center;
+        margin: 300px 0 0 300px;
+        position: relative;
+        font-size: 28px;
+        color: #fff;
+    }
+
+    .input_box .keyboard2 {
+        width: 440px;
+        height: 55px;
+        line-height: 55px;
+        background: #A561E4;
+        border-radius: 20px;
+        outline: none;
+        border: none;
+        font-size: 28px;
+        color: #fff;
+        padding-left: 15px;
+        box-sizing: border-box;
+        letter-spacing: 1px;
+    }
+
+    .input_box .key {
+        width: 440px;
+        outline: 1px solid;
+        padding: 0;
+        margin: 0 auto;
+    }
+
+    .input_box .key li {
+        /* -webkit-tap-highlight-color: rgba(0, 0, 0, 0); */
+        display: inline-block;
+        width: 74px;
+        height: 52px;
+        line-height: 52px;
+        text-align: center;
+        list-style-type: none;
+        background: #A561E4;
+        border-radius: 26px;
+        margin: 13px 3px;
+
+        -ms-touch-action: manipulation;
+        touch-action: manipulation;
+        cursor: pointer;
+    }
+
+    .input_box .key_clear {
+        width: 48px;
+        height: 28px;
+        background: #888;
+        position: absolute;
+        right: 28px;
+        top: 14px;
+        background: url('./delete.png')
+    }
+</style>
+
+<body>
+    <div class="input_box">
+        <input type="text" id="keyboard" placeholder="0" class="keyboard2" />
+        <div class="key_clear" onclick="clearn()"></div>
+        <ul class="key">
+            <li onclick="getKeyValue(this)">0</li>
+            <li onclick="getKeyValue(this)">1</li>
+            <li onclick="getKeyValue(this)">2</li>
+            <li onclick="getKeyValue(this)">3</li>
+            <li onclick="getKeyValue(this)">4</li>
+            <li onclick="getKeyValue(this)">5</li>
+            <li onclick="getKeyValue(this)">6</li>
+            <li onclick="getKeyValue(this)">7</li>
+            <li onclick="getKeyValue(this)">8</li>
+            <li onclick="getKeyValue(this)">9</li>
+        </ul>
+    </div>
+
+</body>
+<script>
+    function getKeyValue(obj) {
+        console.log(obj.innerText)
+        const keyboard = document.getElementById('keyboard').value;
+        if (keyboard.length > 19) {
+            return;
+        }
+        document.getElementById('keyboard').value = (keyboard + obj.innerText).replace(/\b(0+)/gi, "");
+    }
+
+    function clearn() {
+        // document.getElementById('keyboard').value = ''
+        const keyboard = document.getElementById('keyboard').value;
+        document.getElementById('keyboard').value = keyboard.slice(0, -1);
+
+    }
+    let value = document.getElementById('keyboard').value
+</script>
+
+</html>

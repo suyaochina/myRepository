@@ -10,117 +10,120 @@
 <style>
     * {
         margin: 0;
-        padding: 0
+        padding: 0;
     }
-    .div_warp {
+
+    div.div_warp_all {
         position: relative;
         margin: 300px 0 0 300px;
-        width: 450px;
+        width: 400px;
         height: 300px;
         outline: 1px solid red;
-        background:#999 url('./radian_lr.png')no-repeat 100px 61px;
-        background-size: 246px 68px;
+        background:none;
     }
-    .div_warp .circle_center {
+    .div_warp .circle_center_all {
         position: absolute;
-        width: 110px;
-        height: 90px;
-        background: #fff;
-        border: 6px solid #8E3BEB;
-        border-radius: 50px;
+        width: 234px;
+        height: 234px;
+        background: #FCC206;
+        border-radius: 50%;
         left: 50%;
-        margin-left: -55px;
-        bottom: 48px;
+        margin-left: -117px;
+        top: 50%;
+        margin-top: -117px;
         box-sizing: border-box;
         z-index: 3;
         text-align: center;
         font-size: 30px;
-        line-height: 90px;
+        line-height: 234px;
     }
-    .div_warp .circle_pointer {
+    .div_warp .circle_pointer_all {
         position: absolute;
-        width: 314px;
+        width: 234px;
         height: 28px;
-        background: #8E3BEB;
-        left: 50%;
-        margin-left: -157px;
-        bottom: 73px;
-        transform: rotate(45deg);
-        z-index: 2;
-        background: url('./point1.png');
-        background-size:100% 100%;
+        left: 0;
+        top: 0;
+        margin-top: 103px;
+        transform: rotate(90deg);
+        background: url('./point1.png')no-repeat 0 0;
+        z-index: 4;
     }
-    .div_warp .text_left,
-    .div_warp .text_right{
+    .circle_left {
+        width: 107px;
+        height: 214px;
+        background: #F6EDCC;
+        border-radius: 0 214px 214px 0;
         position: absolute;
-        font-size: 30px;
-        top:85px;
-        font-weight: 400;
-        color: red;
-    } 
-    .div_warp .text_left{
-        left: 45px;
+        right: 10px;
+        bottom: 10px;
     }
-    .div_warp .text_right{
-        right: 45px;
+    .circle_text {
+        width: 100px;
+        height: 100px;
+        text-align: center;
+        box-sizing: border-box;
+        line-height: 100px;
+        border-radius: 50%;
+        border: 5px solid #8E3BEB;
+        background: #fff;
+        position: absolute;
+        left: 50%;
+        margin-left: -50px;
+        top: 50%;
+        margin-top: -50px;
+        z-index: 5;
     }
 </style>
 <body>
-    <div id="divWarp" class="div_warp">
-        <span class="text_left">左</span>
-        <span class="text_right">右</span>
-        <div id="circleCenter" class="circle_center"></div>
-        <div id="circlePointer" class="circle_pointer"></div>
+    <div id="divWarp" class="div_warp div_warp_all">
+        <div id="circleCenter" class="circle_center_all">
+            <div class="circle_left"></div>
+            <div id="circleText" class="circle_text"></div>
+            <div id="circlePointer" class="circle_pointer_all"></div>
+        </div>
     </div>
 </body>
 <script>
     let divWarp = document.getElementById("divWarp")
     let circleCenter = document.getElementById("circleCenter")
     let circlePointer = document.getElementById("circlePointer")
-    let fromLeft = circleCenter.getBoundingClientRect().left + 55
-    let fromTop = circleCenter.getBoundingClientRect().top + 45
-    let angle = 45
-    circleCenter.innerText = angle + '°'
+    let circleText = document.getElementById("circleText")
+    let fromLeft = circleCenter.getBoundingClientRect().left + 117
+    let fromTop = circleCenter.getBoundingClientRect().top + 117
+    console.log('fromLeft', fromLeft, 'fromTop', fromTop)
+    let textAngle = 0
+    let angle = ''
+    circleText.innerText = textAngle + '°'
+
     divWarp.addEventListener('touchmove', function (event) {
         let e = event || window.event;
         let x = e.touches[0].pageX
         let y = e.touches[0].pageY
-        // console.log('x', x, 'y', y)
         // 判断第几象限
         if (x >= fromLeft && y < fromTop) {
-            // console.log('下第一象限')
             angle = Math.atan2((fromTop - y), (x - fromLeft)) * 180 / Math.PI
         }
         if (x < fromLeft && y <= fromTop) {
-            // console.log('下第二象限')
             angle = Math.atan2((fromTop - y), (x - fromLeft)) * 180 / Math.PI
         }
         if (x <= fromLeft && y > fromTop) {
-            // console.log('下第三象限')
             angle = Math.atan2((fromTop - y), (x - fromLeft)) * 180 / Math.PI
         }
         if (x > fromLeft && y >= fromTop) {
-            // console.log('下第四象限')
             angle = Math.atan2((fromTop - y), (x - fromLeft)) * 180 / Math.PI
         }
-        if (angle < 45) {
-            angle = 45
-        }
-        if (angle > 135) {
-            angle = 135
-        }
-        angle = Math.round(180 - angle)
+        angle = 180 - Math.round(angle)
         circlePointer.style.webkitTransform = "rotate(" + angle + "deg)";
         circlePointer.style.MozTransform = "rotate(" + angle + "deg)";
         circlePointer.style.msTransform = "rotate(" + angle + "deg)";
         circlePointer.style.OTransform = "rotate(" + angle + "deg)";
         circlePointer.style.transform = "rotate(" + angle + "deg)";
-        if (angle > 90) {
+        if (angle >= 90) {
             textAngle = angle - 90
         } else {
-            textAngle = (angle - 90) * -1
+            textAngle = angle + 270
         }
-        circleCenter.innerText = textAngle + '°'
+        circleText.innerText = textAngle + '°'
     })
 </script>
 
